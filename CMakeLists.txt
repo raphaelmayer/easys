@@ -2,9 +2,9 @@
 cmake_minimum_required(VERSION 3.14)
 
 # Define the project name and version.
-project(ECSLib 
+project(ECSLIB 
     VERSION 1.0 
-    DESCRIPTION "An Entity Component System Library"
+    DESCRIPTION "A Header-only Entity Component System Library"
     LANGUAGES CXX)
 
 # Specify the C++ standard.
@@ -16,34 +16,36 @@ set(CMAKE_CXX_EXTENSIONS OFF) # Ensure -std=c++17 not -std=gnu++17
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE) 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # support folders in IDEs
 
-include(FetchContent)
+# Specify this is an interface library
+add_library(${PROJECT_NAME} INTERFACE)
 
-# Include directories for the ECS library.
-include_directories(${CMAKE_SOURCE_DIR}/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-# Add subdirectories that will contain the source code for the library.
-add_subdirectory(src)
+# Specify include directories for consumers of this library
+target_include_directories(${PROJECT_NAME} INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
 
 # optional build targets
 option(BUILD_EXAMPLES "Build example applications" OFF)
 option(BUILD_TESTS "Build tests" ON)
 
 if(BUILD_EXAMPLES)
-  #add_subdirectory(examples)
+  add_subdirectory(examples)
 endif()
 
 if(BUILD_TESTS)
   add_subdirectory(tests)
 endif()
 
-# Installation rules for the library, specify target and destination.
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
-install(DIRECTORY src/ DESTINATION include/${PROJECT_NAME}
-        FILES_MATCHING PATTERN "*.hpp")
-
-# Enable warnings if supported by the compiler
-target_compile_options(${PROJECT_NAME} PRIVATE
-  $<$<CXX_COMPILER_ID:MSVC>:/W4>
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic>
+# Installation rules for the library headers
+install(DIRECTORY include/ecs
+        DESTINATION include
 )
+
+# Optionally set up installation for the library target itself (for CMake find_package support)
+install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Config
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin
+)
+install(EXPORT ${PROJECT_NAME}Config DESTINATION share/${PROJECT_NAME}/cmake)

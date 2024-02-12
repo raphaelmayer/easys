@@ -1,12 +1,16 @@
-# MyHeaderOnlyLib Integration Guide
+# MyHeaderOnlyLib
 
-Welcome to the integration guide for MyHeaderOnlyLib, a versatile header-only C++ library. This document provides instructions for integrating MyHeaderOnlyLib into your project using either CMake or direct inclusion. Choose the method that best suits your project's needs.
+MyHeaderOnlyLib is a no dependencies header-only Entity Component System library written in C++.
 
-## Using CMake
+## MyHeaderOnlyLib Integration Guide
 
-CMake is a powerful cross-platform build system that simplifies the process of building, testing, and packaging software. MyHeaderOnlyLib supports CMake integration, allowing you to easily add it to your CMake-based projects.
+This section provides instructions for integrating MyHeaderOnlyLib into your project using either CMake or direct inclusion.
 
-### As a Subdirectory
+### Using CMake
+
+MyHeaderOnlyLib supports CMake integration, allowing you to easily add it to your CMake-based projects.
+
+#### As a Subdirectory
 
 If you've cloned or downloaded MyHeaderOnlyLib into your project's directory structure, you can add it as a subdirectory in your `CMakeLists.txt`:
 
@@ -17,7 +21,7 @@ target_link_libraries(your_target_name INTERFACE MyHeaderOnlyLib)
 
 Replace `path/to/MyHeaderOnlyLib` with the actual path to MyHeaderOnlyLib within your project, and `your_target_name` with the name of your project's target.
 
-### Using FetchContent (CMake 3.11+)
+#### Using FetchContent (CMake 3.11+)
 
 CMake's FetchContent module allows you to dynamically download and include libraries directly in your build process. To integrate MyHeaderOnlyLib using FetchContent:
 
@@ -32,9 +36,7 @@ FetchContent_MakeAvailable(MyHeaderOnlyLib)
 target_link_libraries(your_target_name INTERFACE MyHeaderOnlyLib)
 ```
 
-Ensure you replace `https://github.com/yourusername/MyHeaderOnlyLib.git` with the actual URL to MyHeaderOnlyLib's Git repository, and adjust the `GIT_TAG` as necessary.
-
-## Direct Inclusion
+### Direct Inclusion
 
 For projects not using CMake or for those preferring a simpler integration method, MyHeaderOnlyLib can be directly included in your project.
 
@@ -53,8 +55,3 @@ Replace `my_header.hpp` with the specific header file(s) you wish to include fro
 ## Support
 
 If you encounter any issues or have questions regarding the integration process, please feel free to open an issue on the [MyHeaderOnlyLib GitHub repository](https://github.com/yourusername/MyHeaderOnlyLib/issues).
-
-Thank you for choosing MyHeaderOnlyLib for your project!
-```
-
-Remember to replace placeholders like `https://github.com/yourusername/MyHeaderOnlyLib.git`, `your_target_name`, and `my_header.hpp` with actual values relevant to your library and project. This document serves as a starting point for your library's integration guide, which you can expand and customize based on your library's features and requirements.

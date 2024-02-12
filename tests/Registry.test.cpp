@@ -1,4 +1,4 @@
-#include <VectorRegistry.hpp>
+#include <ecs/VectorRegistry.hpp>
 #include <catch2/catch.hpp>
 
 TEST_CASE("Registry Tests", "[Registry]")

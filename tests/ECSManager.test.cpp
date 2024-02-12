@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 #include <memory>
-#include <ECSManager.hpp>
+#include <ecs/ECSManager.hpp>
 
 TEST_CASE("ECSManager Tests", "[ECSManager]")
 {

@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_RUNNER
 #include <catch2/catch.hpp>
 
-#include <ECSManager.hpp>
+#include <ecs/ECSManager.hpp>
 #include <chrono>
 
 #define NUM_ENT 10000 // number of entities
