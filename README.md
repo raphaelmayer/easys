@@ -55,3 +55,11 @@ Replace `my_header.hpp` with the specific header file(s) you wish to include fro
 ## Support
 
 If you encounter any issues or have questions regarding the integration process, please feel free to open an issue on the [MyHeaderOnlyLib GitHub repository](https://github.com/yourusername/MyHeaderOnlyLib/issues).
+
+## Misc Notes / TODO
+
+- The registry could record and keep track of all used component types, which would solve a lot of current "issues". ```removeComponents(Entity)``` and ```size()``` would work without requireing the user to specify any types.
+- Add a ```getEntitiesWithComponent(s)``` method.
+- ```getAllComponentsByType``` should probably return a container of component refs. Then we do not expose internals to the user. 
+	Otherwise ```SparseSet``` needs to be improved (i.e. iterator, safety, UX)
+	Or we could implement a ```SparseSet::getValues``` method, which directly returns a ref to the dense component array.

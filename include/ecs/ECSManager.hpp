@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Entity.hpp"
-#include "VectorRegistry.hpp"
+#include "SparseSetRegistry.hpp"
 #include <functional>
 #include <iostream>
 #include <memory>
@@ -67,15 +67,9 @@ class ECSManager {
 	}
 
 	template <typename T>
-	T &getComponent(const Entity e) // not const, because: see registry.getComponent
+	T &getComponent(const Entity e)
 	{
 		return registry.getComponent<T>(e);
-	}
-
-	template <typename T>
-	std::vector<std::reference_wrapper<T>> getAllComponentsByType() // not const, because: see registry.getComponent
-	{
-		return registry.getAllComponentsByType<T>();
 	}
 
 	template <typename T>
@@ -85,6 +79,18 @@ class ECSManager {
 	}
 
 	const std::set<Entity> &getEntities() const { return entities; }
+
+	template <typename T>
+	const std::vector<Entity> &getEntitiesByType() const
+	{
+		return registry.getEntitiesByType<T>();
+	}
+
+	template <typename T>
+	std::vector<T> &getComponentsByType()
+	{
+		return registry.getComponentsByType<T>();
+	}
 
 	size_t getEntityCount() const { return entities.size(); }
 	size_t getComponentCount() const { return registry.size(); }

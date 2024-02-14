@@ -1,14 +1,14 @@
 #define CATCH_CONFIG_RUNNER
-#include <catch2/catch.hpp>
 
-#include <ecs/ECSManager.hpp>
+#include <catch2/catch.hpp>
 #include <chrono>
+#include <ecs/ECSManager.hpp>
 
 #define NUM_ENT 10000 // number of entities
 #define NUM_COM 1     // number of components per entity
 
 struct System {
-	virtual void update(ECSManager& ecs, double deltaTime) = 0;
+	virtual void update(ECSManager &ecs, double deltaTime) = 0;
 };
 
 struct Position {
@@ -20,7 +20,7 @@ struct RigidBody {
 };
 
 // CATCH_CONFIG_RUNNER tells catch2, that we will implement our own main function to config the test runner.
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	Catch::Session session;
 
@@ -39,14 +39,15 @@ int main(int argc, char* argv[])
 std::string formatEntCompInfo(const std::string functionName, const int numEntities, const int numComponents)
 {
 	std::ostringstream oss;
-	oss << functionName << "(): e: " << numEntities << ", c: " << numComponents * numEntities << ", c/e: " << numComponents;
+	oss << functionName << "(): e: " << numEntities << ", c: " << numComponents * numEntities
+	    << ", c/e: " << numComponents;
 	return oss.str();
 }
 
 // This function is a helper to run benchmarks. It  that takes a lambda function as an argument.
 // This lambda function will contain the code to benchmark.
 template <typename Func>
-void benchmarkSection(Func func, const std::string& sectionName)
+void benchmarkSection(Func func, const std::string &sectionName)
 {
 	auto start = std::chrono::high_resolution_clock::now();
 
@@ -70,10 +71,10 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 	};
 
 	class MockSystem : public System {
-	public:
+	  public:
 		bool updateCalled = false;
 
-		void update(ECSManager& ecs, double deltaTime) override { updateCalled = true; }
+		void update(ECSManager &ecs, double deltaTime) override { updateCalled = true; }
 	};
 
 	SECTION("Benchmarking Entity Addition")
@@ -81,12 +82,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		ECSManager ecs;
 
 		benchmarkSection(
-			[&] {
-				for (int i = 0; i < NUM_ENT; i++) {
-					ecs.addEntity();
-				}
-			},
-			formatEntCompInfo("addEntity", NUM_ENT, NUM_COM));
+		    [&] {
+			    for (int i = 0; i < NUM_ENT; i++) {
+				    ecs.addEntity();
+			    }
+		    },
+		    formatEntCompInfo("addEntity", NUM_ENT, NUM_COM));
 	}
 
 	SECTION("Benchmarking Entity Removal")
@@ -98,12 +99,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 
 		benchmarkSection(
-			[&] {
-				for (int i = 0; i < NUM_ENT; i++) {
-					ecs.removeEntity(i);
-				}
-			},
-			formatEntCompInfo("removeEntity", NUM_ENT, NUM_COM));
+		    [&] {
+			    for (int i = 0; i < NUM_ENT; i++) {
+				    ecs.removeEntity(i);
+			    }
+		    },
+		    formatEntCompInfo("removeEntity", NUM_ENT, NUM_COM));
 	}
 
 	SECTION("Benchmarking Component Addition")
@@ -116,12 +117,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 
 		benchmarkSection(
-			[&] {
-				for (int i = 0; i < NUM_ENT; i++) {
-					ecs.addComponent<TestComponent>(i, c);
-				}
-			},
-			formatEntCompInfo("addComponent", NUM_ENT, NUM_COM));
+		    [&] {
+			    for (int i = 0; i < NUM_ENT; i++) {
+				    ecs.addComponent<TestComponent>(i, c);
+			    }
+		    },
+		    formatEntCompInfo("addComponent", NUM_ENT, NUM_COM));
 	}
 
 	SECTION("Benchmarking Component Addition 2")
@@ -135,13 +136,13 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 
 		benchmarkSection(
-			[&] {
-				for (int i = 0; i < NUM_ENT; i++) {
-					ecs.addComponent<TestComponent>(i, c);
-					ecs.addComponent<AnotherComponent>(i, a);
-				}
-			},
-			formatEntCompInfo("addComponent", NUM_ENT, NUM_COM * 2));
+		    [&] {
+			    for (int i = 0; i < NUM_ENT; i++) {
+				    ecs.addComponent<TestComponent>(i, c);
+				    ecs.addComponent<AnotherComponent>(i, a);
+			    }
+		    },
+		    formatEntCompInfo("addComponent", NUM_ENT, NUM_COM * 2));
 	}
 
 	SECTION("Benchmarking Component Removal")
@@ -155,12 +156,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 
 		benchmarkSection(
-			[&] {
-				for (int i = 0; i < NUM_ENT; i++) {
-					ecs.removeComponent<TestComponent>(i);
-				}
-			},
-			formatEntCompInfo("removeComponent", NUM_ENT, NUM_COM));
+		    [&] {
+			    for (int i = 0; i < NUM_ENT; i++) {
+				    ecs.removeComponent<TestComponent>(i);
+			    }
+		    },
+		    formatEntCompInfo("removeComponent", NUM_ENT, NUM_COM));
 	}
 
 	SECTION("Benchmarking Component Retrieval")
@@ -174,12 +175,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 
 		benchmarkSection(
-			[&] {
-				for (int i = 0; i < NUM_ENT; i++) {
-					ecs.getComponent<TestComponent>(i);
-				}
-			},
-			formatEntCompInfo("getComponent", NUM_ENT, NUM_COM));
+		    [&] {
+			    for (int i = 0; i < NUM_ENT; i++) {
+				    ecs.getComponent<TestComponent>(i);
+			    }
+		    },
+		    formatEntCompInfo("getComponent", NUM_ENT, NUM_COM));
 	}
 
 	SECTION("Benchmarking Component Existence Check")
@@ -193,12 +194,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 
 		benchmarkSection(
-			[&] {
-				for (int i = 0; i < NUM_ENT; i++) {
-					ecs.hasComponent<TestComponent>(i);
-				}
-			},
-			formatEntCompInfo("hascomponent", NUM_ENT, NUM_COM));
+		    [&] {
+			    for (int i = 0; i < NUM_ENT; i++) {
+				    ecs.hasComponent<TestComponent>(i);
+			    }
+		    },
+		    formatEntCompInfo("hascomponent", NUM_ENT, NUM_COM));
 	}
 
 	SECTION("Benchmarking Component Existence Check")
@@ -212,12 +213,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		ecs.addComponent<TestComponent>(0, c);
 
 		benchmarkSection(
-			[&] {
-				for (int i = 0; i < NUM_ENT; i++) {
-					ecs.hasComponent<TestComponent>(i);
-				}
-			},
-			formatEntCompInfo("hasComponent", NUM_ENT, 0));
+		    [&] {
+			    for (int i = 0; i < NUM_ENT; i++) {
+				    ecs.hasComponent<TestComponent>(i);
+			    }
+		    },
+		    formatEntCompInfo("hasComponent", NUM_ENT, 0));
 	}
 
 	SECTION("Benchmarking simulation with multiple components per entity and systems")
@@ -227,12 +228,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		RigidBody r = RigidBody{};
 
 		struct TestPhysicsSystem : public System {
-			void update(ECSManager& ecs, double deltaTime)
+			void update(ECSManager &ecs, double deltaTime)
 			{
-				for (const Entity& entity : ecs.getEntities()) {
+				for (const Entity &entity : ecs.getEntities()) {
 					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity)) {
-						auto& position = ecs.getComponent<Position>(entity);
-						auto& rigidBody = ecs.getComponent<RigidBody>(entity);
+						auto &position = ecs.getComponent<Position>(entity);
+						auto &rigidBody = ecs.getComponent<RigidBody>(entity);
 						position.x += rigidBody.vx;
 						position.y += rigidBody.vy;
 					}
@@ -241,12 +242,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct TestUpdateSystem : public System {
-			void update(ECSManager& ecs, double deltaTime)
+			void update(ECSManager &ecs, double deltaTime)
 			{
-				for (const Entity& entity : ecs.getEntities()) {
+				for (const Entity &entity : ecs.getEntities()) {
 					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity)) {
-						auto& position = ecs.getComponent<Position>(entity);
-						auto& rigidBody = ecs.getComponent<RigidBody>(entity);
+						auto &position = ecs.getComponent<Position>(entity);
+						auto &rigidBody = ecs.getComponent<RigidBody>(entity);
 						position.x = rigidBody.vx;
 						position.y = rigidBody.vy;
 					}
@@ -265,14 +266,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 
 		benchmarkSection(
-			[&] {
-				testPhysicsSystem.update(ecs, deltaTime);
-				testUpdateSystem.update(ecs, deltaTime);
-				testPhysicsSystem.update(ecs, deltaTime);
-				testUpdateSystem.update(ecs, deltaTime);
-				testPhysicsSystem.update(ecs, deltaTime);
-				testUpdateSystem.update(ecs, deltaTime);
-			},
-			formatEntCompInfo("im, 2 systems, 3 updates", NUM_ENT, NUM_COM * 2));
+		    [&] {
+			    testPhysicsSystem.update(ecs, deltaTime);
+			    testUpdateSystem.update(ecs, deltaTime);
+			    testPhysicsSystem.update(ecs, deltaTime);
+			    testUpdateSystem.update(ecs, deltaTime);
+			    testPhysicsSystem.update(ecs, deltaTime);
+			    testUpdateSystem.update(ecs, deltaTime);
+		    },
+		    formatEntCompInfo("im, 2 systems, 3 updates", NUM_ENT, NUM_COM * 2));
 	}
 }
