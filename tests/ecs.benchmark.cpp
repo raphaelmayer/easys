@@ -3,9 +3,10 @@
 #include <catch2/catch.hpp>
 #include <chrono>
 #include <ecs/ecs.hpp>
+#include <ecs/entity.hpp>
 
-#define NUM_ENT 10000 // number of entities
-#define NUM_COM 1     // number of components per entity
+#define NUM_ENT MAX_ENTITIES // number of entities
+#define NUM_COM 1            // number of components per entity
 
 struct System {
 	virtual void update(ECS &ecs, double deltaTime) = 0;

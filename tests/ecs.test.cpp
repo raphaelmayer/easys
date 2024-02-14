@@ -81,16 +81,31 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE(ecs.hasComponent<TestComponent>(entity2));
 	}
 
+	SECTION("Retrieve All Entities of a Specific Component Type")
+	{
+		Entity entity1 = ecs.addEntity();
+		Entity entity2 = ecs.addEntity();
+		TestComponent comp1 = {100};
+		TestComponent comp2 = {200};
+		AnotherComponent comp3 = {5};
+		ecs.addComponent<TestComponent>(entity1, comp1);
+		ecs.addComponent<TestComponent>(entity2, comp2);
+		ecs.addComponent<AnotherComponent>(entity2, comp3); // should not be included in results
+
+		auto testComponents = ecs.getEntitiesByType<TestComponent>();
+		REQUIRE(testComponents.size() == 2);
+	}
+
 	SECTION("Retrieve All Components of a Specific Type")
 	{
 		Entity entity1 = ecs.addEntity();
 		Entity entity2 = ecs.addEntity();
 		TestComponent comp1 = {100};
 		TestComponent comp2 = {200};
-		// AnotherComponent comp3 = {5};
+		AnotherComponent comp3 = {5};
 		ecs.addComponent<TestComponent>(entity1, comp1);
 		ecs.addComponent<TestComponent>(entity2, comp2);
-		// ecs.addComponent<AnotherComponent>(entity2, comp3);
+		ecs.addComponent<AnotherComponent>(entity2, comp3); // should not be included in results
 
 		auto testComponents = ecs.getComponentsByType<TestComponent>();
 		REQUIRE(testComponents.size() == 2);

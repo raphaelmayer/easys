@@ -44,15 +44,17 @@ class ECS {
 	{
 		// Remove all components associated with the entity
 		registry.removeComponents(e);
-
 		// Remove entity from the set of active entities
 		entities.erase(e);
-
 		// Make the entity ID available again
 		availableEntityIds.push(e);
 	}
 
 	bool hasEntity(const Entity e) const { return entities.contains(e); }
+
+	const std::set<Entity> &getEntities() const { return entities; }
+
+	size_t getEntityCount() const { return entities.size(); }
 
 	template <typename T>
 	void addComponent(const Entity e, const T c)
@@ -78,8 +80,6 @@ class ECS {
 		return registry.hasComponent<T>(e);
 	}
 
-	const std::set<Entity> &getEntities() const { return entities; }
-
 	template <typename T>
 	const std::vector<Entity> &getEntitiesByType() const
 	{
@@ -92,7 +92,6 @@ class ECS {
 		return registry.getComponentsByType<T>();
 	}
 
-	size_t getEntityCount() const { return entities.size(); }
 	size_t getComponentCount() const { return registry.size(); }
 
   private:

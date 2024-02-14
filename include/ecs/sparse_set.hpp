@@ -40,7 +40,7 @@ class SparseSet : public SparseSetBase {
 		accommodate(key);
 
 		if (sparse[key] == std::numeric_limits<Key>::max()) { // max Key to indicate not set
-			sparse[key] = values.size();
+			sparse[key] = static_cast<Key>(values.size());
 			dense.push_back(key);
 			values.push_back(value);
 		} else {
@@ -83,7 +83,7 @@ class SparseSet : public SparseSetBase {
 			values.pop_back();
 
 			// Mark the key as not set
-			sparse[key] = std::numeric_limits<Key>::max(); // or max Key
+			sparse[key] = std::numeric_limits<Key>::max();
 		}
 	}
 
