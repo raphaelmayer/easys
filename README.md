@@ -63,3 +63,8 @@ If you encounter any issues or have questions regarding the integration process,
 - ```getAllComponentsByType``` should probably return a container of component refs. Then we do not expose internals to the user. 
 	Otherwise ```SparseSet``` needs to be improved (i.e. iterator, safety, UX)
 	Or we could implement a ```SparseSet::getValues``` method, which directly returns a ref to the dense component array.
+- ```SparseSet```'s template parameter ```Key```:
+	- should be constrained to types, which can be used to index ```std::vector```
+	- We could also use a map for the sparse container...
+- Should we provide ```SparseSet``` with a ```MAX_SIZE``` parameter?
+- README.md has to be adjusted.

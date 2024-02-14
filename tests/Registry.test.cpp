@@ -65,7 +65,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 		REQUIRE_FALSE(registry.hasComponent<TestComponent>(testEntity));
 	}
 
-	SECTION("Registry size method returns total number of components", "[Registry]")
+	SECTION("Registry size method returns total number of components")
 	{
 		Registry registry;
 
@@ -85,7 +85,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 		REQUIRE(registry.size<COMPONENT_TYPES>() == 4);
 	}
 
-	SECTION("Registry size method with single component type", "[Registry]")
+	SECTION("Registry size method with single component type")
 	{
 		Registry registry;
 		Entity entity = 1;
@@ -94,13 +94,13 @@ TEST_CASE("Registry Tests", "[Registry]")
 		REQUIRE(registry.size<TestComponent>() == 1);
 	}
 
-	SECTION("Registry size method with no known component types", "[Registry]")
+	SECTION("Registry size method with no known component types")
 	{
 		Registry registry;
 		REQUIRE(registry.size<COMPONENT_TYPES>() == 0);
 	}
 
-	SECTION("Registry size method with one unknown component type", "[Registry]")
+	SECTION("Registry size method with one unknown component type")
 	{
 		Registry registry;
 		Entity entity = 1;
@@ -109,7 +109,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 		REQUIRE(registry.size<COMPONENT_TYPES>() == 1);
 	}
 
-	SECTION("Get all entities of ComponentType", "[Registry]")
+	SECTION("Get all entities of ComponentType")
 	{
 		TestComponent comp1 = {10};
 		TestComponent comp2 = {20};
@@ -127,7 +127,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 		REQUIRE(testComponents[1] == entity2);
 	}
 
-	SECTION("Get All Components of ComponentType", "[Registry]")
+	SECTION("Get All Components of ComponentType")
 	{
 		TestComponent comp1 = {10};
 		TestComponent comp2 = {20};
