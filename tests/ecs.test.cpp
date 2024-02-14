@@ -1,8 +1,8 @@
 #include <catch2/catch.hpp>
-#include <ecs/ECSManager.hpp>
+#include <ecs/ecs.hpp>
 #include <memory>
 
-TEST_CASE("ECSManager Tests", "[ECSManager]")
+TEST_CASE("ECS Tests", "[ECS]")
 {
 	struct TestComponent {
 		int data;
@@ -12,7 +12,7 @@ TEST_CASE("ECSManager Tests", "[ECSManager]")
 		float value;
 	};
 
-	ECSManager ecs;
+	ECS ecs;
 
 	SECTION("Add Entity")
 	{
@@ -96,9 +96,9 @@ TEST_CASE("ECSManager Tests", "[ECSManager]")
 		REQUIRE(testComponents.size() == 2);
 	}
 
-	SECTION("getEntityCount returns correct number of entities", "[ECSManager]")
+	SECTION("getEntityCount returns correct number of entities", "[ECS]")
 	{
-		ECSManager ecs;
+		ECS ecs;
 
 		REQUIRE(ecs.getEntityCount() == 0);
 
@@ -110,9 +110,9 @@ TEST_CASE("ECSManager Tests", "[ECSManager]")
 		REQUIRE(ecs.getEntityCount() == 3);
 	}
 
-	SECTION("getComponentCount returns correct number of components", "[ECSManager]")
+	SECTION("getComponentCount returns correct number of components", "[ECS]")
 	{
-		ECSManager ecs;
+		ECS ecs;
 		Entity entity = ecs.addEntity();
 
 		REQUIRE(ecs.getComponentCount() == 0);

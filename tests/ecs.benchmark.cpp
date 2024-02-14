@@ -2,13 +2,13 @@
 
 #include <catch2/catch.hpp>
 #include <chrono>
-#include <ecs/ECSManager.hpp>
+#include <ecs/ecs.hpp>
 
 #define NUM_ENT 10000 // number of entities
 #define NUM_COM 1     // number of components per entity
 
 struct System {
-	virtual void update(ECSManager &ecs, double deltaTime) = 0;
+	virtual void update(ECS &ecs, double deltaTime) = 0;
 };
 
 struct Position {
@@ -74,12 +74,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 	  public:
 		bool updateCalled = false;
 
-		void update(ECSManager &ecs, double deltaTime) override { updateCalled = true; }
+		void update(ECS &ecs, double deltaTime) override { updateCalled = true; }
 	};
 
 	SECTION("Benchmarking Entity Addition")
 	{
-		ECSManager ecs;
+		ECS ecs;
 
 		benchmarkSection(
 		    [&] {
@@ -92,7 +92,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 	SECTION("Benchmarking Entity Removal")
 	{
-		ECSManager ecs;
+		ECS ecs;
 
 		for (int i = 0; i < NUM_ENT; i++) {
 			Entity e = ecs.addEntity();
@@ -109,7 +109,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 	SECTION("Benchmarking Component Addition")
 	{
-		ECSManager ecs;
+		ECS ecs;
 		TestComponent c = TestComponent{};
 
 		for (int i = 0; i < NUM_ENT; i++) {
@@ -127,7 +127,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 	SECTION("Benchmarking Component Addition 2")
 	{
-		ECSManager ecs;
+		ECS ecs;
 		TestComponent c = TestComponent{};
 		AnotherComponent a = AnotherComponent{};
 
@@ -147,7 +147,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 	SECTION("Benchmarking Component Removal")
 	{
-		ECSManager ecs;
+		ECS ecs;
 		TestComponent c = TestComponent{};
 
 		for (int i = 0; i < NUM_ENT; i++) {
@@ -166,7 +166,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 	SECTION("Benchmarking Component Retrieval")
 	{
-		ECSManager ecs;
+		ECS ecs;
 		TestComponent c = TestComponent{};
 
 		for (int i = 0; i < NUM_ENT; i++) {
@@ -185,7 +185,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 	SECTION("Benchmarking Component Existence Check")
 	{
-		ECSManager ecs;
+		ECS ecs;
 		TestComponent c = TestComponent{};
 
 		for (int i = 0; i < NUM_ENT; i++) {
@@ -204,7 +204,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 	SECTION("Benchmarking Component Existence Check")
 	{
-		ECSManager ecs;
+		ECS ecs;
 		TestComponent c = TestComponent{};
 
 		for (int i = 0; i < NUM_ENT; i++) {
@@ -223,12 +223,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 	SECTION("Benchmarking simulation with multiple components per entity and systems")
 	{
-		ECSManager ecs;
+		ECS ecs;
 		Position p = Position{};
 		RigidBody r = RigidBody{};
 
 		struct TestPhysicsSystem : public System {
-			void update(ECSManager &ecs, double deltaTime)
+			void update(ECS &ecs, double deltaTime)
 			{
 				for (const Entity &entity : ecs.getEntities()) {
 					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity)) {
@@ -242,7 +242,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct TestUpdateSystem : public System {
-			void update(ECSManager &ecs, double deltaTime)
+			void update(ECS &ecs, double deltaTime)
 			{
 				for (const Entity &entity : ecs.getEntities()) {
 					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity)) {

@@ -1,16 +1,16 @@
 #pragma once
 
-#include "Entity.hpp"
-#include "SparseSetRegistry.hpp"
+#include "entity.hpp"
+#include "registry.hpp"
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <queue>
 #include <set>
 
-class ECSManager {
+class ECS {
   public:
-	ECSManager()
+	ECS()
 	{
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 			availableEntityIds.push(entity);
@@ -19,7 +19,7 @@ class ECSManager {
 	// This constructor is for initialising the ECS with a set of specific entities. I decided against an
 	// addEntity(Entity) method to discourage tampering with entities too much. I think this really should be the ECS's
 	// responsibility.
-	ECSManager(const std::set<Entity> &oldEntities)
+	ECS(const std::set<Entity> &oldEntities)
 	{
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 			if (oldEntities.contains(entity))

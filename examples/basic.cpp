@@ -1,20 +1,22 @@
+#include <ecs/ecs.hpp>
+#include <ecs/entity.hpp>
 #include <iostream>
-#include <ecs/ECSManager.hpp>
 
 struct Position {
 	int x, y;
 };
 
-int main(int argc, char* argv[]) {
-	ECSManager ecs;
+int main(int argc, char *argv[])
+{
+	ECS ecs;
 
 	// create and add entity with component
 	Entity entity = ecs.addEntity();
-	Position component{ 0, 0 };
+	Position component{0, 0};
 	ecs.addComponent<Position>(entity, component);
 
 	// update component
-	Position& position = ecs.getComponent<Position>(entity);
+	Position &position = ecs.getComponent<Position>(entity);
 	position.x = 1;
 	position.y = 2;
 

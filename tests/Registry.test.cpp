@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include <ecs/SparseSetRegistry.hpp>
+#include <ecs/registry.hpp>
 
 #define COMPONENT_TYPES TestComponent, AnotherComponent
 

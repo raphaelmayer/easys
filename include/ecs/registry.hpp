@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Entity.hpp"
-#include "SparseSet.hpp"
+#include "entity.hpp"
+#include "sparse_set.hpp"
 #include <any>
 #include <stdexcept>
 #include <typeindex>
