@@ -6,8 +6,6 @@
 #include <stdexcept>
 #include <typeindex>
 #include <unordered_map>
-
-#include <tuple>
 #include <vector>
 
 class Registry {
