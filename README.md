@@ -72,7 +72,7 @@ include(FetchContent)
 FetchContent_Declare(
   easys
   GIT_REPOSITORY https://github.com/raphaelmayer/easys.git
-  GIT_TAG main # or any version tag you prefer
+  GIT_TAG master # or any version tag you prefer
 )
 FetchContent_MakeAvailable(easys)
 target_link_libraries(your_target_name INTERFACE easys)

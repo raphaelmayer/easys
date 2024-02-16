@@ -157,3 +157,71 @@ TEST_CASE("Registry Tests", "[Registry]")
 		REQUIRE(anotherComponents.size() == 1);
 	}
 }
+
+// Define some mock components to use in testing
+struct Position {
+	float x, y;
+};
+
+struct Velocity {
+	float dx, dy;
+};
+
+struct Health {
+	int points;
+};
+
+// Utility function to add some entities and components to a registry for testing
+void setupRegistry(Registry &registry)
+{
+	// Add entities with various components
+	for (int i = 0; i < 10; ++i) {
+		Entity entity = i; // Assuming Entity can be an integer for simplicity
+		if (i % 2 == 0) {
+			registry.addComponent(entity, Position{1.0f * i, 2.0f * i});
+		}
+		if (i % 3 == 0) {
+			registry.addComponent(entity, Velocity{0.1f * i, 0.2f * i});
+		}
+		if (i % 5 == 0) {
+			registry.addComponent(entity, Health{i * 10});
+		}
+	}
+}
+
+TEST_CASE("getEntitiesByTypes with single component type", "[Registry]")
+{
+	Registry registry;
+	setupRegistry(registry);
+
+	auto entitiesWithPosition = registry.getEntitiesByTypes<Position>();
+	REQUIRE(entitiesWithPosition.size() == 5); // Entities 0, 2, 4, 6, 8
+}
+
+TEST_CASE("getEntitiesByTypes with multiple component types", "[Registry]")
+{
+	Registry registry;
+	setupRegistry(registry);
+
+	SECTION("Position and Velocity")
+	{
+		auto entitiesWithPositionAndVelocity = registry.getEntitiesByTypes<Position, Velocity>();
+		REQUIRE(entitiesWithPositionAndVelocity.size() == 2); // Entities 0, 6
+	}
+
+	SECTION("Position, Velocity, and Health")
+	{
+		auto entitiesWithAllComponents = registry.getEntitiesByTypes<Position, Velocity, Health>();
+		REQUIRE(entitiesWithAllComponents.size() == 1); // Entities 0
+		REQUIRE(registry.getEntitiesByType<Health>().size() == 2);
+	}
+}
+
+TEST_CASE("getEntitiesByTypes with no entities matching", "[Registry]")
+{
+	Registry registry;
+	setupRegistry(registry);
+
+	auto entitiesWithNonExistingCombination = registry.getEntitiesByTypes<Health, Velocity>();
+	REQUIRE(entitiesWithNonExistingCombination.size() == 1); // Only entity 0 matches this combination based on setup
+}
