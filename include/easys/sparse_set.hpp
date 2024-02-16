@@ -1,10 +1,22 @@
 #pragma once
 
+#include <algorithm>
 #include <cassert>
 #include <concepts>
 #include <iostream>
 #include <limits>
+#include <string>
 #include <vector>
+
+class KeyNotFoundException : public std::exception {
+  public:
+	KeyNotFoundException(const std::string &key) : msg_("KeyNotFoundException: " + key + " not found") {}
+
+	const char *what() const noexcept override { return msg_.c_str(); }
+
+  private:
+	std::string msg_;
+};
 
 // Since SparseSet uses std::vector internally and the key is used to index we want to make sure to only use natural
 // numbers. We could also use a map for the sparse container...
@@ -27,11 +39,11 @@ class SparseSet : public SparseSetBase {
 	// Ensure the sparse array can accommodate the given key
 	void accommodate(Key key)
 	{
-		// TODO: CHECK FOR MAX_SIZE
+		if (key >= maxSize())
+			throw std::length_error("Key exceeds the maximum size limit.");
 
-		if (key >= sparse.size()) {
-			sparse.resize(key + 100, std::numeric_limits<Key>::max()); // Use max Key as invalid index
-		}
+		if (key >= sparse.size())
+			sparse.resize(key + 100, std::numeric_limits<Key>::max());
 	}
 
 	// Associate a value with a key
@@ -51,25 +63,25 @@ class SparseSet : public SparseSetBase {
 	// Retrieve a value by key
 	const Value &get(Key key) const
 	{
-		if (contains(key)) {
-			return values[sparse[key]];
+		if (!contains(key)) {
+			throw KeyNotFoundException(std::to_string(key));
 		}
-		throw std::runtime_error("Value not found");
+		return values[sparse[key]];
 	}
 
 	// Retrieve a value by key
 	Value &get(Key key)
 	{
-		if (contains(key)) {
-			return values[sparse[key]];
+		if (!contains(key)) {
+			throw KeyNotFoundException(std::to_string(key));
 		}
-		throw std::runtime_error("Value not found");
+		return values[sparse[key]];
 	}
 
 	// Remove a value associated with a key
 	void remove(Key key)
 	{
-		if (key < sparse.size() && sparse[key] != std::numeric_limits<Key>::max()) {
+		if (contains(key)) {
 			// Move the last value to the removed spot to keep dense packed
 			Key indexOfRemoved = sparse[key];
 			values[indexOfRemoved] = values.back();
@@ -103,4 +115,12 @@ class SparseSet : public SparseSetBase {
 	const std::vector<Key> &getKeys() const { return dense; }
 
 	std::vector<Value> &getValues() { return values; }
+
+	const std::vector<Value> &getValues() const { return values; }
+
+	constexpr size_t maxSize() const noexcept
+	{
+		constexpr size_t maxKeyVal = static_cast<size_t>(std::numeric_limits<Key>::max());
+		return std::min({maxKeyVal, dense.max_size(), values.max_size()});
+	}
 };
