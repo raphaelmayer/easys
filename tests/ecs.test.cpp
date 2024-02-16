@@ -92,7 +92,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ecs.addComponent<TestComponent>(entity2, comp2);
 		ecs.addComponent<AnotherComponent>(entity2, comp3); // should not be included in results
 
-		auto testComponents = ecs.getEntitiesByType<TestComponent>();
+		auto testComponents = ecs.getEntitiesByComponent<TestComponent>();
 		REQUIRE(testComponents.size() == 2);
 	}
 

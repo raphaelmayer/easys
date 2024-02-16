@@ -81,15 +81,15 @@ class ECS {
 	}
 
 	template <typename T>
-	const std::vector<Entity> &getEntitiesByType() const
+	const std::vector<Entity> &getEntitiesByComponent() const
 	{
-		return registry_.getEntitiesByType<T>();
+		return registry_.getEntitiesByComponent<T>();
 	}
 
 	template <typename... Ts>
-	const std::vector<Entity> getEntitiesByTypes() const
+	const std::vector<Entity> getEntitiesByComponents() const
 	{
-		return registry_.getEntitiesByTypes<Ts...>();
+		return registry_.getEntitiesByComponents<Ts...>();
 	}
 
 	template <typename T>

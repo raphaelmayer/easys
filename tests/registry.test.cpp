@@ -120,7 +120,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 		registry.addComponent<TestComponent>(entity2, comp2);
 		registry.addComponent<AnotherComponent>(entity3, comp3); // Different type, should not be included
 
-		auto &testComponents = registry.getEntitiesByType<TestComponent>();
+		auto &testComponents = registry.getEntitiesByComponent<TestComponent>();
 
 		REQUIRE(testComponents.size() == 2);
 		REQUIRE(testComponents[0] == entity1);
@@ -189,39 +189,39 @@ void setupRegistry(Registry &registry)
 	}
 }
 
-TEST_CASE("getEntitiesByTypes with single component type", "[Registry]")
+TEST_CASE("getEntitiesByComponents with single component type", "[Registry]")
 {
 	Registry registry;
 	setupRegistry(registry);
 
-	auto entitiesWithPosition = registry.getEntitiesByTypes<Position>();
+	auto entitiesWithPosition = registry.getEntitiesByComponents<Position>();
 	REQUIRE(entitiesWithPosition.size() == 5); // Entities 0, 2, 4, 6, 8
 }
 
-TEST_CASE("getEntitiesByTypes with multiple component types", "[Registry]")
+TEST_CASE("getEntitiesByComponents with multiple component types", "[Registry]")
 {
 	Registry registry;
 	setupRegistry(registry);
 
 	SECTION("Position and Velocity")
 	{
-		auto entitiesWithPositionAndVelocity = registry.getEntitiesByTypes<Position, Velocity>();
+		auto entitiesWithPositionAndVelocity = registry.getEntitiesByComponents<Position, Velocity>();
 		REQUIRE(entitiesWithPositionAndVelocity.size() == 2); // Entities 0, 6
 	}
 
 	SECTION("Position, Velocity, and Health")
 	{
-		auto entitiesWithAllComponents = registry.getEntitiesByTypes<Position, Velocity, Health>();
+		auto entitiesWithAllComponents = registry.getEntitiesByComponents<Position, Velocity, Health>();
 		REQUIRE(entitiesWithAllComponents.size() == 1); // Entities 0
-		REQUIRE(registry.getEntitiesByType<Health>().size() == 2);
+		REQUIRE(registry.getEntitiesByComponent<Health>().size() == 2);
 	}
 }
 
-TEST_CASE("getEntitiesByTypes with no entities matching", "[Registry]")
+TEST_CASE("getEntitiesByComponents with no entities matching", "[Registry]")
 {
 	Registry registry;
 	setupRegistry(registry);
 
-	auto entitiesWithNonExistingCombination = registry.getEntitiesByTypes<Health, Velocity>();
+	auto entitiesWithNonExistingCombination = registry.getEntitiesByComponents<Health, Velocity>();
 	REQUIRE(entitiesWithNonExistingCombination.size() == 1); // Only entity 0 matches this combination based on setup
 }

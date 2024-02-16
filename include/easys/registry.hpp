@@ -54,13 +54,13 @@ class Registry {
 	}
 
 	template <typename ComponentType>
-	const std::vector<Entity> &getEntitiesByType() const
+	const std::vector<Entity> &getEntitiesByComponent() const
 	{
 		return getComponentSet<ComponentType>().getKeys();
 	}
 
 	template <typename... ComponentTypes>
-	std::vector<Entity> getEntitiesByTypes() const
+	std::vector<Entity> getEntitiesByComponents() const
 	{
 		std::vector<Entity> entities;
 		bool isFirstComponentType = true;
@@ -75,7 +75,7 @@ class Registry {
 		// Iterate over each component type and intersect entities
 		forEachComponentType<ComponentTypes...>([this, &entities, &isFirstComponentType, &intersect](auto dummy) {
 			using T = decltype(dummy);
-			const auto &componentEntities = getEntitiesByType<T>();
+			const auto &componentEntities = getEntitiesByComponent<T>();
 			if (isFirstComponentType) {
 				entities = componentEntities;
 				isFirstComponentType = false;
