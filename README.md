@@ -1,4 +1,4 @@
-# EasyS
+# EasyS: Manage entities and components with minimal fuss
 
 [![Build and test](https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml/badge.svg)](https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml)
 
