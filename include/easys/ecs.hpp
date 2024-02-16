@@ -86,6 +86,12 @@ class ECS {
 		return registry_.getEntitiesByType<T>();
 	}
 
+	template <typename... Ts>
+	const std::vector<Entity> getEntitiesByTypes() const
+	{
+		return registry_.getEntitiesByTypes<Ts...>();
+	}
+
 	template <typename T>
 	std::vector<T> &getComponentsByType()
 	{

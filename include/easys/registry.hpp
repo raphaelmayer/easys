@@ -7,6 +7,9 @@
 #include <typeindex>
 #include <unordered_map>
 
+#include <tuple>
+#include <vector>
+
 class Registry {
   private:
 	std::unordered_map<std::type_index, std::any> componentSets;
@@ -56,6 +59,34 @@ class Registry {
 	const std::vector<Entity> &getEntitiesByType() const
 	{
 		return getComponentSet<ComponentType>().getKeys();
+	}
+
+	template <typename... ComponentTypes>
+	std::vector<Entity> getEntitiesByTypes() const
+	{
+		std::vector<Entity> entities;
+		bool isFirstComponentType = true;
+
+		// Helper lambda to intersect two sorted vectors
+		auto intersect = [](const std::vector<Entity> &v1, const std::vector<Entity> &v2) {
+			std::vector<Entity> v_intersection;
+			std::set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), std::back_inserter(v_intersection));
+			return v_intersection;
+		};
+
+		// Iterate over each component type and intersect entities
+		forEachComponentType<ComponentTypes...>([this, &entities, &isFirstComponentType, &intersect](auto dummy) {
+			using T = decltype(dummy);
+			const auto &componentEntities = getEntitiesByType<T>();
+			if (isFirstComponentType) {
+				entities = componentEntities;
+				isFirstComponentType = false;
+			} else {
+				entities = intersect(entities, componentEntities);
+			}
+		});
+
+		return entities;
 	}
 
 	template <typename ComponentType>
