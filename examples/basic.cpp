@@ -1,27 +1,30 @@
 #include <easys.hpp>
 #include <iostream>
 
+// Define a Position component structure.
+// Components are simple structs or classes that contain data.
 struct Position {
-	int x, y;
+	float x, y;
 };
 
-int main(int argc, char *argv[])
+int main()
 {
+	// Create an instance of the ECS class to manage our entities and components.
 	ECS ecs;
 
-	// create and add entity with component
-	Entity entity = ecs.addEntity();
-	Position component{0, 0};
-	ecs.addComponent<Position>(entity, component);
+	// Create a new entity. This returns an Entity identifier.
+	Entity myEntity = ecs.addEntity();
 
-	// update component
-	Position &position = ecs.getComponent<Position>(entity);
-	position.x = 1;
-	position.y = 2;
+	// Add a Position component to the entity with initial values.
+	ecs.addComponent(myEntity, Position{10.0f, 20.0f});
 
-	// component updated
-	Position newPosition = ecs.getComponent<Position>(entity);
-	std::cout << "x: " << newPosition.x << ", y: " << newPosition.y << std::endl;
+	// Retrieve the Position component from the entity to read or modify it.
+	Position &pos = ecs.getComponent<Position>(myEntity);
+	std::cout << "Position: " << pos.x << ", " << pos.y << std::endl;
+
+	// This is a basic example to demonstrate creating an entity,
+	// adding a component to it, and retrieving the component.
+	// Explore further to manage entities and components dynamically in your applications.
 
 	return 0;
 }
