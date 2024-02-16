@@ -34,6 +34,7 @@ if(BUILD_EXAMPLES)
 endif()
 
 if(BUILD_TESTS)
+  enable_testing() # Enable testing for the project
   add_subdirectory(tests)
 endif()
 
