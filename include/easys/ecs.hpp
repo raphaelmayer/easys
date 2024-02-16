@@ -13,7 +13,7 @@ class ECS {
 	ECS()
 	{
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
-			availableEntityIds.push(entity);
+			availableEntityIds_.push(entity);
 	}
 
 	// This constructor is for initialising the ECS with a set of specific entities. I decided against an
@@ -23,17 +23,17 @@ class ECS {
 	{
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 			if (oldEntities.contains(entity))
-				entities.insert(entity);
+				entities_.insert(entity);
 			else
-				availableEntityIds.push(entity);
+				availableEntityIds_.push(entity);
 	}
 
 	Entity addEntity()
 	{
 		if (getEntityCount() < MAX_ENTITIES) {
-			Entity e = availableEntityIds.front();
-			availableEntityIds.pop();
-			entities.insert(e);
+			Entity e = availableEntityIds_.front();
+			availableEntityIds_.pop();
+			entities_.insert(e);
 			return e;
 		}
 		// throwing an exception here seems kind of drastic, but on the other hand maybe not
@@ -43,59 +43,59 @@ class ECS {
 	void removeEntity(const Entity e)
 	{
 		// Remove all components associated with the entity
-		registry.removeComponents(e);
-		// Remove entity from the set of active entities
-		entities.erase(e);
+		registry_.removeComponents(e);
+		// Remove entity from the set of active entities_
+		entities_.erase(e);
 		// Make the entity ID available again
-		availableEntityIds.push(e);
+		availableEntityIds_.push(e);
 	}
 
-	bool hasEntity(const Entity e) const { return entities.contains(e); }
+	bool hasEntity(const Entity e) const { return entities_.contains(e); }
 
-	const std::set<Entity> &getEntities() const { return entities; }
+	const std::set<Entity> &getEntities() const { return entities_; }
 
-	size_t getEntityCount() const { return entities.size(); }
+	size_t getEntityCount() const { return entities_.size(); }
 
 	template <typename T>
 	void addComponent(const Entity e, const T c)
 	{
-		registry.addComponent(e, c);
+		registry_.addComponent(e, c);
 	}
 
 	template <typename T>
 	void removeComponent(const Entity e)
 	{
-		registry.removeComponent<T>(e);
+		registry_.removeComponent<T>(e);
 	}
 
 	template <typename T>
 	T &getComponent(const Entity e)
 	{
-		return registry.getComponent<T>(e);
+		return registry_.getComponent<T>(e);
 	}
 
 	template <typename T>
 	bool hasComponent(const Entity e) const
 	{
-		return registry.hasComponent<T>(e);
+		return registry_.hasComponent<T>(e);
 	}
 
 	template <typename T>
 	const std::vector<Entity> &getEntitiesByType() const
 	{
-		return registry.getEntitiesByType<T>();
+		return registry_.getEntitiesByType<T>();
 	}
 
 	template <typename T>
 	std::vector<T> &getComponentsByType()
 	{
-		return registry.getComponentsByType<T>();
+		return registry_.getComponentsByType<T>();
 	}
 
-	size_t getComponentCount() const { return registry.size(); }
+	size_t getComponentCount() const { return registry_.size(); }
 
   private:
-	std::queue<Entity> availableEntityIds;
-	std::set<Entity> entities;
-	Registry registry;
+	std::queue<Entity> availableEntityIds_;
+	std::set<Entity> entities_;
+	Registry registry_;
 };

@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.14)
 
 # Define the project name and version.
-project(ECSLIB 
+project(easys 
     VERSION 1.0 
     DESCRIPTION "A Header-only Entity Component System Library"
     LANGUAGES CXX)
@@ -38,7 +38,7 @@ if(BUILD_TESTS)
 endif()
 
 # Installation rules for the library headers
-install(DIRECTORY include/ecs
+install(DIRECTORY include/easys
         DESTINATION include
 )
 

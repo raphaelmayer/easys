@@ -7,9 +7,11 @@
 #include <typeindex>
 #include <unordered_map>
 
-struct Registry {
+class Registry {
+  private:
 	std::unordered_map<std::type_index, std::any> componentSets;
 
+  public:
 	template <typename ComponentType>
 	void addComponent(Entity entity, ComponentType component)
 	{
@@ -17,7 +19,7 @@ struct Registry {
 		if (inserted) {
 			it->second = std::make_any<SparseSet<Entity, ComponentType>>();
 		}
-		std::any_cast<SparseSet<Entity, ComponentType> &>(it->second).add(entity, component);
+		std::any_cast<SparseSet<Entity, ComponentType> &>(it->second).set(entity, component);
 	}
 
 	template <typename ComponentType>
@@ -62,12 +64,6 @@ struct Registry {
 		return getComponentSet<ComponentType>().getValues();
 	}
 
-	template <typename... ComponentTypes, typename Func>
-	void forEachComponentType(Func f) const
-	{
-		(f(ComponentTypes{}), ...);
-	}
-
 	template <typename... ComponentTypes>
 	size_t size() const
 	{
@@ -86,6 +82,12 @@ struct Registry {
 	}
 
   private:
+	template <typename... ComponentTypes, typename Func>
+	void forEachComponentType(Func f) const
+	{
+		(f(ComponentTypes{}), ...);
+	}
+
 	template <typename ComponentType>
 	SparseSet<Entity, ComponentType> &getComponentSet()
 	{

@@ -1,27 +1,29 @@
 #include <catch2/catch.hpp>
-#include <ecs/sparse_set.hpp>
+#include <easys/sparse_set.hpp>
 
 TEST_CASE("SparseSet functionality", "[SparseSet]")
 {
-	SparseSet<unsigned int, int> set;
 
 	SECTION("Initially empty")
 	{
+		SparseSet<unsigned int, int> set;
 		REQUIRE(set.size() == 0);
 	}
 
 	SECTION("Add elements")
 	{
-		set.add(1, 100);
-		set.add(2, 200);
+		SparseSet<unsigned int, int> set;
+		set.set(1, 100);
+		set.set(2, 200);
 
 		REQUIRE(set.size() == 2);
 	}
 
 	SECTION("Get elements")
 	{
-		set.add(1, 100);
-		set.add(2, 200);
+		SparseSet<unsigned int, int> set;
+		set.set(1, 100);
+		set.set(2, 200);
 
 		REQUIRE(set.get(1) == 100);
 		REQUIRE(set.get(2) == 200);
@@ -29,8 +31,9 @@ TEST_CASE("SparseSet functionality", "[SparseSet]")
 
 	SECTION("Check existence of elements")
 	{
-		set.add(1, 100);
-		set.add(2, 200);
+		SparseSet<unsigned int, int> set;
+		set.set(1, 100);
+		set.set(2, 200);
 
 		REQUIRE(set.contains(1));
 		REQUIRE(set.contains(2));
@@ -39,8 +42,9 @@ TEST_CASE("SparseSet functionality", "[SparseSet]")
 
 	SECTION("Remove elements")
 	{
-		set.add(1, 100);
-		set.add(2, 200);
+		SparseSet<unsigned int, int> set;
+		set.set(1, 100);
+		set.set(2, 200);
 		set.remove(1);
 
 		REQUIRE(set.size() == 1);
@@ -50,15 +54,17 @@ TEST_CASE("SparseSet functionality", "[SparseSet]")
 
 	SECTION("Throws when getting a non-existing element")
 	{
-		set.add(1, 100);
+		SparseSet<unsigned int, int> set;
+		set.set(1, 100);
 		REQUIRE_THROWS_AS(set.get(2), std::runtime_error);
 	}
 
 	SECTION("forEach iteration")
 	{
+		SparseSet<unsigned int, int> set;
 		std::vector<unsigned int> keys;
-		set.add(1, 100);
-		set.add(2, 200);
+		set.set(1, 100);
+		set.set(2, 200);
 		set.forEach([&keys](auto key, auto value) { keys.push_back(key); });
 
 		REQUIRE(keys.size() == 2);

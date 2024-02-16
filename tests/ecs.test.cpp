@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include <ecs/ecs.hpp>
+#include <easys.hpp>
 #include <memory>
 
 TEST_CASE("ECS Tests", "[ECS]")

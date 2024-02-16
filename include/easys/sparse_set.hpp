@@ -35,7 +35,7 @@ class SparseSet : public SparseSetBase {
 	}
 
 	// Associate a value with a key
-	void add(Key key, const Value &value)
+	void set(Key key, const Value &value)
 	{
 		accommodate(key);
 

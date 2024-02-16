@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include <ecs/registry.hpp>
+#include <easys/registry.hpp>
 
 #define COMPONENT_TYPES TestComponent, AnotherComponent
 
