@@ -1,8 +1,48 @@
-# EasyS
+# EasyS: Manage entities and components with minimal fuss
+
+[![Build and test](https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml/badge.svg)](https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml)
 
 EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.
 
 TLDR: EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.
+
+
+## Quick Start Guide
+
+This section will walk you through the basics of creating entities, adding components to them, and querying these components.
+
+```
+#include <easys.hpp>
+#include <iostream>
+
+// Define a Position component structure.
+// Components are simple structs or classes that contain data.
+struct Position {
+    float x, y;
+};
+
+int main() {
+    // Create an instance of the ECS class to manage our entities and components.
+    ECS ecs;
+
+    // Create a new entity. This returns an Entity identifier.
+    Entity myEntity = ecs.addEntity();
+
+    // Add a Position component to the entity with initial values.
+    ecs.addComponent(myEntity, Position{10.0f, 20.0f});
+
+    // Retrieve the Position component from the entity to read or modify it.
+    Position& pos = ecs.getComponent<Position>(myEntity);
+    std::cout << "Position: " << pos.x << ", " << pos.y << std::endl;
+
+    // This is a basic example to demonstrate creating an entity,
+    // adding a component to it, and retrieving the component.
+
+    return 0;
+}
+```
+
+Please check out the examples in the ```/examples``` directory for more examples on how to use this library.
 
 ## EasyS Integration Guide
 
