@@ -24,7 +24,6 @@ int main()
 
 	// This is a basic example to demonstrate creating an entity,
 	// adding a component to it, and retrieving the component.
-	// Explore further to manage entities and components dynamically in your applications.
 
 	return 0;
 }
