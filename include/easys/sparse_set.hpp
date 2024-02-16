@@ -43,7 +43,7 @@ class SparseSet : public SparseSetBase {
 			throw std::length_error("Key exceeds the maximum size limit.");
 
 		if (key >= sparse.size())
-			sparse.resize(key + 100, std::numeric_limits<Key>::max());
+			sparse.resize(key * 2 + 1, std::numeric_limits<Key>::max());
 	}
 
 	// Associate a value with a key
