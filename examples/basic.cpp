@@ -11,10 +11,10 @@ struct Position {
 int main()
 {
 	// Create an instance of the ECS class to manage our entities and components.
-	ECS ecs;
+	easys::ECS ecs;
 
 	// Create a new entity. This returns an Entity identifier.
-	Entity myEntity = ecs.addEntity();
+	easys::Entity myEntity = ecs.addEntity();
 
 	// Add a Position component to the entity with initial values.
 	ecs.addComponent(myEntity, Position{10.0f, 20.0f});
