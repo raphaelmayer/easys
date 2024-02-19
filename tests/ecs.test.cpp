@@ -140,4 +140,18 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
 		REQUIRE(ecs.getComponentCount() == 2);
 	}
+
+	SECTION("Clearing ECS")
+	{
+		ECS ecs;
+		// Setup initial state
+		auto entity = ecs.addEntity();
+		ecs.addComponent<TestComponent>(entity, TestComponent());
+		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
+
+		ecs.clear();
+		// Verify that ECS has reset its state
+		REQUIRE(ecs.getEntityCount() == 0); // Assuming you have a method to count active entities
+		REQUIRE(ecs.addEntity() == 0);      // Check if all entity IDs are available again
+	}
 }

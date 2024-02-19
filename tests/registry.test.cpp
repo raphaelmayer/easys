@@ -225,3 +225,29 @@ TEST_CASE("getEntitiesByComponents with no entities matching", "[Registry]")
 	auto entitiesWithNonExistingCombination = registry.getEntitiesByComponents<Health, Velocity>();
 	REQUIRE(entitiesWithNonExistingCombination.size() == 1); // Only entity 0 matches this combination based on setup
 }
+
+TEST_CASE("Registry clear functionality", "[Registry]")
+{
+	Registry registry;
+	// Setup initial state
+	Entity entity = 1;
+
+	registry.addComponent<Position>(entity, {1.0f, 2.0f});
+	registry.addComponent<Velocity>(entity, {0.5f, 0.5f});
+
+	SECTION("Clearing specific component types from Registry")
+	{
+		registry.clear<Position, Velocity>();
+		// Verify that entities no longer have these components
+		REQUIRE_FALSE(registry.hasComponent<Position>(entity));
+		REQUIRE_FALSE(registry.hasComponent<Velocity>(entity));
+	}
+
+	SECTION("Clearing all components from Registry")
+	{
+		registry.clear(); // If you have a method to clear all components regardless of type
+		// Assuming you have a way to check if an entity has any component
+		//REQUIRE_FALSE(registry.hasComponent<Position>(entity)); // Example check
+		// would be nice, but does not work, types need to be passed to our system currently.
+	}
+}

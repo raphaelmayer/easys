@@ -26,6 +26,7 @@ concept UnsignedIntegral = std::is_integral_v<T> && std::is_unsigned_v<T>;
 struct SparseSetBase {
 	virtual ~SparseSetBase() = default;
 	virtual size_t size() const = 0;
+	virtual void clear() = 0;
 };
 
 template <UnsignedIntegral Key, typename Value>
@@ -122,5 +123,11 @@ class SparseSet : public SparseSetBase {
 	{
 		constexpr size_t maxKeyVal = static_cast<size_t>(std::numeric_limits<Key>::max());
 		return std::min({maxKeyVal, dense.max_size(), values.max_size()});
+	}
+
+	void clear() {
+		sparse.clear();
+		dense.clear();
+		values.clear();
 	}
 };

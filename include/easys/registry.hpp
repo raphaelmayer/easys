@@ -110,6 +110,16 @@ class Registry {
 		return totalSize;
 	}
 
+	template <typename... ComponentTypes>
+	void clear()
+	{
+		forEachComponentType<ComponentTypes...>([this](auto dummy) {
+			using T = decltype(dummy);
+			getComponentSet<T>().clear();
+		});
+	}
+
+
   private:
 	template <typename... ComponentTypes, typename Func>
 	void forEachComponentType(Func f) const

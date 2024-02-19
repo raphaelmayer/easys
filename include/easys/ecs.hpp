@@ -100,6 +100,18 @@ class ECS {
 
 	size_t getComponentCount() const { return registry_.size(); }
 
+	template<typename... ComponentTypes>
+	void clear()
+	{
+		registry_.clear();
+		entities_.clear();
+
+		std::queue<Entity> empty;
+		std::swap(availableEntityIds_, empty);
+
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+			availableEntityIds_.push(entity);
+	}
   private:
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;

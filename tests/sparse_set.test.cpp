@@ -111,3 +111,16 @@ TEST_CASE("SparseSet max_size method tests", "[SparseSet]")
 		REQUIRE(set.maxSize() <= set.getKeys().max_size());
 	}
 }
+
+TEST_CASE("SparseSet clear functionality", "[SparseSet]")
+{
+	SparseSet<Entity, Position> sparseSet;
+	// Setup initial state
+	sparseSet.set(1, {1.0f, 2.0f}); // Example entity and component
+
+	SECTION("Clearing the SparseSet")
+	{
+		sparseSet.clear();
+		REQUIRE(sparseSet.size() == 0); // Ensure the sparse set is empty
+	}
+}
