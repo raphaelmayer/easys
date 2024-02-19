@@ -12,7 +12,8 @@ TLDR: EasyS provides the essential tools to create, manage, and iterate on entit
 This section will walk you through the basics of creating entities, adding components to them, and querying these components.
 
 ```
-#include <easys.hpp>
+#include <easys/ecs.hpp>
+#include <easys/entity.hpp>
 #include <iostream>
 
 // Define a Position component structure.
@@ -89,7 +90,7 @@ For projects not using CMake or for those preferring a simpler integration metho
 3. **Include the Headers**: In your source files, directly include the header file from EasyS:
 
 ```cpp
-#include "easys.hpp"
+#include "easys/ecs.hpp"
 ```
 
 ## Support
