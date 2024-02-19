@@ -75,7 +75,7 @@ FetchContent_Declare(
   GIT_TAG master # or any version tag you prefer
 )
 FetchContent_MakeAvailable(easys)
-target_link_libraries(your_target_name INTERFACE easys)
+target_link_libraries(your_target_name PRIVATE easys)
 ```
 
 ### Direct Inclusion
