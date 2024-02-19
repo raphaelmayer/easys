@@ -26,7 +26,7 @@ target_include_directories(${PROJECT_NAME} INTERFACE
 )
 
 # optional build targets
-option(BUILD_EXAMPLES "Build example applications" OFF)
+option(BUILD_EXAMPLES "Build example applications" ON)
 option(BUILD_TESTS "Build tests" ON)
 
 if(BUILD_EXAMPLES)

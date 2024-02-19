@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
-#include <easys.hpp>
+#include <easys/ecs.hpp>
+#include <easys/entity.hpp>
 #include <memory>
 
 TEST_CASE("ECS Tests", "[ECS]")
@@ -147,7 +148,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 		ecs.clear<TestComponent, AnotherComponent>();
 		REQUIRE(ecs.getEntityCount() == 0);
-		REQUIRE(ecs.addEntity() == 0);      // Check if all entity IDs are available again
+		REQUIRE(ecs.addEntity() == 0); // Check if all entity IDs are available again
 		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
 	}
 }

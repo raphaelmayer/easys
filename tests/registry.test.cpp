@@ -1,4 +1,5 @@
 #include <catch2/catch.hpp>
+#include <easys/entity.hpp>
 #include <easys/registry.hpp>
 
 #define COMPONENT_TYPES TestComponent, AnotherComponent
@@ -244,7 +245,7 @@ TEST_CASE("Registry clear functionality", "[Registry]")
 
 	SECTION("Clearing all components from Registry")
 	{
-		registry.clear<Position, Velocity>(); 
+		registry.clear<Position, Velocity>();
 		REQUIRE_FALSE(registry.hasComponent<Position>(entity)); // Example check
 	}
 }
