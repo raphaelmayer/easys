@@ -119,11 +119,12 @@ class Registry {
 		});
 	}
 
-
   private:
 	template <typename... ComponentTypes, typename Func>
 	void forEachComponentType(Func f) const
 	{
+		// static assert as a fallback
+		static_assert(sizeof...(ComponentTypes) > 0, "You must specify at least one component type.");
 		(f(ComponentTypes{}), ...);
 	}
 

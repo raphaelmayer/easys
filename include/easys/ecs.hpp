@@ -87,7 +87,7 @@ class ECS {
 	}
 
 	template <typename... Ts>
-	const std::vector<Entity> getEntitiesByComponents() const
+	std::vector<Entity> getEntitiesByComponents() const
 	{
 		return registry_.getEntitiesByComponents<Ts...>();
 	}
@@ -98,12 +98,16 @@ class ECS {
 		return registry_.getComponentsByType<T>();
 	}
 
-	size_t getComponentCount() const { return registry_.size(); }
+	template <typename... Ts>
+	size_t getComponentCount() const
+	{
+		return registry_.size<Ts...>();
+	}
 
-	template<typename... ComponentTypes>
+	template <typename... ComponentTypes>
 	void clear()
 	{
-		registry_.clear();
+		registry_.clear<ComponentTypes...>();
 		entities_.clear();
 
 		std::queue<Entity> empty;
@@ -112,6 +116,7 @@ class ECS {
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 			availableEntityIds_.push(entity);
 	}
+
   private:
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;

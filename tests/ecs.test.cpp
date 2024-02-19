@@ -130,28 +130,24 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ECS ecs;
 		Entity entity = ecs.addEntity();
 
-		REQUIRE(ecs.getComponentCount() == 0);
-
-		std::cout << "getComponentCount() is not implemented." << std::endl;
-		return;
+		REQUIRE(ecs.getComponentCount<TestComponent>() == 0);
 
 		ecs.addComponent<TestComponent>(entity, TestComponent());
-		REQUIRE(ecs.getComponentCount() == 1);
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 1);
 		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
-		REQUIRE(ecs.getComponentCount() == 2);
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 2);
 	}
 
 	SECTION("Clearing ECS")
 	{
 		ECS ecs;
-		// Setup initial state
 		auto entity = ecs.addEntity();
 		ecs.addComponent<TestComponent>(entity, TestComponent());
 		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
 
-		ecs.clear();
-		// Verify that ECS has reset its state
-		REQUIRE(ecs.getEntityCount() == 0); // Assuming you have a method to count active entities
+		ecs.clear<TestComponent, AnotherComponent>();
+		REQUIRE(ecs.getEntityCount() == 0);
 		REQUIRE(ecs.addEntity() == 0);      // Check if all entity IDs are available again
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
 	}
 }

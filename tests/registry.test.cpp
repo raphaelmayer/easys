@@ -237,17 +237,14 @@ TEST_CASE("Registry clear functionality", "[Registry]")
 
 	SECTION("Clearing specific component types from Registry")
 	{
-		registry.clear<Position, Velocity>();
-		// Verify that entities no longer have these components
-		REQUIRE_FALSE(registry.hasComponent<Position>(entity));
+		registry.clear<Velocity>();
+		REQUIRE(registry.hasComponent<Position>(entity));
 		REQUIRE_FALSE(registry.hasComponent<Velocity>(entity));
 	}
 
 	SECTION("Clearing all components from Registry")
 	{
-		registry.clear(); // If you have a method to clear all components regardless of type
-		// Assuming you have a way to check if an entity has any component
-		//REQUIRE_FALSE(registry.hasComponent<Position>(entity)); // Example check
-		// would be nice, but does not work, types need to be passed to our system currently.
+		registry.clear<Position, Velocity>(); 
+		REQUIRE_FALSE(registry.hasComponent<Position>(entity)); // Example check
 	}
 }
