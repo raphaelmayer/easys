@@ -103,14 +103,13 @@ class ECS {
 	void clear()
 	{
 		registry_.clear();
-		resetEntities();
+		clearEntities();
 	}
 
 	template <typename... Ts>
-	void clear()
+	void clearComponents()
 	{
 		registry_.clear<Ts...>();
-		resetEntities();
 	}
 
   private:
@@ -118,7 +117,7 @@ class ECS {
 	std::set<Entity> entities_;
 	Registry registry_;
 
-	void resetEntities()
+	void clearEntities()
 	{
 		entities_.clear();
 

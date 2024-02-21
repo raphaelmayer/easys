@@ -73,6 +73,9 @@ class SparseSet {
 		return values[sparse[key]];
 	}
 
+	const Value &operator[](const Key key) const { return values[sparse[key]]; }
+	Value &operator[](const Key key) { return values[sparse[key]]; }
+
 	// Remove a value associated with a key
 	void remove(const Key key)
 	{
@@ -119,7 +122,8 @@ class SparseSet {
 		return std::min({maxKeyVal, dense.max_size(), values.max_size()});
 	}
 
-	void clear() {
+	void clear()
+	{
 		sparse.clear();
 		dense.clear();
 		values.clear();
