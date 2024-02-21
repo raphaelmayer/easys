@@ -54,9 +54,6 @@ TEST_CASE("Registry Tests", "[Registry]")
 		registry.addComponent<AnotherComponent>(testEntity, comp2);
 		registry.removeComponents(testEntity);
 
-		std::cout << "removeComponents(Entity) is not implemented." << std::endl;
-		return;
-
 		REQUIRE_FALSE(registry.hasComponent<TestComponent>(testEntity));
 		REQUIRE_FALSE(registry.hasComponent<AnotherComponent>(testEntity));
 	}
@@ -70,7 +67,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 	{
 		Registry registry;
 
-		// REQUIRE(registry.size<COMPONENT_TYPES>() == 0);
+		REQUIRE(registry.size<COMPONENT_TYPES>() == 0);
 
 		Entity entity1 = 1, entity2 = 2, entity3 = 3;
 		TestComponent component1{10};
@@ -78,12 +75,15 @@ TEST_CASE("Registry Tests", "[Registry]")
 		registry.addComponent<TestComponent>(entity1, component1);
 		registry.addComponent<AnotherComponent>(entity2, component2);
 		REQUIRE(registry.size<COMPONENT_TYPES>() == 2);
+		REQUIRE(registry.size() == 2);
 
 		registry.addComponent<TestComponent>(entity2, component1);
 		REQUIRE(registry.size<COMPONENT_TYPES>() == 3);
+		REQUIRE(registry.size() == 3);
 
 		registry.addComponent<TestComponent>(entity3, component1);
 		REQUIRE(registry.size<COMPONENT_TYPES>() == 4);
+		REQUIRE(registry.size() == 4);
 	}
 
 	SECTION("Registry size method with single component type")
@@ -126,36 +126,6 @@ TEST_CASE("Registry Tests", "[Registry]")
 		REQUIRE(testComponents.size() == 2);
 		REQUIRE(testComponents[0] == entity1);
 		REQUIRE(testComponents[1] == entity2);
-	}
-
-	SECTION("Get All Components of ComponentType")
-	{
-		TestComponent comp1 = {10};
-		TestComponent comp2 = {20};
-		AnotherComponent comp3 = {30};
-		Entity entity1 = 1, entity2 = 2, entity3 = 3;
-
-		registry.addComponent<TestComponent>(entity1, comp1);
-		registry.addComponent<TestComponent>(entity2, comp2);
-		registry.addComponent<AnotherComponent>(entity3, comp3); // Different type, should not be included
-
-		auto &testComponents = registry.getComponentsByType<TestComponent>();
-
-		REQUIRE(testComponents.size() == 2);
-		bool foundComp1 = false, foundComp2 = false;
-		for (auto &comp : testComponents) {
-			if (comp.value == 10)
-				foundComp1 = true;
-			if (comp.value == 20)
-				foundComp2 = true;
-		}
-
-		REQUIRE(foundComp1);
-		REQUIRE(foundComp2);
-
-		// Verify that components of other types are not mistakenly included
-		auto &anotherComponents = registry.getComponentsByType<AnotherComponent>();
-		REQUIRE(anotherComponents.size() == 1);
 	}
 }
 
@@ -230,9 +200,7 @@ TEST_CASE("getEntitiesByComponents with no entities matching", "[Registry]")
 TEST_CASE("Registry clear functionality", "[Registry]")
 {
 	Registry registry;
-	// Setup initial state
 	Entity entity = 1;
-
 	registry.addComponent<Position>(entity, {1.0f, 2.0f});
 	registry.addComponent<Velocity>(entity, {0.5f, 0.5f});
 
@@ -243,9 +211,17 @@ TEST_CASE("Registry clear functionality", "[Registry]")
 		REQUIRE_FALSE(registry.hasComponent<Velocity>(entity));
 	}
 
-	SECTION("Clearing all components from Registry")
+	SECTION("Clearing multiple components from Registry")
 	{
 		registry.clear<Position, Velocity>();
-		REQUIRE_FALSE(registry.hasComponent<Position>(entity)); // Example check
+		REQUIRE_FALSE(registry.hasComponent<Position>(entity));
+		REQUIRE_FALSE(registry.hasComponent<Velocity>(entity));
+	}
+
+	SECTION("Clearing all components from Registry")
+	{
+		registry.clear();
+		REQUIRE_FALSE(registry.hasComponent<Position>(entity));
+		REQUIRE_FALSE(registry.hasComponent<Velocity>(entity));
 	}
 }
