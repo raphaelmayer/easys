@@ -81,27 +81,51 @@ class ECS {
 	}
 
 	template <typename T>
-	const std::vector<Entity> &getEntitiesByType() const
+	const std::vector<Entity> &getEntitiesByComponent() const
 	{
-		return registry_.getEntitiesByType<T>();
+		return registry_.getEntitiesByComponent<T>();
 	}
 
 	template <typename... Ts>
-	const std::vector<Entity> getEntitiesByTypes() const
+	std::vector<Entity> getEntitiesByComponents() const
 	{
-		return registry_.getEntitiesByTypes<Ts...>();
-	}
-
-	template <typename T>
-	std::vector<T> &getComponentsByType()
-	{
-		return registry_.getComponentsByType<T>();
+		return registry_.getEntitiesByComponents<Ts...>();
 	}
 
 	size_t getComponentCount() const { return registry_.size(); }
+
+	template <typename... Ts>
+	size_t getComponentCount() const
+	{
+		return registry_.size<Ts...>();
+	}
+
+	void clear()
+	{
+		registry_.clear();
+		resetEntities();
+	}
+
+	template <typename... Ts>
+	void clear()
+	{
+		registry_.clear<Ts...>();
+		resetEntities();
+	}
 
   private:
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;
 	Registry registry_;
+
+	void resetEntities()
+	{
+		entities_.clear();
+
+		std::queue<Entity> empty;
+		std::swap(availableEntityIds_, empty);
+
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+			availableEntityIds_.push(entity);
+	}
 };

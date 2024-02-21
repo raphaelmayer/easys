@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
-#include <easys.hpp>
+#include <easys/ecs.hpp>
+#include <easys/entity.hpp>
 #include <memory>
 
 TEST_CASE("ECS Tests", "[ECS]")
@@ -13,6 +14,8 @@ TEST_CASE("ECS Tests", "[ECS]")
 	};
 
 	ECS ecs;
+
+	// TODO: test constructors
 
 	SECTION("Add Entity")
 	{
@@ -28,13 +31,14 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE(ecs.getEntities().find(entity) == ecs.getEntities().end());
 	}
 
-	SECTION("Add and Check Component")
+	SECTION("Has Component")
 	{
 		Entity entity = ecs.addEntity();
 		TestComponent comp = {10};
 		ecs.addComponent<TestComponent>(entity, comp);
 
 		REQUIRE(ecs.hasComponent<TestComponent>(entity));
+		REQUIRE_FALSE(ecs.hasComponent<AnotherComponent>(entity));
 	}
 
 	SECTION("Get Component")
@@ -92,23 +96,25 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ecs.addComponent<TestComponent>(entity2, comp2);
 		ecs.addComponent<AnotherComponent>(entity2, comp3); // should not be included in results
 
-		auto testComponents = ecs.getEntitiesByType<TestComponent>();
+		auto testComponents = ecs.getEntitiesByComponent<TestComponent>();
 		REQUIRE(testComponents.size() == 2);
 	}
 
-	SECTION("Retrieve All Components of a Specific Type")
+	SECTION("Retrieve Entities by Multiple Component Types")
 	{
 		Entity entity1 = ecs.addEntity();
 		Entity entity2 = ecs.addEntity();
-		TestComponent comp1 = {100};
-		TestComponent comp2 = {200};
-		AnotherComponent comp3 = {5};
-		ecs.addComponent<TestComponent>(entity1, comp1);
-		ecs.addComponent<TestComponent>(entity2, comp2);
-		ecs.addComponent<AnotherComponent>(entity2, comp3); // should not be included in results
+		Entity entity3 = ecs.addEntity();
+		TestComponent comp1 = {60};
+		AnotherComponent comp2 = {10.0f};
+		ecs.addComponent<TestComponent>(entity1, comp1);    // TestComponent only
+		ecs.addComponent<AnotherComponent>(entity2, comp2); // AnotherComponent only
+		ecs.addComponent<TestComponent>(entity3, comp1);
+		ecs.addComponent<AnotherComponent>(entity3, comp2); // Both components
 
-		auto testComponents = ecs.getComponentsByType<TestComponent>();
-		REQUIRE(testComponents.size() == 2);
+		REQUIRE(ecs.getEntitiesByComponents<TestComponent, AnotherComponent>().size() == 1);
+		REQUIRE(ecs.getEntitiesByComponents<TestComponent>().size() == 2);
+		REQUIRE(ecs.getEntitiesByComponents<AnotherComponent>().size() == 2);
 	}
 
 	SECTION("getEntityCount returns correct number of entities", "[ECS]")
@@ -128,16 +134,51 @@ TEST_CASE("ECS Tests", "[ECS]")
 	SECTION("getComponentCount returns correct number of components", "[ECS]")
 	{
 		ECS ecs;
-		Entity entity = ecs.addEntity();
+		Entity entity1 = ecs.addEntity();
+		Entity entity2 = ecs.addEntity();
 
-		REQUIRE(ecs.getComponentCount() == 0);
+		REQUIRE(ecs.getComponentCount<TestComponent>() == 0);
 
-		std::cout << "getComponentCount() is not implemented." << std::endl;
-		return;
-
-		ecs.addComponent<TestComponent>(entity, TestComponent());
+		ecs.addComponent(entity1, TestComponent());
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 1);
 		REQUIRE(ecs.getComponentCount() == 1);
-		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
+
+		ecs.addComponent(entity1, AnotherComponent());
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 2);
 		REQUIRE(ecs.getComponentCount() == 2);
+
+		ecs.addComponent(entity2, TestComponent());
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 3);
+		REQUIRE(ecs.getComponentCount() == 3);
+
+		ecs.addComponent(entity2, AnotherComponent());
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 4);
+		REQUIRE(ecs.getComponentCount() == 4);
+	}
+
+	SECTION("Clearing ECS")
+	{
+		ECS ecs;
+		auto entity = ecs.addEntity();
+		ecs.addComponent<TestComponent>(entity, TestComponent());
+		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
+
+		ecs.clear<TestComponent, AnotherComponent>();
+		REQUIRE(ecs.getEntityCount() == 0);
+		REQUIRE(ecs.addEntity() == 0); // Check if all entity IDs are available again
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
+	}
+
+	SECTION("Clearing ECS")
+	{
+		ECS ecs;
+		auto entity = ecs.addEntity();
+		ecs.addComponent<TestComponent>(entity, TestComponent());
+		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
+
+		ecs.clear();
+		REQUIRE(ecs.getEntityCount() == 0);
+		REQUIRE(ecs.addEntity() == 0); // Check if all entity IDs are available again
+		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
 	}
 }

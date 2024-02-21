@@ -23,13 +23,8 @@ class KeyNotFoundException : public std::exception {
 template <typename T>
 concept UnsignedIntegral = std::is_integral_v<T> && std::is_unsigned_v<T>;
 
-struct SparseSetBase {
-	virtual ~SparseSetBase() = default;
-	virtual size_t size() const = 0;
-};
-
 template <UnsignedIntegral Key, typename Value>
-class SparseSet : public SparseSetBase {
+class SparseSet {
   private:
 	std::vector<Key> sparse;   // Large, indexed by keys
 	std::vector<Key> dense;    // Compact, stores keys
@@ -37,7 +32,7 @@ class SparseSet : public SparseSetBase {
 
   public:
 	// Ensure the sparse array can accommodate the given key
-	void accommodate(Key key)
+	void accommodate(const Key key)
 	{
 		if (key >= maxSize())
 			throw std::length_error("Key exceeds the maximum size limit.");
@@ -47,7 +42,7 @@ class SparseSet : public SparseSetBase {
 	}
 
 	// Associate a value with a key
-	void set(Key key, const Value &value)
+	void set(const Key key, const Value &value)
 	{
 		accommodate(key);
 
@@ -61,7 +56,7 @@ class SparseSet : public SparseSetBase {
 	}
 
 	// Retrieve a value by key
-	const Value &get(Key key) const
+	const Value &get(const Key key) const
 	{
 		if (!contains(key)) {
 			throw KeyNotFoundException(std::to_string(key));
@@ -70,7 +65,7 @@ class SparseSet : public SparseSetBase {
 	}
 
 	// Retrieve a value by key
-	Value &get(Key key)
+	Value &get(const Key key)
 	{
 		if (!contains(key)) {
 			throw KeyNotFoundException(std::to_string(key));
@@ -79,7 +74,7 @@ class SparseSet : public SparseSetBase {
 	}
 
 	// Remove a value associated with a key
-	void remove(Key key)
+	void remove(const Key key)
 	{
 		if (contains(key)) {
 			// Move the last value to the removed spot to keep dense packed
@@ -108,7 +103,7 @@ class SparseSet : public SparseSetBase {
 		}
 	}
 
-	bool contains(Key key) const { return key < sparse.size() && sparse[key] != std::numeric_limits<Key>::max(); }
+	bool contains(const Key key) const { return key < sparse.size() && sparse[key] != std::numeric_limits<Key>::max(); }
 
 	size_t size() const { return dense.size(); }
 
@@ -122,5 +117,11 @@ class SparseSet : public SparseSetBase {
 	{
 		constexpr size_t maxKeyVal = static_cast<size_t>(std::numeric_limits<Key>::max());
 		return std::min({maxKeyVal, dense.max_size(), values.max_size()});
+	}
+
+	void clear() {
+		sparse.clear();
+		dense.clear();
+		values.clear();
 	}
 };

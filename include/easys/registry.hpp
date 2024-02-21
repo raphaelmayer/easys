@@ -10,57 +10,60 @@
 
 class Registry {
   private:
-	std::unordered_map<std::type_index, std::any> componentSets;
+	std::unordered_map<std::type_index, SparseSet<Entity, std::any>> componentSets;
 
   public:
 	template <typename ComponentType>
-	void addComponent(Entity entity, ComponentType component)
+	void addComponent(const Entity entity, const ComponentType component)
 	{
-		auto [it, inserted] = componentSets.try_emplace(typeid(ComponentType), std::any());
+		auto [it, inserted] = componentSets.try_emplace(typeid(ComponentType));
 		if (inserted) {
-			it->second = std::make_any<SparseSet<Entity, ComponentType>>();
+			it->second = SparseSet<Entity, std::any>();
 		}
-		std::any_cast<SparseSet<Entity, ComponentType> &>(it->second).set(entity, component);
+		it->second.set(entity, std::any(component));
 	}
 
 	template <typename ComponentType>
-	void removeComponent(Entity entity)
+	void removeComponent(const Entity entity)
 	{
 		auto &componentSet = getComponentSet<ComponentType>();
 		componentSet.remove(entity);
 	}
 
-	void removeComponents(Entity entity)
+	void removeComponents(const Entity entity)
 	{
-		// TODO: does not work with current implementation
+		for (auto &[type, components] : componentSets) {
+			components.remove(entity);
+		}
 	}
 
 	template <typename ComponentType>
-	ComponentType &getComponent(Entity entity)
+	ComponentType &getComponent(const Entity entity)
 	{
 		auto &componentSet = getComponentSet<ComponentType>();
-		return componentSet.get(entity);
+		std::any &componentAny = componentSet.get(entity);
+		return *std::any_cast<ComponentType>(&componentAny);
 	}
 
 	template <typename ComponentType>
-	bool hasComponent(Entity entity) const
+	bool hasComponent(const Entity entity) const
 	{
 		try {
 			const auto &componentSet = getComponentSet<ComponentType>();
 			return componentSet.contains(entity);
-		} catch (const std::exception) {
+		} catch (const std::exception &) {
 			return false;
 		}
 	}
 
 	template <typename ComponentType>
-	const std::vector<Entity> &getEntitiesByType() const
+	const std::vector<Entity> &getEntitiesByComponent() const
 	{
 		return getComponentSet<ComponentType>().getKeys();
 	}
 
 	template <typename... ComponentTypes>
-	std::vector<Entity> getEntitiesByTypes() const
+	std::vector<Entity> getEntitiesByComponents() const
 	{
 		std::vector<Entity> entities;
 		bool isFirstComponentType = true;
@@ -75,7 +78,7 @@ class Registry {
 		// Iterate over each component type and intersect entities
 		forEachComponentType<ComponentTypes...>([this, &entities, &isFirstComponentType, &intersect](auto dummy) {
 			using T = decltype(dummy);
-			const auto &componentEntities = getEntitiesByType<T>();
+			const auto &componentEntities = getEntitiesByComponent<T>();
 			if (isFirstComponentType) {
 				entities = componentEntities;
 				isFirstComponentType = false;
@@ -87,10 +90,13 @@ class Registry {
 		return entities;
 	}
 
-	template <typename ComponentType>
-	std::vector<ComponentType> &getComponentsByType()
+	size_t size() const
 	{
-		return getComponentSet<ComponentType>().getValues();
+		size_t totalSize = 0;
+		for (auto &[type, components] : componentSets)
+			totalSize += components.size();
+
+		return totalSize;
 	}
 
 	template <typename... ComponentTypes>
@@ -100,7 +106,7 @@ class Registry {
 		forEachComponentType<ComponentTypes...>([this, &totalSize](auto dummy) {
 			using T = decltype(dummy);
 			try {
-				totalSize += getComponentSet<T>().size(); // Explicitly call the single-type version of `size`
+				totalSize += getComponentSet<T>().size();
 			} catch (std::out_of_range) {
 				// should this throw, if component types contains unknown component type?
 				// currently we just ignore it and sum all known component types
@@ -110,23 +116,40 @@ class Registry {
 		return totalSize;
 	}
 
+	void clear()
+	{
+		for (auto &[type, components] : componentSets)
+			components.clear();
+	}
+
+	template <typename... ComponentTypes>
+	void clear()
+	{
+		forEachComponentType<ComponentTypes...>([this](auto dummy) {
+			using T = decltype(dummy);
+			getComponentSet<T>().clear();
+		});
+	}
+
   private:
 	template <typename... ComponentTypes, typename Func>
 	void forEachComponentType(Func f) const
 	{
+		// static assert as a fallback
+		static_assert(sizeof...(ComponentTypes) > 0, "You must specify at least one component type.");
 		(f(ComponentTypes{}), ...);
 	}
 
+  private:
 	template <typename ComponentType>
-	SparseSet<Entity, ComponentType> &getComponentSet()
+	SparseSet<Entity, std::any> &getComponentSet()
 	{
-		// return std::any_cast<SparseSet<Entity, ComponentType>&>(componentSets[typeid(ComponentType)]);
-		return std::any_cast<SparseSet<Entity, ComponentType> &>(componentSets.at(typeid(ComponentType)));
+		return componentSets.at(typeid(ComponentType));
 	}
 
 	template <typename ComponentType>
-	const SparseSet<Entity, ComponentType> &getComponentSet() const
+	const SparseSet<Entity, std::any> &getComponentSet() const
 	{
-		return std::any_cast<const SparseSet<Entity, ComponentType> &>(componentSets.at(typeid(ComponentType)));
+		return componentSets.at(typeid(ComponentType));
 	}
 };

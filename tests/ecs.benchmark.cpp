@@ -2,7 +2,8 @@
 
 #include <catch2/catch.hpp>
 #include <chrono>
-#include <easys.hpp>
+#include <easys/ecs.hpp>
+#include <easys/entity.hpp>
 
 #define NUM_ENT MAX_ENTITIES // number of entities
 #define NUM_COM 1            // number of components per entity
