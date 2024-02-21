@@ -4,5 +4,14 @@
 
 // stdint.h needs to be included for uint32_t for Ubuntu, otherwise fails the build.
 
-using Entity = uint32_t;           // does not have to be this size/type
-const Entity MAX_ENTITIES = 10000; // this value can be changed aswell
+// Provide configurations options to to the user (?)
+#ifndef ENTITY_TYPE
+#define ENTITY_TYPE uint32_t
+#endif
+
+#ifndef ENTITY_LIMIT
+#define ENTITY_LIMIT 10000
+#endif
+
+using Entity = ENTITY_TYPE;
+const Entity MAX_ENTITIES = ENTITY_LIMIT;

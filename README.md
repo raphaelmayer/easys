@@ -48,7 +48,37 @@ int main()
 }
 ```
 
-Please check out the examples in the ```/examples``` directory for more examples on how to use this library.
+Check out the ```/examples``` directory for more examples on how to use this library.
+
+## Configuration Options
+
+Easys provides a couple of configuration options to tailor the ECS for your use case:
+
+- **```ENTITY_TYPE```:** Defines the data type of the entity identifier. Users can customize this type to any unsigned integer type for entities. By default, it is set to ```uint32_t```. 
+
+- **```ENTITY_LIMIT```:** Specifies the maximum number of entities that can be created. This limit is set to ```10000``` by default. 
+
+### Usage Instructions
+
+To customize the ECS, define the corresponding macros before including this configuration file in your project. This can be done either directly in the source code or through compiler flags.
+
+#### Customizing in Source Code
+
+Before including this configuration file, define the macros as shown below:
+
+```
+#define ENTITY_TYPE uint64_t // Example: Change to 64-bit unsigned integer
+#define ENTITY_LIMIT 50000   // Example: Increase entity limit
+#include "EntityConfig.h"    // Path to this configuration file
+```
+
+#### Customizing with Compiler Flags
+
+Alternatively, you can use compiler flags to define these macros, avoiding modifications to the source code:
+
+```g++ -DENTITY_TYPE=uint64_t -DENTITY_LIMIT=50000 -o my_application my_application.cpp```
+
+Replace g++ with the appropriate compiler command for your development environment if different.
 
 ## EasyS Integration Guide
 
