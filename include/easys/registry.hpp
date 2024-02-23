@@ -101,7 +101,6 @@ class Registry {
 		size_t totalSize = 0;
 		for (auto &[type, componentSet] : componentSets)
 			totalSize += componentSet.size();
-
 		return totalSize;
 	}
 
@@ -114,7 +113,6 @@ class Registry {
 			if (hasComponentType<T>()) // we ignore unknown component types. should we throw an exception?
 				totalSize += getComponentSet<T>().size();
 		});
-
 		return totalSize;
 	}
 
