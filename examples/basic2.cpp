@@ -2,6 +2,10 @@
 #include <easys/entity.hpp>
 #include <iostream>
 
+// This extended example demonstrates creating multiple entities with various components,
+// accessing these components, and utilizing advanced querying capabilities to manage
+// entities within the ECS framework.
+
 // Define component structures
 struct Position {
 	float x, y;
@@ -17,12 +21,11 @@ int main()
 
 	// Creating multiple entities and adding components
 	Entity firstEntity = ecs.addEntity();
+	Entity secondEntity = ecs.addEntity();
 	ecs.addComponent(firstEntity, Position{10.0f, 20.0f});
 	ecs.addComponent(firstEntity, Velocity{1.0f, 1.0f});
-
-	Entity secondEntity = ecs.addEntity();
 	ecs.addComponent(secondEntity, Position{30.0f, 40.0f});
-	// This entity does not have a Velocity component
+	// secondEntity does not have a Velocity component
 
 	// Querying components from entities
 	Position &firstPos = ecs.getComponent<Position>(firstEntity);
@@ -30,8 +33,21 @@ int main()
 	std::cout << "First Entity Position: " << firstPos.x << ", " << firstPos.y << std::endl;
 	std::cout << "First Entity Velocity: " << firstVel.dx << ", " << firstVel.dy << std::endl;
 
-	// Handling entities with multiple different components
-	// Example: Querying entities that have both Position and Velocity components
+	// Querying all entities
+	for (auto entity : ecs.getEntities()) {
+		if (ecs.hasComponent<Position>(entity)) {
+			Position &pos = ecs.getComponent<Position>(entity);
+			std::cout << "Entity " << entity << " Position: " << pos.x << ", " << pos.y << std::endl;
+		}
+	}
+
+	// Querying entities that have a single component
+	for (auto entity : ecs.getEntitiesByComponent<Position>()) {
+		Position &pos = ecs.getComponent<Position>(entity);
+		std::cout << "Entity " << entity << " Position: " << pos.x << ", " << pos.y << std::endl;
+	}
+
+	// Querying entities that have multiple components
 	for (auto entity : ecs.getEntitiesByComponents<Position, Velocity>()) {
 		Position &pos = ecs.getComponent<Position>(entity);
 		Velocity &vel = ecs.getComponent<Velocity>(entity);
@@ -39,16 +55,12 @@ int main()
 		          << vel.dy << std::endl;
 	}
 
-	// Example: Attempting to access a component not present on an entity
+	// Attempting to access a component not present on an entity
 	try {
 		Velocity &secondVel = ecs.getComponent<Velocity>(secondEntity); // This will throw an exception
-	} catch (const std::exception &e) {
+	} catch (const KeyNotFoundException) {
 		std::cout << "Second Entity does not have a Velocity component." << std::endl;
 	}
-
-	// This extended example demonstrates creating multiple entities with various components,
-	// accessing these components, and utilizing advanced querying capabilities to manage
-	// entities within the ECS framework provided by EasyS.
 
 	return 0;
 }

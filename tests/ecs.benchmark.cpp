@@ -1,5 +1,7 @@
 #define CATCH_CONFIG_RUNNER
 
+#define EASYS_ENTITY_LIMIT 100000
+
 #include <catch2/catch.hpp>
 #include <chrono>
 #include <easys/ecs.hpp>
@@ -307,12 +309,10 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			void update(ECS &ecs, double deltaTime) override
 			{
 				for (const Entity &entity : ecs.getEntities()) {
-					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity)) {
-						auto &position = ecs.getComponent<Position>(entity);
-						auto &rigidBody = ecs.getComponent<RigidBody>(entity);
-						position.x += rigidBody.vx * deltaTime;
-						position.y += rigidBody.vy * deltaTime;
-					}
+					auto &position = ecs.getComponent<Position>(entity);
+					auto &rigidBody = ecs.getComponent<RigidBody>(entity);
+					position.x += rigidBody.vx * deltaTime;
+					position.y += rigidBody.vy * deltaTime;
 				}
 			}
 		};
@@ -321,11 +321,9 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			void update(ECS &ecs, double deltaTime) override
 			{
 				for (const Entity &entity : ecs.getEntities()) {
-					if (ecs.hasComponent<Data>(entity)) {
-						auto &data = ecs.getComponent<Data>(entity);
-						// Update data with arbitrary logic
-						data.data = "new data";
-					}
+					auto &data = ecs.getComponent<Data>(entity);
+					// Update data with arbitrary logic
+					data.data = "new data";
 				}
 			}
 		};
@@ -334,14 +332,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			void update(ECS &ecs, double deltaTime) override
 			{
 				for (const Entity &entity : ecs.getEntities()) {
-					if (ecs.hasComponent<Data>(entity)) {
-						auto &pos = ecs.getComponent<Position>(entity);
-						auto &vel = ecs.getComponent<RigidBody>(entity);
-						auto &data = ecs.getComponent<Data>(entity);
-						pos = {0, 0};
-						vel = {1, 1};
-						data.data = "data";
-					}
+					auto &pos = ecs.getComponent<Position>(entity);
+					auto &vel = ecs.getComponent<RigidBody>(entity);
+					auto &data = ecs.getComponent<Data>(entity);
+					pos = {0, 0};
+					vel = {1, 1};
+					data.data = "data";
 				}
 			}
 		};
@@ -350,13 +346,11 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			void update(ECS &ecs, double deltaTime) override
 			{
 				for (const Entity &entity : ecs.getEntities()) {
-					if (ecs.hasComponent<Health>(entity)) {
-						auto &health = ecs.getComponent<Health>(entity);
-						if (health.health > health.maxHealth)
-							health.health = health.maxHealth;
-						if (health.health < health.maxHealth)
-							health.health = 0;
-					}
+					auto &health = ecs.getComponent<Health>(entity);
+					if (health.health > health.maxHealth)
+						health.health = health.maxHealth;
+					if (health.health < health.maxHealth)
+						health.health = 0;
 				}
 			}
 		};
@@ -365,11 +359,9 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			void update(ECS &ecs, double deltaTime) override
 			{
 				for (const Entity &entity : ecs.getEntities()) {
-					if (ecs.hasComponent<Health>(entity) && ecs.hasComponent<Damage>(entity)) {
-						auto &health = ecs.getComponent<Health>(entity);
-						auto &damage = ecs.getComponent<Damage>(entity);
-						health.health -= damage.damage; // Simplified damage logic
-					}
+					auto &health = ecs.getComponent<Health>(entity);
+					auto &damage = ecs.getComponent<Damage>(entity);
+					health.health -= damage.damage; // Simplified damage logic
 				}
 			}
 		};

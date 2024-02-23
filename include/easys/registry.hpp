@@ -8,6 +8,16 @@
 #include <unordered_map>
 #include <vector>
 
+class ComponentTypeNotFoundException : public std::exception {
+  public:
+	ComponentTypeNotFoundException(const std::string &key) : msg_("ComponentTypeNotFoundException: " + key + " not found") {}
+
+	const char *what() const noexcept override { return msg_.c_str(); }
+
+  private:
+	std::string msg_;
+};
+
 class Registry {
   private:
 	std::unordered_map<std::type_index, SparseSet<Entity, std::any>> componentSets;
@@ -32,28 +42,24 @@ class Registry {
 
 	void removeComponents(const Entity entity)
 	{
-		for (auto &[type, components] : componentSets) {
-			components.remove(entity);
-		}
+		for (auto &[type, componentSet] : componentSets)
+			componentSet.remove(entity);
 	}
 
 	template <typename ComponentType>
 	ComponentType &getComponent(const Entity entity)
 	{
 		auto &componentSet = getComponentSet<ComponentType>();
-		std::any &componentAny = componentSet.get(entity);
-		return *std::any_cast<ComponentType>(&componentAny);
+		return *std::any_cast<ComponentType>(&componentSet.get(entity));
+		// could be optimized by omitting any checks and accessing elements directly, i.e
+		// return *std::any_cast<ComponentType>(&componentSet[entity]);
 	}
 
 	template <typename ComponentType>
 	bool hasComponent(const Entity entity) const
 	{
-		try {
-			const auto &componentSet = getComponentSet<ComponentType>();
-			return componentSet.contains(entity);
-		} catch (const std::exception &) {
-			return false;
-		}
+		const auto it = componentSets.find(typeid(ComponentType));
+		return it != componentSets.end() && it->second.contains(entity);
 	}
 
 	template <typename ComponentType>
@@ -93,9 +99,8 @@ class Registry {
 	size_t size() const
 	{
 		size_t totalSize = 0;
-		for (auto &[type, components] : componentSets)
-			totalSize += components.size();
-
+		for (auto &[type, componentSet] : componentSets)
+			totalSize += componentSet.size();
 		return totalSize;
 	}
 
@@ -105,29 +110,21 @@ class Registry {
 		size_t totalSize = 0;
 		forEachComponentType<ComponentTypes...>([this, &totalSize](auto dummy) {
 			using T = decltype(dummy);
-			try {
+			if (hasComponentType<T>()) // we ignore unknown component types. should we throw an exception?
 				totalSize += getComponentSet<T>().size();
-			} catch (std::out_of_range) {
-				// should this throw, if component types contains unknown component type?
-				// currently we just ignore it and sum all known component types
-			}
 		});
-
 		return totalSize;
 	}
 
-	void clear()
-	{
-		for (auto &[type, components] : componentSets)
-			components.clear();
-	}
+	void clear() { componentSets.clear(); }
 
 	template <typename... ComponentTypes>
 	void clear()
 	{
 		forEachComponentType<ComponentTypes...>([this](auto dummy) {
 			using T = decltype(dummy);
-			getComponentSet<T>().clear();
+			if (hasComponentType<T>()) // we ignore unknown component types. should we throw an exception?
+				componentSets.erase(typeid(T));
 		});
 	}
 
@@ -144,12 +141,27 @@ class Registry {
 	template <typename ComponentType>
 	SparseSet<Entity, std::any> &getComponentSet()
 	{
-		return componentSets.at(typeid(ComponentType));
+		// could be optimized by omitting any checks and accessing elements directly, i.e componentSets[typeid(ComponentType)]
+		auto it = componentSets.find(typeid(ComponentType));
+		if (it == componentSets.end())
+			throw ComponentTypeNotFoundException(typeid(ComponentType).name());
+		return it->second;
 	}
 
 	template <typename ComponentType>
 	const SparseSet<Entity, std::any> &getComponentSet() const
 	{
-		return componentSets.at(typeid(ComponentType));
+		// could be optimized by omitting any checks and accessing elements directly
+		auto it = componentSets.find(typeid(ComponentType));
+		if (it == componentSets.end())
+			throw ComponentTypeNotFoundException(typeid(ComponentType).name());
+		return it->second;
+	}
+
+	// Check if a ComponentType has been initialized
+	template <typename ComponentType>
+	bool hasComponentType() const
+	{
+		return componentSets.find(typeid(ComponentType)) != componentSets.end();
 	}
 };

@@ -163,9 +163,8 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ecs.addComponent<TestComponent>(entity, TestComponent());
 		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
 
-		ecs.clear<TestComponent, AnotherComponent>();
-		REQUIRE(ecs.getEntityCount() == 0);
-		REQUIRE(ecs.addEntity() == 0); // Check if all entity IDs are available again
+		ecs.clearComponents<TestComponent, AnotherComponent>();
+		REQUIRE(ecs.getEntityCount() == 1);
 		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
 	}
 

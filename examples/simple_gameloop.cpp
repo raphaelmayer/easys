@@ -16,14 +16,12 @@ struct Velocity {
 struct System {
 	void update(ECS &ecs)
 	{
-		for (Entity e : ecs.getEntities()) {
-			if (ecs.hasComponent<Position>(e) && ecs.hasComponent<Velocity>(e)) {
-				Position &pos = ecs.getComponent<Position>(e);
-				const Velocity &vel = ecs.getComponent<Velocity>(e);
+		for (Entity e : ecs.getEntitiesByComponents<Position, Velocity>()) {
+			Position &pos = ecs.getComponent<Position>(e);
+			const Velocity &vel = ecs.getComponent<Velocity>(e);
 
-				pos.x += vel.vx;
-				pos.y += vel.vy;
-			}
+			pos.x += vel.vx;
+			pos.y += vel.vy;
 		}
 	}
 };
