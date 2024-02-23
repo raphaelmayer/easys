@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_RUNNER
 
-#define ENTITY_LIMIT 100000
+#define EASYS_ENTITY_LIMIT 100000
 
 #include <catch2/catch.hpp>
 #include <chrono>
