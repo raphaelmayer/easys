@@ -58,7 +58,7 @@ int main()
 	// Attempting to access a component not present on an entity
 	try {
 		Velocity &secondVel = ecs.getComponent<Velocity>(secondEntity); // This will throw an exception
-	} catch (const std::exception &e) {
+	} catch (const KeyNotFoundException) {
 		std::cout << "Second Entity does not have a Velocity component." << std::endl;
 	}
 
