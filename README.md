@@ -109,13 +109,13 @@ Replace `path/to/easys` with the actual path to EasyS within your project, and `
 CMake's FetchContent module allows you to dynamically download and include libraries directly in your build process. To integrate EasyS using FetchContent:
 
 ```cmake
-include(FetchContent)
 FetchContent_Declare(
-  easys
-  GIT_REPOSITORY https://github.com/raphaelmayer/easys.git
-  GIT_TAG master # or any version tag you prefer
+    EASYS
+    GIT_REPOSITORY  https://github.com/raphaelmayer/easys
+    GIT_TAG         master # or any version you prefer
+    GIT_PROGRESS    TRUE
 )
-FetchContent_MakeAvailable(easys)
+FetchContent_MakeAvailable(EASYS)
 target_link_libraries(your_target_name PRIVATE easys)
 ```
 
