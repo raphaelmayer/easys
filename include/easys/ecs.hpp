@@ -75,6 +75,12 @@ class ECS {
 	}
 
 	template <typename T>
+	const T &getComponent(const Entity e) const
+	{
+		return registry_.getComponent<T>(e);
+	}
+
+	template <typename T>
 	bool hasComponent(const Entity e) const
 	{
 		return registry_.hasComponent<T>(e);

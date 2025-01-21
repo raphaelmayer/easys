@@ -63,6 +63,15 @@ class Registry {
 	}
 
 	template <typename ComponentType>
+	const ComponentType &getComponent(const Entity entity) const
+	{
+		const auto &componentSet = getComponentSet<ComponentType>();
+		return *std::any_cast<ComponentType>(&componentSet.get(entity));
+		// could be optimized by omitting any checks and accessing elements directly, i.e
+		// return *std::any_cast<ComponentType>(&componentSet[entity]);
+	}
+
+	template <typename ComponentType>
 	bool hasComponent(const Entity entity) const
 	{
 		return getComponentSet<ComponentType>().contains(entity);
