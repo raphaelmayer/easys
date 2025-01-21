@@ -106,10 +106,7 @@ class ECS {
 		clearEntities();
 	}
 
-	void clearComponents()
-	{
-		registry_.clear();
-	}
+	void clearComponents() { registry_.clear(); }
 
 	template <typename... Ts>
 	void clearComponents()
