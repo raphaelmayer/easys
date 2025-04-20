@@ -99,7 +99,11 @@ class Registry {
 		// Iterate over each component type and intersect entities
 		forEachComponentType<ComponentTypes...>([this, &entities, &isFirstComponentType, &intersect](auto dummy) {
 			using T = decltype(dummy);
-			const auto &componentEntities = getEntitiesByComponent<T>();
+			// We sort here. This is not optimal. We probably want to lazily sort based on a flag 
+			// (refer to github issue #7):
+			auto componentEntities = getEntitiesByComponent<T>();
+			std::sort(componentEntities.begin(), componentEntities.end());
+			// Temporary fix end
 			if (isFirstComponentType) {
 				entities = componentEntities;
 				isFirstComponentType = false;
