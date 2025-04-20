@@ -8,6 +8,8 @@
 #include <queue>
 #include <set>
 
+namespace Easys {
+
 class ECS {
   public:
 	ECS()
@@ -136,3 +138,5 @@ class ECS {
 			availableEntityIds_.push(entity);
 	}
 };
+
+} // namespace Easys

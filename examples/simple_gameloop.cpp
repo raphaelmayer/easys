@@ -12,6 +12,8 @@ struct Velocity {
 	Velocity(float vx = 0.0f, float vy = 0.0f) : vx(vx), vy(vy) {}
 };
 
+using namespace Easys;
+
 // Example system which updates the player position based on the player velocity.
 struct System {
 	void update(ECS &ecs)

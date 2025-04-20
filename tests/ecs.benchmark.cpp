@@ -10,6 +10,8 @@
 #define NUM_ENT MAX_ENTITIES // number of entities
 #define NUM_COM 1            // number of components per entity
 
+using namespace Easys;
+
 struct System {
 	virtual void update(ECS &ecs, double deltaTime) = 0;
 };

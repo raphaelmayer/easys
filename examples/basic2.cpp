@@ -17,6 +17,8 @@ struct Velocity {
 
 int main()
 {
+	using namespace Easys;
+
 	ECS ecs;
 
 	// Creating multiple entities and adding components

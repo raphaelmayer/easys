@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include <vector>
 
+namespace Easys {
+
 // This exception is currently unused, as an unknown component type will implicitly create a componentSet<ComponentType>
 // when encountered for the first time. Maybe not the best solution? On the other hand usually you don't randomly query
 // random types from the ECS, so it should be fine.	Better than throwing an exception, especially since the previous
@@ -99,7 +101,7 @@ class Registry {
 		// Iterate over each component type and intersect entities
 		forEachComponentType<ComponentTypes...>([this, &entities, &isFirstComponentType, &intersect](auto dummy) {
 			using T = decltype(dummy);
-			// We sort here. This is not optimal. We probably want to lazily sort based on a flag 
+			// We sort here. This is not optimal. We probably want to lazily sort based on a flag
 			// (refer to github issue #7):
 			auto componentEntities = getEntitiesByComponent<T>();
 			std::sort(componentEntities.begin(), componentEntities.end());
@@ -176,3 +178,5 @@ class Registry {
 		return componentSets.find(typeid(ComponentType)) != componentSets.end();
 	}
 };
+
+} // namespace Easys

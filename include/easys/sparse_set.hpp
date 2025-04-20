@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+namespace Easys {
+
 class KeyNotFoundException : public std::exception {
   public:
 	KeyNotFoundException(const std::string &key) : msg_("KeyNotFoundException: " + key + " not found") {}
@@ -129,3 +131,5 @@ class SparseSet {
 		values.clear();
 	}
 };
+
+} // namespace Easys

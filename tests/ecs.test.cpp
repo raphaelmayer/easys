@@ -3,6 +3,8 @@
 #include <easys/entity.hpp>
 #include <memory>
 
+using namespace Easys;
+
 TEST_CASE("ECS Tests", "[ECS]")
 {
 	struct TestComponent {
