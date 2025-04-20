@@ -8,9 +8,18 @@
 #include <unordered_map>
 #include <vector>
 
+namespace Easys {
+
+// This exception is currently unused, as an unknown component type will implicitly create a componentSet<ComponentType>
+// when encountered for the first time. Maybe not the best solution? On the other hand usually you don't randomly query
+// random types from the ECS, so it should be fine.	Better than throwing an exception, especially since the previous
+// implementation resulted in ~5x worse performance across the board.
 class ComponentTypeNotFoundException : public std::exception {
   public:
-	ComponentTypeNotFoundException(const std::string &key) : msg_("ComponentTypeNotFoundException: " + key + " not found") {}
+	ComponentTypeNotFoundException(const std::string &key)
+	    : msg_("ComponentTypeNotFoundException: " + key + " not found")
+	{
+	}
 
 	const char *what() const noexcept override { return msg_.c_str(); }
 
@@ -20,7 +29,7 @@ class ComponentTypeNotFoundException : public std::exception {
 
 class Registry {
   private:
-	std::unordered_map<std::type_index, SparseSet<Entity, std::any>> componentSets;
+	mutable std::unordered_map<std::type_index, SparseSet<Entity, std::any>> componentSets;
 
   public:
 	template <typename ComponentType>
@@ -56,10 +65,18 @@ class Registry {
 	}
 
 	template <typename ComponentType>
+	const ComponentType &getComponent(const Entity entity) const
+	{
+		const auto &componentSet = getComponentSet<ComponentType>();
+		return *std::any_cast<ComponentType>(&componentSet.get(entity));
+		// could be optimized by omitting any checks and accessing elements directly, i.e
+		// return *std::any_cast<ComponentType>(&componentSet[entity]);
+	}
+
+	template <typename ComponentType>
 	bool hasComponent(const Entity entity) const
 	{
-		const auto it = componentSets.find(typeid(ComponentType));
-		return it != componentSets.end() && it->second.contains(entity);
+		return getComponentSet<ComponentType>().contains(entity);
 	}
 
 	template <typename ComponentType>
@@ -84,7 +101,11 @@ class Registry {
 		// Iterate over each component type and intersect entities
 		forEachComponentType<ComponentTypes...>([this, &entities, &isFirstComponentType, &intersect](auto dummy) {
 			using T = decltype(dummy);
-			const auto &componentEntities = getEntitiesByComponent<T>();
+			// We sort here. This is not optimal. We probably want to lazily sort based on a flag
+			// (refer to github issue #7):
+			auto componentEntities = getEntitiesByComponent<T>();
+			std::sort(componentEntities.begin(), componentEntities.end());
+			// Temporary fix end
 			if (isFirstComponentType) {
 				entities = componentEntities;
 				isFirstComponentType = false;
@@ -141,21 +162,13 @@ class Registry {
 	template <typename ComponentType>
 	SparseSet<Entity, std::any> &getComponentSet()
 	{
-		// could be optimized by omitting any checks and accessing elements directly, i.e componentSets[typeid(ComponentType)]
-		auto it = componentSets.find(typeid(ComponentType));
-		if (it == componentSets.end())
-			throw ComponentTypeNotFoundException(typeid(ComponentType).name());
-		return it->second;
+		return componentSets[typeid(ComponentType)];
 	}
 
 	template <typename ComponentType>
 	const SparseSet<Entity, std::any> &getComponentSet() const
 	{
-		// could be optimized by omitting any checks and accessing elements directly
-		auto it = componentSets.find(typeid(ComponentType));
-		if (it == componentSets.end())
-			throw ComponentTypeNotFoundException(typeid(ComponentType).name());
-		return it->second;
+		return componentSets[typeid(ComponentType)];
 	}
 
 	// Check if a ComponentType has been initialized
@@ -165,3 +178,5 @@ class Registry {
 		return componentSets.find(typeid(ComponentType)) != componentSets.end();
 	}
 };
+
+} // namespace Easys

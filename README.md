@@ -4,6 +4,8 @@
 
 EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.
 
+This library embraces a dynamic design philosophy, allowing new component types to be introduced at runtime without requiring prior (compile-time) registration. This flexibility sets it apart, making it well-suited for scenarios where extensibility and runtime adaptability are essential.
+
 **TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.
 
 
@@ -175,7 +177,8 @@ This documentation section provides a comprehensive overview of the user-facing 
 
 Users are expected to:
 
-- **Ensure Component Types Exist:** Before interacting with components, verify that the component types are defined and added to the ECS. This means that you have to add the component type to at least one entity for it to exist in the ECS. Interacting with unknown types will result in an exception.
+- **Automatic Creation of Component Types:** When you first interact with a new component type (for example, by adding it to an entity or retrieving its component set), the ECS automatically creates the necessary storage for that type. There is no need to explicitly register or define component types beforehand.
+  *This dynamic design allows new component types to be introduced at runtime without requiring compile-time registration.*
 - **Verify Entity Component Composition:** Before retrieving or modifying a component, ensure the entity possesses the component. Attempting to access a component not associated with an entity will result in an exception.
 
 ## Configuration Options

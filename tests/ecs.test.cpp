@@ -3,6 +3,8 @@
 #include <easys/entity.hpp>
 #include <memory>
 
+using namespace Easys;
+
 TEST_CASE("ECS Tests", "[ECS]")
 {
 	struct TestComponent {
@@ -112,9 +114,12 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ecs.addComponent<TestComponent>(entity3, comp1);
 		ecs.addComponent<AnotherComponent>(entity3, comp2); // Both components
 
+		struct ForeignComponent {}; // A (for the ECS) foreign component should not cause throw.
+
 		REQUIRE(ecs.getEntitiesByComponents<TestComponent, AnotherComponent>().size() == 1);
 		REQUIRE(ecs.getEntitiesByComponents<TestComponent>().size() == 2);
 		REQUIRE(ecs.getEntitiesByComponents<AnotherComponent>().size() == 2);
+		REQUIRE(ecs.getEntitiesByComponents<AnotherComponent, ForeignComponent>().size() == 0);
 	}
 
 	SECTION("getEntityCount returns correct number of entities", "[ECS]")

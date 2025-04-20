@@ -8,6 +8,8 @@
 #include <queue>
 #include <set>
 
+namespace Easys {
+
 class ECS {
   public:
 	ECS()
@@ -75,6 +77,12 @@ class ECS {
 	}
 
 	template <typename T>
+	const T &getComponent(const Entity e) const
+	{
+		return registry_.getComponent<T>(e);
+	}
+
+	template <typename T>
 	bool hasComponent(const Entity e) const
 	{
 		return registry_.hasComponent<T>(e);
@@ -106,10 +114,7 @@ class ECS {
 		clearEntities();
 	}
 
-	void clearComponents()
-	{
-		registry_.clear();
-	}
+	void clearComponents() { registry_.clear(); }
 
 	template <typename... Ts>
 	void clearComponents()
@@ -133,3 +138,5 @@ class ECS {
 			availableEntityIds_.push(entity);
 	}
 };
+
+} // namespace Easys

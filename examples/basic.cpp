@@ -13,6 +13,8 @@ struct Position {
 
 int main()
 {
+	using namespace Easys;
+
 	// Create an instance of the ECS class to manage our entities and components.
 	ECS ecs;
 
