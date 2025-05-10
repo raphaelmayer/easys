@@ -74,37 +74,37 @@ class ECS {
 	template <typename T>
 	void removeComponent(const Entity e)
 	{
-		registry_.removeComponent<T>(e);
+		registry_.template removeComponent<T>(e);
 	}
 
 	template <typename T>
 	T &getComponent(const Entity e)
 	{
-		return registry_.getComponent<T>(e);
+		return registry_.template getComponent<T>(e);
 	}
 
 	template <typename T>
 	const T &getComponent(const Entity e) const
 	{
-		return registry_.getComponent<T>(e);
+		return registry_.template  getComponent<T>(e);
 	}
 
 	template <typename T>
 	bool hasComponent(const Entity e) const
 	{
-		return registry_.hasComponent<T>(e);
+		return registry_.template  hasComponent<T>(e);
 	}
 
 	template <typename T>
 	const std::vector<Entity> &getEntitiesByComponent() const
 	{
-		return registry_.getEntitiesByComponent<T>();
+		return registry_.template  getEntitiesByComponent<T>();
 	}
 
 	template <typename... Ts>
 	std::vector<Entity> getEntitiesByComponents() const
 	{
-		return registry_.getEntitiesByComponents<Ts...>();
+		return registry_.template  getEntitiesByComponents<Ts...>();
 	}
 
 	size_t getComponentCount() const { return registry_.size(); }
@@ -112,7 +112,7 @@ class ECS {
 	template <typename... Ts>
 	size_t getComponentCount() const
 	{
-		return registry_.size<Ts...>();
+		return registry_.template  size<Ts...>();
 	}
 
 	void clear()
@@ -126,7 +126,7 @@ class ECS {
 	template <typename... Ts>
 	void clearComponents()
 	{
-		registry_.clear<Ts...>();
+		registry_.template  clear<Ts...>();
 	}
 
    private:
