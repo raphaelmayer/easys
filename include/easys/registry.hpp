@@ -11,25 +11,6 @@
 
 namespace Easys {
 
-// This exception is currently unused, as an unknown component type will
-// implicitly create a componentSet<ComponentType> when encountered for the
-// first time. Maybe not the best solution? On the other hand usually you don't
-// randomly query random types from the ECS, so it should be fine.	Better
-// than throwing an exception, especially since the previous implementation
-// resulted in ~5x worse performance across the board.
-class ComponentTypeNotFoundException : public std::exception {
-   public:
-	ComponentTypeNotFoundException(const std::string& key)
-	    : msg_("ComponentTypeNotFoundException: " + key + " not found")
-	{
-	}
-
-	const char* what() const noexcept override { return msg_.c_str(); }
-
-   private:
-	std::string msg_;
-};
-
 template <typename... AllComponentTypes>
 class Registry {
    private:
@@ -73,6 +54,7 @@ class Registry {
 	ComponentType& getComponent(const Entity entity)
 	{
 		auto& componentSet = getComponentSet<ComponentType>();
+		// could be optimized with direct access. get() calls contains() internally
 		return componentSet.get(entity);
 	}
 
@@ -80,6 +62,7 @@ class Registry {
 	const ComponentType& getComponent(const Entity entity) const
 	{
 		const auto& componentSet = getComponentSet<ComponentType>();
+		// could be optimized with direct access. get() calls contains() internally
 		return componentSet.get(entity);
 	}
 
