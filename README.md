@@ -173,7 +173,7 @@ All types and functions are defined within the `Easys` namespace. This section d
  
 #### Clearing Methods
 
-- **`void clearComponents()`**
+- **`void clearComponents<Ts...>()`**
   - Removes components of types `Ts...` from all entities within the ECS. If template parameters are omitted only all types of components are cleared.
 - **`void clear()`**
   - Clears all entities and components from the ECS, resetting it to its initial state.
@@ -182,9 +182,8 @@ All types and functions are defined within the `Easys` namespace. This section d
 
 Users are expected to:
 
-- **Automatic Creation of Component Types:** When you first interact with a new component type (for example, by adding it to an entity or retrieving its component set), the ECS automatically creates the necessary storage for that type. There is no need to explicitly register or define component types beforehand.
-  *This dynamic design allows new component types to be introduced at runtime without requiring compile-time registration.*
-- **Verify Entity Component Composition:** Before retrieving or modifying a component, ensure the entity possesses the component. Attempting to access a component not associated with an entity will result in an exception.
+- **Register all Components at Compile-Time:** All component types must be specified as template parameters when instantiating the ECS. Accessing a foreign component will result in a compiler error.
+- **Check Component Presence Before Access:** Always verify that an entity has a given component before accessing it. Calling `getComponent<T>(entity)` on an entity that lacks `T` will throw a `Easys::KeyNotFoundException`.
 
 ## Configuration Options
 
