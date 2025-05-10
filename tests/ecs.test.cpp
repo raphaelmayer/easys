@@ -5,6 +5,8 @@
 
 using namespace Easys;
 
+#define ECS_TEST_COMPTYPES TestComponent, AnotherComponent
+
 TEST_CASE("ECS Tests", "[ECS]")
 {
 	struct TestComponent {
@@ -15,7 +17,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 		float value;
 	};
 
-	ECS ecs;
+	ECS<ECS_TEST_COMPTYPES> ecs;
 
 	// TODO: test constructors
 
@@ -96,7 +98,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 		AnotherComponent comp3 = {5};
 		ecs.addComponent<TestComponent>(entity1, comp1);
 		ecs.addComponent<TestComponent>(entity2, comp2);
-		ecs.addComponent<AnotherComponent>(entity2, comp3); // should not be included in results
+		ecs.addComponent<AnotherComponent>(entity2, comp3);  // should not be included in results
 
 		auto testComponents = ecs.getEntitiesByComponent<TestComponent>();
 		REQUIRE(testComponents.size() == 2);
@@ -109,22 +111,23 @@ TEST_CASE("ECS Tests", "[ECS]")
 		Entity entity3 = ecs.addEntity();
 		TestComponent comp1 = {60};
 		AnotherComponent comp2 = {10.0f};
-		ecs.addComponent<TestComponent>(entity1, comp1);    // TestComponent only
-		ecs.addComponent<AnotherComponent>(entity2, comp2); // AnotherComponent only
+		ecs.addComponent<TestComponent>(entity1, comp1);     // TestComponent only
+		ecs.addComponent<AnotherComponent>(entity2, comp2);  // AnotherComponent only
 		ecs.addComponent<TestComponent>(entity3, comp1);
-		ecs.addComponent<AnotherComponent>(entity3, comp2); // Both components
+		ecs.addComponent<AnotherComponent>(entity3, comp2);  // Both components
 
-		struct ForeignComponent {}; // A (for the ECS) foreign component should not cause throw.
+		struct ForeignComponent {};  // A (for the ECS) foreign component should not cause throw.
 
 		REQUIRE(ecs.getEntitiesByComponents<TestComponent, AnotherComponent>().size() == 1);
 		REQUIRE(ecs.getEntitiesByComponents<TestComponent>().size() == 2);
 		REQUIRE(ecs.getEntitiesByComponents<AnotherComponent>().size() == 2);
-		REQUIRE(ecs.getEntitiesByComponents<AnotherComponent, ForeignComponent>().size() == 0);
+		// no need, since we do compile time. but stays here to test handling and error messages etc.
+		 //REQUIRE(ecs.getEntitiesByComponents<AnotherComponent, ForeignComponent>().size() == 0);
 	}
 
 	SECTION("getEntityCount returns correct number of entities", "[ECS]")
 	{
-		ECS ecs;
+		ECS<ECS_TEST_COMPTYPES> ecs;
 
 		REQUIRE(ecs.getEntityCount() == 0);
 
@@ -138,7 +141,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 	SECTION("getComponentCount returns correct number of components", "[ECS]")
 	{
-		ECS ecs;
+		ECS<ECS_TEST_COMPTYPES> ecs;
 		Entity entity1 = ecs.addEntity();
 		Entity entity2 = ecs.addEntity();
 
@@ -163,7 +166,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 	SECTION("Clearing ECS")
 	{
-		ECS ecs;
+		ECS<ECS_TEST_COMPTYPES> ecs;
 		auto entity = ecs.addEntity();
 		ecs.addComponent<TestComponent>(entity, TestComponent());
 		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
@@ -175,14 +178,14 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 	SECTION("Clearing ECS")
 	{
-		ECS ecs;
+		ECS<ECS_TEST_COMPTYPES> ecs;
 		auto entity = ecs.addEntity();
 		ecs.addComponent<TestComponent>(entity, TestComponent());
 		ecs.addComponent<AnotherComponent>(entity, AnotherComponent());
 
 		ecs.clear();
 		REQUIRE(ecs.getEntityCount() == 0);
-		REQUIRE(ecs.addEntity() == 0); // Check if all entity IDs are available again
+		REQUIRE(ecs.addEntity() == 0);  // Check if all entity IDs are available again
 		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
 	}
 }

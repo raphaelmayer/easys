@@ -1,21 +1,25 @@
 #pragma once
 
-#include "entity.hpp"
-#include "registry.hpp"
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <queue>
 #include <set>
 
+#include "entity.hpp"
+#include "registry.hpp"
+
 namespace Easys {
 
+template <typename... AllComponentTypes>
 class ECS {
-  public:
+   public:
 	ECS()
 	{
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		{
 			availableEntityIds_.push(entity);
+		}
 	}
 
 	// This constructor is for initialising the ECS with a set of specific entities. I decided against an
@@ -24,15 +28,18 @@ class ECS {
 	ECS(const std::set<Entity> &oldEntities)
 	{
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		{
 			if (oldEntities.contains(entity))
 				entities_.insert(entity);
 			else
 				availableEntityIds_.push(entity);
+		}
 	}
 
 	Entity addEntity()
 	{
-		if (getEntityCount() < MAX_ENTITIES) {
+		if (getEntityCount() < MAX_ENTITIES)
+		{
 			Entity e = availableEntityIds_.front();
 			availableEntityIds_.pop();
 			entities_.insert(e);
@@ -67,37 +74,37 @@ class ECS {
 	template <typename T>
 	void removeComponent(const Entity e)
 	{
-		registry_.removeComponent<T>(e);
+		registry_.template removeComponent<T>(e);
 	}
 
 	template <typename T>
 	T &getComponent(const Entity e)
 	{
-		return registry_.getComponent<T>(e);
+		return registry_.template getComponent<T>(e);
 	}
 
 	template <typename T>
 	const T &getComponent(const Entity e) const
 	{
-		return registry_.getComponent<T>(e);
+		return registry_.template  getComponent<T>(e);
 	}
 
 	template <typename T>
 	bool hasComponent(const Entity e) const
 	{
-		return registry_.hasComponent<T>(e);
+		return registry_.template  hasComponent<T>(e);
 	}
 
 	template <typename T>
 	const std::vector<Entity> &getEntitiesByComponent() const
 	{
-		return registry_.getEntitiesByComponent<T>();
+		return registry_.template  getEntitiesByComponent<T>();
 	}
 
 	template <typename... Ts>
 	std::vector<Entity> getEntitiesByComponents() const
 	{
-		return registry_.getEntitiesByComponents<Ts...>();
+		return registry_.template  getEntitiesByComponents<Ts...>();
 	}
 
 	size_t getComponentCount() const { return registry_.size(); }
@@ -105,7 +112,7 @@ class ECS {
 	template <typename... Ts>
 	size_t getComponentCount() const
 	{
-		return registry_.size<Ts...>();
+		return registry_.template  size<Ts...>();
 	}
 
 	void clear()
@@ -119,13 +126,13 @@ class ECS {
 	template <typename... Ts>
 	void clearComponents()
 	{
-		registry_.clear<Ts...>();
+		registry_.template  clear<Ts...>();
 	}
 
-  private:
+   private:
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;
-	Registry registry_;
+	Registry<AllComponentTypes...> registry_;
 
 	void clearEntities()
 	{
@@ -134,9 +141,8 @@ class ECS {
 		std::queue<Entity> empty;
 		std::swap(availableEntityIds_, empty);
 
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
-			availableEntityIds_.push(entity);
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++) availableEntityIds_.push(entity);
 	}
 };
 
-} // namespace Easys
+}  // namespace Easys

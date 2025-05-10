@@ -14,7 +14,7 @@ struct AnotherComponent {
 
 TEST_CASE("Registry Tests", "[Registry]")
 {
-	Registry registry;
+	Registry<COMPONENT_TYPES> registry;
 	Entity testEntity = 1;
 
 	SECTION("Add and Check Component")
@@ -58,14 +58,11 @@ TEST_CASE("Registry Tests", "[Registry]")
 		REQUIRE_FALSE(registry.hasComponent<AnotherComponent>(testEntity));
 	}
 
-	SECTION("ComponentType Does Not Exist")
-	{
-		REQUIRE_FALSE(registry.hasComponent<TestComponent>(testEntity));
-	}
+	SECTION("ComponentType Does Not Exist") { REQUIRE_FALSE(registry.hasComponent<TestComponent>(testEntity)); }
 
 	SECTION("Registry size method returns total number of components")
 	{
-		Registry registry;
+		Registry<COMPONENT_TYPES> registry;
 
 		REQUIRE(registry.size<COMPONENT_TYPES>() == 0);
 
@@ -88,7 +85,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 
 	SECTION("Registry size method with single component type")
 	{
-		Registry registry;
+		Registry<COMPONENT_TYPES> registry;
 		Entity entity = 1;
 		TestComponent comp{0};
 		registry.addComponent<TestComponent>(entity, comp);
@@ -97,13 +94,13 @@ TEST_CASE("Registry Tests", "[Registry]")
 
 	SECTION("Registry size method with no known component types")
 	{
-		Registry registry;
+		Registry<COMPONENT_TYPES> registry;
 		REQUIRE(registry.size<COMPONENT_TYPES>() == 0);
 	}
 
 	SECTION("Registry size method with one unknown component type")
 	{
-		Registry registry;
+		Registry<COMPONENT_TYPES> registry;
 		Entity entity = 1;
 		TestComponent comp{0};
 		registry.addComponent<TestComponent>(entity, comp);
@@ -119,7 +116,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 
 		registry.addComponent<TestComponent>(entity1, comp1);
 		registry.addComponent<TestComponent>(entity2, comp2);
-		registry.addComponent<AnotherComponent>(entity3, comp3); // Different type, should not be included
+		registry.addComponent<AnotherComponent>(entity3, comp3);  // Different type, should not be included
 
 		auto &testComponents = registry.getEntitiesByComponent<TestComponent>();
 
@@ -142,19 +139,25 @@ struct Health {
 	int points;
 };
 
+#define REG_TEST_COMPTYPES Position, Velocity, Health
+
 // Utility function to add some entities and components to a registry for testing
-void setupRegistry(Registry &registry)
+void setupRegistry(Registry<REG_TEST_COMPTYPES> &registry)
 {
 	// Add entities with various components
-	for (int i = 0; i < 10; ++i) {
-		Entity entity = i; // Assuming Entity can be an integer for simplicity
-		if (i % 2 == 0) {
+	for (int i = 0; i < 10; ++i)
+	{
+		Entity entity = i;  // Assuming Entity can be an integer for simplicity
+		if (i % 2 == 0)
+		{
 			registry.addComponent(entity, Position{1.0f * i, 2.0f * i});
 		}
-		if (i % 3 == 0) {
+		if (i % 3 == 0)
+		{
 			registry.addComponent(entity, Velocity{0.1f * i, 0.2f * i});
 		}
-		if (i % 5 == 0) {
+		if (i % 5 == 0)
+		{
 			registry.addComponent(entity, Health{i * 10});
 		}
 	}
@@ -162,44 +165,44 @@ void setupRegistry(Registry &registry)
 
 TEST_CASE("getEntitiesByComponents with single component type", "[Registry]")
 {
-	Registry registry;
+	Registry<REG_TEST_COMPTYPES> registry;
 	setupRegistry(registry);
 
 	auto entitiesWithPosition = registry.getEntitiesByComponents<Position>();
-	REQUIRE(entitiesWithPosition.size() == 5); // Entities 0, 2, 4, 6, 8
+	REQUIRE(entitiesWithPosition.size() == 5);  // Entities 0, 2, 4, 6, 8
 }
 
 TEST_CASE("getEntitiesByComponents with multiple component types", "[Registry]")
 {
-	Registry registry;
+	Registry<REG_TEST_COMPTYPES> registry;
 	setupRegistry(registry);
 
 	SECTION("Position and Velocity")
 	{
 		auto entitiesWithPositionAndVelocity = registry.getEntitiesByComponents<Position, Velocity>();
-		REQUIRE(entitiesWithPositionAndVelocity.size() == 2); // Entities 0, 6
+		REQUIRE(entitiesWithPositionAndVelocity.size() == 2);  // Entities 0, 6
 	}
 
 	SECTION("Position, Velocity, and Health")
 	{
 		auto entitiesWithAllComponents = registry.getEntitiesByComponents<Position, Velocity, Health>();
-		REQUIRE(entitiesWithAllComponents.size() == 1); // Entities 0
+		REQUIRE(entitiesWithAllComponents.size() == 1);  // Entities 0
 		REQUIRE(registry.getEntitiesByComponent<Health>().size() == 2);
 	}
 }
 
 TEST_CASE("getEntitiesByComponents with no entities matching", "[Registry]")
 {
-	Registry registry;
+	Registry<REG_TEST_COMPTYPES> registry;
 	setupRegistry(registry);
 
 	auto entitiesWithNonExistingCombination = registry.getEntitiesByComponents<Health, Velocity>();
-	REQUIRE(entitiesWithNonExistingCombination.size() == 1); // Only entity 0 matches this combination based on setup
+	REQUIRE(entitiesWithNonExistingCombination.size() == 1);  // Only entity 0 matches this combination based on setup
 }
 
 TEST_CASE("Registry clear functionality", "[Registry]")
 {
-	Registry registry;
+	Registry<REG_TEST_COMPTYPES> registry;
 	Entity entity = 1;
 	registry.addComponent<Position>(entity, {1.0f, 2.0f});
 	registry.addComponent<Velocity>(entity, {0.5f, 0.5f});
