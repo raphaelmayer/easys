@@ -1,21 +1,25 @@
 #pragma once
 
-#include "entity.hpp"
-#include "registry.hpp"
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <queue>
 #include <set>
 
+#include "entity.hpp"
+#include "registry.hpp"
+
 namespace Easys {
 
+template <typename... AllComponentTypes>
 class ECS {
-  public:
+   public:
 	ECS()
 	{
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		{
 			availableEntityIds_.push(entity);
+		}
 	}
 
 	// This constructor is for initialising the ECS with a set of specific entities. I decided against an
@@ -24,15 +28,18 @@ class ECS {
 	ECS(const std::set<Entity> &oldEntities)
 	{
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		{
 			if (oldEntities.contains(entity))
 				entities_.insert(entity);
 			else
 				availableEntityIds_.push(entity);
+		}
 	}
 
 	Entity addEntity()
 	{
-		if (getEntityCount() < MAX_ENTITIES) {
+		if (getEntityCount() < MAX_ENTITIES)
+		{
 			Entity e = availableEntityIds_.front();
 			availableEntityIds_.pop();
 			entities_.insert(e);
@@ -122,10 +129,10 @@ class ECS {
 		registry_.clear<Ts...>();
 	}
 
-  private:
+   private:
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;
-	Registry registry_;
+	Registry<AllComponentTypes...> registry_;
 
 	void clearEntities()
 	{
@@ -134,9 +141,8 @@ class ECS {
 		std::queue<Entity> empty;
 		std::swap(availableEntityIds_, empty);
 
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
-			availableEntityIds_.push(entity);
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++) availableEntityIds_.push(entity);
 	}
 };
 
-} // namespace Easys
+}  // namespace Easys

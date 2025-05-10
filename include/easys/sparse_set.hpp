@@ -11,12 +11,12 @@
 namespace Easys {
 
 class KeyNotFoundException : public std::exception {
-  public:
+   public:
 	KeyNotFoundException(const std::string &key) : msg_("KeyNotFoundException: " + key + " not found") {}
 
 	const char *what() const noexcept override { return msg_.c_str(); }
 
-  private:
+   private:
 	std::string msg_;
 };
 
@@ -27,20 +27,18 @@ concept UnsignedIntegral = std::is_integral_v<T> && std::is_unsigned_v<T>;
 
 template <UnsignedIntegral Key, typename Value>
 class SparseSet {
-  private:
-	std::vector<Key> sparse;   // Large, indexed by keys
-	std::vector<Key> dense;    // Compact, stores keys
-	std::vector<Value> values; // Parallel to dense, stores values
+   private:
+	std::vector<Key> sparse;    // Large, indexed by keys
+	std::vector<Key> dense;     // Compact, stores keys
+	std::vector<Value> values;  // Parallel to dense, stores values
 
-  public:
+   public:
 	// Ensure the sparse array can accommodate the given key
 	void accommodate(const Key key)
 	{
-		if (key >= maxSize())
-			throw std::length_error("Key exceeds the maximum size limit.");
+		if (key >= maxSize()) throw std::length_error("Key exceeds the maximum size limit.");
 
-		if (key >= sparse.size())
-			sparse.resize(key * 2 + 1, std::numeric_limits<Key>::max());
+		if (key >= sparse.size()) sparse.resize(key * 2 + 1, std::numeric_limits<Key>::max());
 	}
 
 	// Associate a value with a key
@@ -48,19 +46,22 @@ class SparseSet {
 	{
 		accommodate(key);
 
-		if (sparse[key] == std::numeric_limits<Key>::max()) { // max Key to indicate not set
+		if (sparse[key] == std::numeric_limits<Key>::max())
+		{  // max Key to indicate not set
 			sparse[key] = static_cast<Key>(values.size());
 			dense.push_back(key);
 			values.push_back(value);
-		} else {
-			values[sparse[key]] = value; // Key already has a value, update it
+		} else
+		{
+			values[sparse[key]] = value;  // Key already has a value, update it
 		}
 	}
 
 	// Retrieve a value by key
 	const Value &get(const Key key) const
 	{
-		if (!contains(key)) {
+		if (!contains(key))
+		{
 			throw KeyNotFoundException(std::to_string(key));
 		}
 		return values[sparse[key]];
@@ -69,7 +70,8 @@ class SparseSet {
 	// Retrieve a value by key
 	Value &get(const Key key)
 	{
-		if (!contains(key)) {
+		if (!contains(key))
+		{
 			throw KeyNotFoundException(std::to_string(key));
 		}
 		return values[sparse[key]];
@@ -81,7 +83,8 @@ class SparseSet {
 	// Remove a value associated with a key
 	void remove(const Key key)
 	{
-		if (contains(key)) {
+		if (contains(key))
+		{
 			// Move the last value to the removed spot to keep dense packed
 			Key indexOfRemoved = sparse[key];
 			values[indexOfRemoved] = values.back();
@@ -103,7 +106,8 @@ class SparseSet {
 	template <typename Func>
 	void forEach(Func f)
 	{
-		for (size_t i = 0; i < values.size(); ++i) {
+		for (size_t i = 0; i < values.size(); ++i)
+		{
 			f(dense[i], values[i]);
 		}
 	}
@@ -132,4 +136,4 @@ class SparseSet {
 	}
 };
 
-} // namespace Easys
+}  // namespace Easys

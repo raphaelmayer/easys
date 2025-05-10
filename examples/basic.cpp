@@ -16,7 +16,7 @@ int main()
 	using namespace Easys;
 
 	// Create an instance of the ECS class to manage our entities and components.
-	ECS ecs;
+	ECS<Position> ecs;
 
 	// Create a new entity. An entity is just a number.
 	Entity entity = ecs.addEntity();
