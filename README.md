@@ -1,10 +1,11 @@
+
 # EasyS: Manage entities and components with minimal fuss
 
 [![Build and test](https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml/badge.svg)](https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml)
 
 EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.
 
-This library embraces a dynamic design philosophy, allowing new component types to be introduced at runtime without requiring prior (compile-time) registration. This flexibility sets it apart, making it well-suited for scenarios where extensibility and runtime adaptability are essential.
+**The library now uses a static design approach**, requiring all component types to be registered at compile time through template parameters. This shift from runtime to compile-time registration improves performance, enables stronger type safety, and eliminates runtime type checks, while still maintaining a clean and lightweight API.
 
 **TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.
 
@@ -29,8 +30,10 @@ struct Position {
 
 int main()
 {
-	// Create an instance of the ECS class to manage our entities and components.
-	ECS ecs;
+	using namespace Easys;
+  
+	// Create an instance of the ECS class and register all component types.
+	ECS<Position> ecs;
 
 	// Create a new entity. An entity is just a number.
 	Entity entity = ecs.addEntity();
@@ -56,7 +59,7 @@ Check out the ```/examples``` directory for more examples on how to use this lib
 
 ### Requirements
 
-EasyS requires a compiler that supports at least C++20. This is mainly because of the use of concepts and might change in the future.
+EasyS requires a compiler that supports at least C++20. This is because of the use of concepts and templated lambda functions and is subject to change. 
 
 ### Direct inclusion
 
@@ -127,7 +130,7 @@ target_link_libraries(your_target_name PRIVATE easys)
 
 ### ECS Library Documentation
 
-This documentation section provides a comprehensive overview of the user-facing interface for the ECS (Entity Component System) library.
+All types and functions are defined within the `Easys` namespace. This section documents the core interface of the EasyS ECS library, including entity management and component operations..
 
 #### Constructor
 
@@ -146,30 +149,32 @@ This documentation section provides a comprehensive overview of the user-facing 
   - Checks if an entity exists within the ECS.
 - **`const std::set<Entity>& getEntities() const`**
   - Returns a reference to the set of all entities.
+- **`const std::vector<Entity>& getEntitiesByComponent<T>() const`**
+  - Returns a vector of entities that have a component of type `T`.
+- **`std::vector<Entity> getEntitiesByComponents<Ts...>() const`**
+  - Returns a vector of entities that have all of the specified component types `Ts...`.
 - **`size_t getEntityCount() const`**
   - Returns the total number of entities in the ECS.
 
 #### Component Management
 
-- **`void addComponent(const Entity e, const T c)`**
+- **`void addComponent<T>(const Entity e, const T c)`**
   - Adds a component of type `T` to an entity `e`. If the entity is already associated with a component `T`, update it.
-- **`void removeComponent(const Entity e)`**
+- **`void removeComponent<T>(const Entity e)`**
   - Removes a component of type `T` from an entity `e`.
-- **`T& getComponent(const Entity e)`**
-  - Retrieves a reference to a component of type `T` from an entity `e`. If the entity does not have a component of this type, an exception is thrown.
-- **`bool hasComponent(const Entity e) const`**
-  - Checks if an entity `e` has a component of type `T`. This method can be used with any type `T` and entity `e`.
-- **`const std::vector<Entity>& getEntitiesByComponent() const`**
-  - Returns a vector of entities that have a component of type `T`.
-- **`std::vector<Entity> getEntitiesByComponents() const`**
-  - Returns a vector of entities that have all of the specified component types `Ts...`.
-- **`size_t getComponentCount() const`**
-  - Returns the total count of components within the ECS. When template parameters are specified, it returns the count for the specified component types.
+- **`void removeComponents<Ts...>(const Entity e)`**
+	- Removes components of types `Ts...` from an entity `e`. If the template parameters are omitted, it removes all components from the entity.
+- **`T& getComponent<T>(const Entity e)`**
+  - Retrieves a reference to a component of type `T` from an entity `e`. 
+- **`bool hasComponent<T>(const Entity e) const`**
+  - Checks if an entity `e` has a component of type `T`.
+- **`size_t getComponentCount<Ts...>() const`**
+  - Returns the total count of components of types `Ts...` within the ECS. If template parameters are omitted, it returns the total count of all component types.
  
 #### Clearing Methods
 
 - **`void clearComponents()`**
-  - Clears components from all entities within the ECS. When template parameters are specified, only the specified types of components are cleared.
+  - Removes components of types `Ts...` from all entities within the ECS. If template parameters are omitted only all types of components are cleared.
 - **`void clear()`**
   - Clears all entities and components from the ECS, resetting it to its initial state.
 
