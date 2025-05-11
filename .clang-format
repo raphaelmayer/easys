@@ -14,4 +14,6 @@ BraceWrapping:
   AfterControlStatement: true
   # AfterNamespace: true
 BinPackArguments: false
+DerivePointerAlignment: false
 PointerAlignment: Left
+ReferenceAlignment: Left
