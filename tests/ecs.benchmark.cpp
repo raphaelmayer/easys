@@ -1,20 +1,15 @@
 #define CATCH_CONFIG_RUNNER
 
-#define EASYS_ENTITY_LIMIT 100000
+#define EASYS_ENTITY_LIMIT 10000000
 
 #include <catch2/catch.hpp>
 #include <chrono>
 #include <easys/ecs.hpp>
 #include <easys/entity.hpp>
 
-#define NUM_ENT MAX_ENTITIES // number of entities
-#define NUM_COM 1            // number of components per entity
-
-using namespace Easys;
-
-struct System {
-	virtual void update(ECS &ecs, double deltaTime) = 0;
-};
+#define NUM_ENT Easys::MAX_ENTITIES  // number of entities
+#define NUM_COM 1                    // number of components per entity
+#define COMPTYPES Position, RigidBody, Data, Health, Damage, TestComponent, AnotherComponent
 
 struct Position {
 	float x, y;
@@ -37,8 +32,24 @@ struct Damage {
 	int damage;
 };
 
+struct TestComponent {
+	int value;
+};
+
+struct AnotherComponent {
+	float value;
+};
+
+// using namespace Easys;
+using ECS = Easys::ECS<COMPTYPES>;
+using Entity = Easys::Entity;
+
+struct System {
+	virtual void update(ECS& ecs, double deltaTime) = 0;
+};
+
 // CATCH_CONFIG_RUNNER tells catch2, that we will implement our own main function to config the test runner.
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	Catch::Session session;
 
@@ -65,11 +76,11 @@ std::string formatEntCompInfo(const std::string functionName, const int numEntit
 // This function is a helper to run benchmarks. It  that takes a lambda function as an argument.
 // This lambda function will contain the code to benchmark.
 template <typename Func>
-void benchmarkSection(Func func, const std::string &sectionName)
+void benchmarkSection(Func func, const std::string& sectionName)
 {
 	auto start = std::chrono::high_resolution_clock::now();
 
-	func(); // Execute the lambda function
+	func();  // Execute the lambda function
 
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double, std::milli> elapsed = end - start;
@@ -80,19 +91,11 @@ void benchmarkSection(Func func, const std::string &sectionName)
 
 TEST_CASE("ECS Benchmark", "[ECS]")
 {
-	struct TestComponent {
-		int value;
-	};
-
-	struct AnotherComponent {
-		float value;
-	};
-
 	class MockSystem : public System {
-	  public:
+	   public:
 		bool updateCalled = false;
 
-		void update(ECS &ecs, double deltaTime) override { updateCalled = true; }
+		void update(ECS& ecs, double deltaTime) override { updateCalled = true; }
 	};
 
 	SECTION("Benchmarking Entity Addition")
@@ -100,8 +103,10 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		ECS ecs;
 
 		benchmarkSection(
-		    [&] {
-			    for (int i = 0; i < NUM_ENT; i++) {
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
 				    ecs.addEntity();
 			    }
 		    },
@@ -112,13 +117,16 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 	{
 		ECS ecs;
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 		}
 
 		benchmarkSection(
-		    [&] {
-			    for (int i = 0; i < NUM_ENT; i++) {
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
 				    ecs.removeEntity(i);
 			    }
 		    },
@@ -130,13 +138,16 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		ECS ecs;
 		TestComponent c = TestComponent{};
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 		}
 
 		benchmarkSection(
-		    [&] {
-			    for (int i = 0; i < NUM_ENT; i++) {
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
 				    ecs.addComponent<TestComponent>(i, c);
 			    }
 		    },
@@ -149,13 +160,16 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		TestComponent c = TestComponent{};
 		AnotherComponent a = AnotherComponent{};
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 		}
 
 		benchmarkSection(
-		    [&] {
-			    for (int i = 0; i < NUM_ENT; i++) {
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
 				    ecs.addComponent<TestComponent>(i, c);
 				    ecs.addComponent<AnotherComponent>(i, a);
 			    }
@@ -168,14 +182,17 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		ECS ecs;
 		TestComponent c = TestComponent{};
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
 		benchmarkSection(
-		    [&] {
-			    for (int i = 0; i < NUM_ENT; i++) {
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
 				    ecs.removeComponent<TestComponent>(i);
 			    }
 		    },
@@ -187,15 +204,19 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		ECS ecs;
 		TestComponent c = TestComponent{};
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
+		TestComponent tc;
 		benchmarkSection(
-		    [&] {
-			    for (int i = 0; i < NUM_ENT; i++) {
-				    ecs.getComponent<TestComponent>(i);
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
+				    tc = ecs.getComponent<TestComponent>(i);
 			    }
 		    },
 		    formatEntCompInfo("getComponent", NUM_ENT, NUM_COM));
@@ -206,15 +227,19 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		ECS ecs;
 		TestComponent c = TestComponent{};
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
+		volatile int sink = 0;
 		benchmarkSection(
-		    [&] {
-			    for (int i = 0; i < NUM_ENT; i++) {
-				    ecs.hasComponent<TestComponent>(i);
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
+				    sink += ecs.hasComponent<TestComponent>(i);
 			    }
 		    },
 		    formatEntCompInfo("hascomponent", NUM_ENT, NUM_COM));
@@ -225,15 +250,19 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		ECS ecs;
 		TestComponent c = TestComponent{};
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 		}
 		ecs.addComponent<TestComponent>(0, c);
 
+		volatile int sink = 0;
 		benchmarkSection(
-		    [&] {
-			    for (int i = 0; i < NUM_ENT; i++) {
-				    ecs.hasComponent<TestComponent>(i);
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
+				    sink += ecs.hasComponent<TestComponent>(i);
 			    }
 		    },
 		    formatEntCompInfo("hasComponent", NUM_ENT, 0));
@@ -246,12 +275,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		RigidBody r = RigidBody{};
 
 		struct TestPhysicsSystem : public System {
-			void update(ECS &ecs, double deltaTime)
+			void update(ECS& ecs, double deltaTime)
 			{
-				for (const Entity &entity : ecs.getEntities()) {
-					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity)) {
-						auto &position = ecs.getComponent<Position>(entity);
-						auto &rigidBody = ecs.getComponent<RigidBody>(entity);
+				for (const Entity& entity : ecs.getEntities())
+				{
+					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity))
+					{
+						auto& position = ecs.getComponent<Position>(entity);
+						auto& rigidBody = ecs.getComponent<RigidBody>(entity);
 						position.x += rigidBody.vx;
 						position.y += rigidBody.vy;
 					}
@@ -260,12 +291,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct TestUpdateSystem : public System {
-			void update(ECS &ecs, double deltaTime)
+			void update(ECS& ecs, double deltaTime)
 			{
-				for (const Entity &entity : ecs.getEntities()) {
-					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity)) {
-						auto &position = ecs.getComponent<Position>(entity);
-						auto &rigidBody = ecs.getComponent<RigidBody>(entity);
+				for (const Entity& entity : ecs.getEntities())
+				{
+					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity))
+					{
+						auto& position = ecs.getComponent<Position>(entity);
+						auto& rigidBody = ecs.getComponent<RigidBody>(entity);
 						position.x = rigidBody.vx;
 						position.y = rigidBody.vy;
 					}
@@ -277,14 +310,16 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		TestUpdateSystem testUpdateSystem = TestUpdateSystem();
 		double deltaTime = 0.0;
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<Position>(e, p);
 			ecs.addComponent<RigidBody>(e, r);
 		}
 
 		benchmarkSection(
-		    [&] {
+		    [&]
+		    {
 			    testPhysicsSystem.update(ecs, deltaTime);
 			    testUpdateSystem.update(ecs, deltaTime);
 			    testPhysicsSystem.update(ecs, deltaTime);
@@ -308,11 +343,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 		// Systems definition
 		struct MovementSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities()) {
-					auto &position = ecs.getComponent<Position>(entity);
-					auto &rigidBody = ecs.getComponent<RigidBody>(entity);
+				for (const Entity& entity : ecs.getEntities())
+				{
+					auto& position = ecs.getComponent<Position>(entity);
+					auto& rigidBody = ecs.getComponent<RigidBody>(entity);
 					position.x += rigidBody.vx * deltaTime;
 					position.y += rigidBody.vy * deltaTime;
 				}
@@ -320,10 +356,11 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct DataSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities()) {
-					auto &data = ecs.getComponent<Data>(entity);
+				for (const Entity& entity : ecs.getEntities())
+				{
+					auto& data = ecs.getComponent<Data>(entity);
 					// Update data with arbitrary logic
 					data.data = "new data";
 				}
@@ -331,12 +368,13 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct MoreComplexSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities()) {
-					auto &pos = ecs.getComponent<Position>(entity);
-					auto &vel = ecs.getComponent<RigidBody>(entity);
-					auto &data = ecs.getComponent<Data>(entity);
+				for (const Entity& entity : ecs.getEntities())
+				{
+					auto& pos = ecs.getComponent<Position>(entity);
+					auto& vel = ecs.getComponent<RigidBody>(entity);
+					auto& data = ecs.getComponent<Data>(entity);
 					pos = {0, 0};
 					vel = {1, 1};
 					data.data = "data";
@@ -345,25 +383,25 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct HealthSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities()) {
-					auto &health = ecs.getComponent<Health>(entity);
-					if (health.health > health.maxHealth)
-						health.health = health.maxHealth;
-					if (health.health < health.maxHealth)
-						health.health = 0;
+				for (const Entity& entity : ecs.getEntities())
+				{
+					auto& health = ecs.getComponent<Health>(entity);
+					if (health.health > health.maxHealth) health.health = health.maxHealth;
+					if (health.health < health.maxHealth) health.health = 0;
 				}
 			}
 		};
 
 		struct DamageSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities()) {
-					auto &health = ecs.getComponent<Health>(entity);
-					auto &damage = ecs.getComponent<Damage>(entity);
-					health.health -= damage.damage; // Simplified damage logic
+				for (const Entity& entity : ecs.getEntities())
+				{
+					auto& health = ecs.getComponent<Health>(entity);
+					auto& damage = ecs.getComponent<Damage>(entity);
+					health.health -= damage.damage;  // Simplified damage logic
 				}
 			}
 		};
@@ -375,9 +413,10 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		HealthSystem healthSystem = HealthSystem();
 		DamageSystem damageSystem = DamageSystem();
 
-		double deltaTime = 0.016; // Assuming 60 FPS for deltaTime
+		double deltaTime = 0.016;  // Assuming 60 FPS for deltaTime
 
-		for (int i = 0; i < NUM_ENT; i++) {
+		for (int i = 0; i < NUM_ENT; i++)
+		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<Position>(e, position);
 			ecs.addComponent<RigidBody>(e, velocity);
@@ -387,7 +426,8 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 
 		benchmarkSection(
-		    [&] {
+		    [&]
+		    {
 			    movementSystem.update(ecs, deltaTime);
 			    dataSystem.update(ecs, deltaTime);
 			    moreComplexSystem.update(ecs, deltaTime);

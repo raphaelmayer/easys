@@ -1,12 +1,19 @@
-BasedOnStyle: LLVM
+BasedOnStyle: Google
 ColumnLimit: 120
 IndentWidth: 4
 TabWidth: 4
 UseTab: ForIndentation
 AlignEscapedNewlines: DontAlign
-AllowShortFunctionsOnASingleLine: Inline
 AlwaysBreakTemplateDeclarations: true
 BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeBraces: Custom
+AllowShortLambdasOnASingleLine: Empty # or Empty or None or Inline
 BraceWrapping:
   AfterFunction: true
+  BeforeLambdaBody: true
+  AfterControlStatement: true
+  # AfterNamespace: true
+BinPackArguments: false
+DerivePointerAlignment: false
+PointerAlignment: Left
+ReferenceAlignment: Left

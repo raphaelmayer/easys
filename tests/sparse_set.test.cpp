@@ -64,7 +64,11 @@ TEST_CASE("SparseSet functionality", "[SparseSet]")
 		std::vector<unsigned int> keys;
 		set.set(1, 100);
 		set.set(2, 200);
-		set.forEach([&keys](auto key, auto value) { keys.push_back(key); });
+		set.forEach(
+		    [&keys](auto key, auto value)
+		    {
+			    keys.push_back(key);
+		    });
 
 		REQUIRE(keys.size() == 2);
 		REQUIRE(std::find(keys.begin(), keys.end(), 1) != keys.end());
@@ -78,8 +82,8 @@ TEST_CASE("SparseSet accommodate method tests", "[SparseSet]")
 
 	SECTION("Accommodate increases size for new key")
 	{
-		set.accommodate(10);                // Choose a key that requires resizing
-		REQUIRE(set.getKeys().size() == 0); // No keys should be added, just accommodation
+		set.accommodate(10);                 // Choose a key that requires resizing
+		REQUIRE(set.getKeys().size() == 0);  // No keys should be added, just accommodation
 		// REQUIRE(set.sparse.size() >= 11);   // Check if sparse size is correctly adjusted
 	}
 
@@ -116,11 +120,11 @@ TEST_CASE("SparseSet clear functionality", "[SparseSet]")
 {
 	SparseSet<Entity, Position> sparseSet;
 	// Setup initial state
-	sparseSet.set(1, {1.0f, 2.0f}); // Example entity and component
+	sparseSet.set(1, {1.0f, 2.0f});  // Example entity and component
 
 	SECTION("Clearing the SparseSet")
 	{
 		sparseSet.clear();
-		REQUIRE(sparseSet.size() == 0); // Ensure the sparse set is empty
+		REQUIRE(sparseSet.size() == 0);  // Ensure the sparse set is empty
 	}
 }
