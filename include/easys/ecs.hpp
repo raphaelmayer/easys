@@ -104,7 +104,7 @@ class ECS {
 	}
 
 	template <typename... Ts>
-	inline std::vector<Entity>& getEntitiesByComponents() const
+	inline std::vector<Entity> getEntitiesByComponents() const
 	{
 		return registry_.template getEntitiesByComponents<Ts...>();
 	}

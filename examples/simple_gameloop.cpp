@@ -16,12 +16,12 @@ using ECS = Easys::ECS<Position, Velocity>;
 
 // Example system which updates the player position based on the player velocity.
 struct System {
-	void update(ECS &ecs)
+	void update(ECS& ecs)
 	{
 		for (Easys::Entity e : ecs.getEntitiesByComponents<Position, Velocity>())
 		{
-			Position &pos = ecs.getComponent<Position>(e);
-			const Velocity &vel = ecs.getComponent<Velocity>(e);
+			Position& pos = ecs.getComponent<Position>(e);
+			const Velocity& vel = ecs.getComponent<Velocity>(e);
 
 			pos.x += vel.vx;
 			pos.y += vel.vy;

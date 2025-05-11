@@ -12,9 +12,9 @@ namespace Easys {
 
 class KeyNotFoundException : public std::exception {
    public:
-	KeyNotFoundException(const std::string &key) : msg_("KeyNotFoundException: " + key + " not found") {}
+	KeyNotFoundException(const std::string& key) : msg_("KeyNotFoundException: " + key + " not found") {}
 
-	const char *what() const noexcept override { return msg_.c_str(); }
+	const char* what() const noexcept override { return msg_.c_str(); }
 
    private:
 	std::string msg_;
@@ -50,7 +50,7 @@ class SparseSet {
 	// Associate a value with a key
 
 	// Associate a value with a key
-	inline void set(const Key key, const Value &value)
+	inline void set(const Key key, const Value& value)
 	{
 		accommodate(key);
 
@@ -66,7 +66,7 @@ class SparseSet {
 	}
 
 	// move semantics overload
-	inline void set(const Key key, Value &&value)
+	inline void set(const Key key, Value&& value)
 	{
 		accommodate(key);
 
@@ -82,7 +82,7 @@ class SparseSet {
 	}
 
 	// Retrieve a value by key
-	inline const Value &get(const Key key) const
+	inline const Value& get(const Key key) const
 	{
 		if (!contains(key))
 		{
@@ -92,7 +92,7 @@ class SparseSet {
 	}
 
 	// Retrieve a value by key
-	inline Value &get(const Key key)
+	inline Value& get(const Key key)
 	{
 		if (!contains(key))
 		{
@@ -101,8 +101,8 @@ class SparseSet {
 		return values[sparse[key]];
 	}
 
-	inline const Value &operator[](const Key key) const { return values[sparse[key]]; }
-	inline Value &operator[](const Key key) { return values[sparse[key]]; }
+	inline const Value& operator[](const Key key) const { return values[sparse[key]]; }
+	inline Value& operator[](const Key key) { return values[sparse[key]]; }
 
 	// Remove a value associated with a key
 	inline void remove(const Key key)
@@ -143,11 +143,11 @@ class SparseSet {
 
 	constexpr size_t size() const { return dense.size(); }
 
-	inline const std::vector<Key> &getKeys() const { return dense; }
+	inline const std::vector<Key>& getKeys() const { return dense; }
 
-	inline std::vector<Value> &getValues() { return values; }
+	inline std::vector<Value>& getValues() { return values; }
 
-	inline const std::vector<Value> &getValues() const { return values; }
+	inline const std::vector<Value>& getValues() const { return values; }
 
 	constexpr size_t maxSize() const noexcept
 	{

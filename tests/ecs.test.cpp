@@ -51,7 +51,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 		TestComponent comp = {20};
 		ecs.addComponent<TestComponent>(entity, comp);
 
-		TestComponent &retrievedComp = ecs.getComponent<TestComponent>(entity);
+		TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
 		REQUIRE(retrievedComp.data == 20);
 	}
 
@@ -122,7 +122,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE(ecs.getEntitiesByComponents<TestComponent>().size() == 2);
 		REQUIRE(ecs.getEntitiesByComponents<AnotherComponent>().size() == 2);
 		// no need, since we do compile time. but stays here to test handling and error messages etc.
-		 //REQUIRE(ecs.getEntitiesByComponents<AnotherComponent, ForeignComponent>().size() == 0);
+		// REQUIRE(ecs.getEntitiesByComponents<AnotherComponent, ForeignComponent>().size() == 0);
 	}
 
 	SECTION("getEntityCount returns correct number of entities", "[ECS]")

@@ -45,11 +45,11 @@ using ECS = Easys::ECS<COMPTYPES>;
 using Entity = Easys::Entity;
 
 struct System {
-	virtual void update(ECS &ecs, double deltaTime) = 0;
+	virtual void update(ECS& ecs, double deltaTime) = 0;
 };
 
 // CATCH_CONFIG_RUNNER tells catch2, that we will implement our own main function to config the test runner.
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	Catch::Session session;
 
@@ -76,7 +76,7 @@ std::string formatEntCompInfo(const std::string functionName, const int numEntit
 // This function is a helper to run benchmarks. It  that takes a lambda function as an argument.
 // This lambda function will contain the code to benchmark.
 template <typename Func>
-void benchmarkSection(Func func, const std::string &sectionName)
+void benchmarkSection(Func func, const std::string& sectionName)
 {
 	auto start = std::chrono::high_resolution_clock::now();
 
@@ -95,7 +95,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 	   public:
 		bool updateCalled = false;
 
-		void update(ECS &ecs, double deltaTime) override { updateCalled = true; }
+		void update(ECS& ecs, double deltaTime) override { updateCalled = true; }
 	};
 
 	SECTION("Benchmarking Entity Addition")
@@ -275,14 +275,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		RigidBody r = RigidBody{};
 
 		struct TestPhysicsSystem : public System {
-			void update(ECS &ecs, double deltaTime)
+			void update(ECS& ecs, double deltaTime)
 			{
-				for (const Entity &entity : ecs.getEntities())
+				for (const Entity& entity : ecs.getEntities())
 				{
 					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity))
 					{
-						auto &position = ecs.getComponent<Position>(entity);
-						auto &rigidBody = ecs.getComponent<RigidBody>(entity);
+						auto& position = ecs.getComponent<Position>(entity);
+						auto& rigidBody = ecs.getComponent<RigidBody>(entity);
 						position.x += rigidBody.vx;
 						position.y += rigidBody.vy;
 					}
@@ -291,14 +291,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct TestUpdateSystem : public System {
-			void update(ECS &ecs, double deltaTime)
+			void update(ECS& ecs, double deltaTime)
 			{
-				for (const Entity &entity : ecs.getEntities())
+				for (const Entity& entity : ecs.getEntities())
 				{
 					if (ecs.hasComponent<RigidBody>(entity) && ecs.hasComponent<Position>(entity))
 					{
-						auto &position = ecs.getComponent<Position>(entity);
-						auto &rigidBody = ecs.getComponent<RigidBody>(entity);
+						auto& position = ecs.getComponent<Position>(entity);
+						auto& rigidBody = ecs.getComponent<RigidBody>(entity);
 						position.x = rigidBody.vx;
 						position.y = rigidBody.vy;
 					}
@@ -343,12 +343,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 
 		// Systems definition
 		struct MovementSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities())
+				for (const Entity& entity : ecs.getEntities())
 				{
-					auto &position = ecs.getComponent<Position>(entity);
-					auto &rigidBody = ecs.getComponent<RigidBody>(entity);
+					auto& position = ecs.getComponent<Position>(entity);
+					auto& rigidBody = ecs.getComponent<RigidBody>(entity);
 					position.x += rigidBody.vx * deltaTime;
 					position.y += rigidBody.vy * deltaTime;
 				}
@@ -356,11 +356,11 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct DataSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities())
+				for (const Entity& entity : ecs.getEntities())
 				{
-					auto &data = ecs.getComponent<Data>(entity);
+					auto& data = ecs.getComponent<Data>(entity);
 					// Update data with arbitrary logic
 					data.data = "new data";
 				}
@@ -368,13 +368,13 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct MoreComplexSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities())
+				for (const Entity& entity : ecs.getEntities())
 				{
-					auto &pos = ecs.getComponent<Position>(entity);
-					auto &vel = ecs.getComponent<RigidBody>(entity);
-					auto &data = ecs.getComponent<Data>(entity);
+					auto& pos = ecs.getComponent<Position>(entity);
+					auto& vel = ecs.getComponent<RigidBody>(entity);
+					auto& data = ecs.getComponent<Data>(entity);
 					pos = {0, 0};
 					vel = {1, 1};
 					data.data = "data";
@@ -383,11 +383,11 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct HealthSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities())
+				for (const Entity& entity : ecs.getEntities())
 				{
-					auto &health = ecs.getComponent<Health>(entity);
+					auto& health = ecs.getComponent<Health>(entity);
 					if (health.health > health.maxHealth) health.health = health.maxHealth;
 					if (health.health < health.maxHealth) health.health = 0;
 				}
@@ -395,12 +395,12 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		};
 
 		struct DamageSystem : public System {
-			void update(ECS &ecs, double deltaTime) override
+			void update(ECS& ecs, double deltaTime) override
 			{
-				for (const Entity &entity : ecs.getEntities())
+				for (const Entity& entity : ecs.getEntities())
 				{
-					auto &health = ecs.getComponent<Health>(entity);
-					auto &damage = ecs.getComponent<Damage>(entity);
+					auto& health = ecs.getComponent<Health>(entity);
+					auto& damage = ecs.getComponent<Damage>(entity);
 					health.health -= damage.damage;  // Simplified damage logic
 				}
 			}

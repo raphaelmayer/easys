@@ -30,7 +30,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 		TestComponent comp = {20};
 		registry.addComponent<TestComponent>(testEntity, comp);
 
-		TestComponent &retrievedComp = registry.getComponent<TestComponent>(testEntity);
+		TestComponent& retrievedComp = registry.getComponent<TestComponent>(testEntity);
 		REQUIRE(retrievedComp.value == 20);
 	}
 
@@ -118,7 +118,7 @@ TEST_CASE("Registry Tests", "[Registry]")
 		registry.addComponent<TestComponent>(entity2, comp2);
 		registry.addComponent<AnotherComponent>(entity3, comp3);  // Different type, should not be included
 
-		auto &testComponents = registry.getEntitiesByComponent<TestComponent>();
+		auto& testComponents = registry.getEntitiesByComponent<TestComponent>();
 
 		REQUIRE(testComponents.size() == 2);
 		REQUIRE(testComponents[0] == entity1);
@@ -142,7 +142,7 @@ struct Health {
 #define REG_TEST_COMPTYPES Position, Velocity, Health
 
 // Utility function to add some entities and components to a registry for testing
-void setupRegistry(Registry<REG_TEST_COMPTYPES> &registry)
+void setupRegistry(Registry<REG_TEST_COMPTYPES>& registry)
 {
 	// Add entities with various components
 	for (int i = 0; i < 10; ++i)
