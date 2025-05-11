@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_RUNNER
 
-#define EASYS_ENTITY_LIMIT 1000000
+#define EASYS_ENTITY_LIMIT 10000000
 
 #include <catch2/catch.hpp>
 #include <chrono>
@@ -210,12 +210,13 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
+		TestComponent tc;
 		benchmarkSection(
 		    [&]
 		    {
 			    for (int i = 0; i < NUM_ENT; i++)
 			    {
-				    ecs.getComponent<TestComponent>(i);
+				    tc = ecs.getComponent<TestComponent>(i);
 			    }
 		    },
 		    formatEntCompInfo("getComponent", NUM_ENT, NUM_COM));
