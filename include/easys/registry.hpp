@@ -18,20 +18,20 @@ class Registry {
 
    public:
 	template <typename ComponentType>
-	void addComponent(const Entity entity, const ComponentType& component)
+	inline void addComponent(const Entity entity, const ComponentType& component)
 	{
 		auto& componentSet = getComponentSet<ComponentType>();
 		componentSet.set(entity, std::move(component));
 	}
 
 	template <typename ComponentType>
-	void removeComponent(const Entity entity)
+	inline void removeComponent(const Entity entity)
 	{
 		auto& componentSet = getComponentSet<ComponentType>();
 		componentSet.remove(entity);
 	}
 
-	void removeComponents(const Entity entity)
+	inline void removeComponents(const Entity entity)
 	{
 		forEachComponentType<AllComponentTypes...>(
 		    [&]<typename Component>()
@@ -41,7 +41,7 @@ class Registry {
 	}
 
 	template <typename... ComponentTypes>
-	void removeComponents(const Entity entity)
+	inline void removeComponents(const Entity entity)
 	{
 		forEachComponentType<ComponentTypes...>(
 		    [&]<typename Component>()
@@ -51,7 +51,7 @@ class Registry {
 	}
 
 	template <typename ComponentType>
-	ComponentType& getComponent(const Entity entity)
+	inline ComponentType& getComponent(const Entity entity)
 	{
 		auto& componentSet = getComponentSet<ComponentType>();
 		// could be optimized with direct access. get() calls contains() internally
@@ -59,7 +59,7 @@ class Registry {
 	}
 
 	template <typename ComponentType>
-	const ComponentType& getComponent(const Entity entity) const
+	inline const ComponentType& getComponent(const Entity entity) const
 	{
 		const auto& componentSet = getComponentSet<ComponentType>();
 		// could be optimized with direct access. get() calls contains() internally
@@ -67,19 +67,19 @@ class Registry {
 	}
 
 	template <typename ComponentType>
-	bool hasComponent(const Entity entity) const
+	inline bool hasComponent(const Entity entity) const
 	{
 		return getComponentSet<ComponentType>().contains(entity);
 	}
 
 	template <typename ComponentType>
-	const std::vector<Entity>& getEntitiesByComponent() const
+	inline const std::vector<Entity>& getEntitiesByComponent() const
 	{
 		return getComponentSet<ComponentType>().getKeys();
 	}
 
 	template <typename... ComponentTypes>
-	std::vector<Entity> getEntitiesByComponents() const
+	inline std::vector<Entity> getEntitiesByComponents() const
 	{
 		std::vector<Entity> entities;
 		bool isFirstComponentType = true;
@@ -114,7 +114,7 @@ class Registry {
 		return entities;
 	}
 
-	size_t size() const
+	inline size_t size() const
 	{
 		size_t totalSize = 0;
 
@@ -128,7 +128,7 @@ class Registry {
 	}
 
 	template <typename... ComponentTypes>
-	size_t size() const
+	inline size_t size() const
 	{
 		size_t totalSize = 0;
 
@@ -141,7 +141,7 @@ class Registry {
 		return totalSize;
 	}
 
-	void clear()
+	inline void clear()
 	{
 		forEachComponentType<AllComponentTypes...>(
 		    [this]<typename T>()
@@ -151,7 +151,7 @@ class Registry {
 	}
 
 	template <typename... ComponentTypes>
-	void clear()
+	inline void clear()
 	{
 		forEachComponentType<ComponentTypes...>(
 		    [this]<typename T>()
@@ -165,7 +165,7 @@ class Registry {
 	static constexpr bool isRegisteredComponent = (std::is_same_v<T, AllComponentTypes> || ...);
 
 	template <typename... ComponentTypes, typename Func>
-	void forEachComponentType(Func&& f) const
+	inline void forEachComponentType(Func&& f) const
 	{
 		// MSVC does not support multiple expressions in a fold statement so we use this small helper
 		auto staticAssertAndCall = [&f]<typename T>()
@@ -178,14 +178,14 @@ class Registry {
 	}
 
 	template <typename ComponentType>
-	SparseSet<Entity, ComponentType>& getComponentSet()
+	inline SparseSet<Entity, ComponentType>& getComponentSet()
 	{
 		static_assert(isRegisteredComponent<ComponentType>, "Tried to access an unregistered component type.");
 		return std::get<SparseSet<Entity, ComponentType>>(componentSets);
 	}
 
 	template <typename ComponentType>
-	const SparseSet<Entity, ComponentType>& getComponentSet() const
+	inline const SparseSet<Entity, ComponentType>& getComponentSet() const
 	{
 		static_assert(isRegisteredComponent<ComponentType>, "Tried to access an unregistered component type.");
 		return std::get<SparseSet<Entity, ComponentType>>(componentSets);
