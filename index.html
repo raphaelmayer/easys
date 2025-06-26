@@ -75,8 +75,17 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies. The library now uses a static design approach**, requiring all component types to be registered at compile time through template parameters. This shift from runtime to compile-time registration improves performance, enables stronger type safety, and eliminates runtime type checks, while still maintaining a clean and lightweight API.</p>
 <p>TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.</p>
-<h1><a class="anchor" id="Quick"></a>
-Start Guide</h1>
+<h1><a class="anchor" id="ecs"></a>
+Easys::ECS Class</h1>
+<p>See <a class="el" href="d9/d50/classEasys_1_1ECS.html">Easys::ECS</a> - the core class and single entry point for users.</p>
+<h1><a class="anchor" id="macros"></a>
+Configurable Macros</h1>
+<ul>
+<li><a class="el" href="d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a> - define the type used for entities</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a> - define max number of entities</li>
+</ul>
+<h1><a class="anchor" id="quickstart"></a>
+Quick Start Guide</h1>
 <p>This section will walk you through the basics of creating entities, adding components to them, and querying these components.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="de/d8c/ecs_8hpp.html">easys/ecs.hpp</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="db/de2/entity_8hpp.html">easys/entity.hpp</a>&gt;</span></div>
@@ -122,16 +131,7 @@ Start Guide</h1>
 <div class="ttc" id="aentity_8hpp_html"><div class="ttname"><a href="db/de2/entity_8hpp.html">entity.hpp</a></div></div>
 <div class="ttc" id="anamespaceEasys_html"><div class="ttname"><a href="d6/dd9/namespaceEasys.html">Easys</a></div><div class="ttdef"><b>Definition</b> ecs.hpp:12</div></div>
 <div class="ttc" id="anamespaceEasys_html_a2cb67a74fe7dc55d599dac2eafad0305"><div class="ttname"><a href="d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Easys::Entity</a></div><div class="ttdeci">EASYS_ENTITY_TYPE Entity</div><div class="ttdef"><b>Definition</b> entity.hpp:11</div></div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>For usage examples, see the <a href="https://github.com/raphaelmayer/easys">README.md</a>.</dd></dl>
-<h1><a class="anchor" id="ecs"></a>
-Easys::ECS Class</h1>
-<p>See <a class="el" href="d9/d50/classEasys_1_1ECS.html">Easys::ECS</a> - the core class and single entry point for users.</p>
-<h1><a class="anchor" id="macros"></a>
-Macros</h1>
-<ul>
-<li><a class="el" href="d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a> - define the type used for entities</li>
-<li><a class="el" href="d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a> - define max number of entities </li>
-</ul>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>For usage examples, see the <a href="https://github.com/raphaelmayer/easys/blob/master/README.md">README.md</a>. </dd></dl>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

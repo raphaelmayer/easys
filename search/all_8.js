@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['macros_0',['Macros',['../index.html#macros',1,'']]],
+  ['macros_0',['Configurable Macros',['../index.html#macros',1,'']]],
   ['mainpage_2edox_1',['mainpage.dox',['../d5/d4d/mainpage_8dox.html',1,'']]],
   ['max_5fentities_2',['MAX_ENTITIES',['../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d',1,'Easys']]],
   ['maxsize_3',['maxSize',['../d6/d28/classEasys_1_1SparseSet.html#a0c9bf04f7823748fa23d434f70c94cfe',1,'Easys::SparseSet']]]
