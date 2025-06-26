@@ -1,5 +1,4 @@
-#include <easys/ecs.hpp>
-#include <easys/entity.hpp>
+#include <easys/easys.hpp>
 #include <iostream>
 
 // This extended example demonstrates creating multiple entities with various components,

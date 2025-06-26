@@ -1,5 +1,4 @@
-#include <easys/ecs.hpp>
-#include <easys/entity.hpp>
+#include <easys/easys.hpp>
 
 // Example components
 struct Position {
