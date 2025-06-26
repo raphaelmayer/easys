@@ -1,0 +1,33 @@
+# Doxyfile
+
+# Project settings
+PROJECT_NAME           = "Easys"
+PROJECT_BRIEF          = "A minimalist, header-only C++ ECS library for efficient and fuss-free entity and component management."
+PROJECT_LOGO           = # Optional: path/to/your/logo.png
+OUTPUT_DIRECTORY       = "docs"
+CREATE_SUBDIRS         = YES
+
+# Input settings
+INPUT                  = include # Assumes your headers are in an 'include' directory
+RECURSIVE              = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+
+# HTML output settings
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+HTML_HEADER            =
+HTML_FOOTER            =
+HTML_STYLESHEET        =
+HTML_COLORSTYLE_HUE    = 220
+HTML_COLORSTYLE_SAT    = 100
+HTML_COLORSTYLE_GAMMA  = 80
+
+# LaTeX output settings (optional, can be disabled)
+GENERATE_LATEX         = NO
+
+# Other settings
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = YES
