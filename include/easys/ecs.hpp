@@ -13,19 +13,15 @@
 @mainpage Easys::ECS Documentation
 @brief Lightweight Entity-Component-System library
 
-@section intro Introduction
-A minimal, header-only ECS for C++17+.
-Key features:
-- Type-safe component storage
-- Macro-free entity definitions
-- [GitHub Repo](https://github.com/your/easys)
+@include{doc} README.md
+@tableofcontents
 
 @section ecs Easys::ECS Class
-@ref Easys::ECS (click to jump to full docs)
+@ref Easys::ECS is the core class and single entry point for users. (click to jump to full docs)
 
 @section macros Macros
-@ref ECS_COMPONENT  (define components)
-@ref ECS_SYSTEM     (define systems)
+@ref EASYS_ENTITY_TYPE		(define the type used for entities)
+@ref EASYS_ENTITY_LIMIT     (define max number of entities)
 
 @note For usage examples, see the README.md.
 */
