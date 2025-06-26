@@ -73,21 +73,65 @@ $(function() {
   <div class="headertitle"><div class="title"><a class="el" href="d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">Easys::ECS</a> Documentation </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#ecs">Easys::ECS Class</a></li>
-<li class="level1"><a href="#macros">Macros</a></li>
-</ul>
-</div>
-<div class="textblock"><p>Lightweight Entity-Component-System library</p><div class="fragment"></div><!-- fragment --><h1><a class="anchor" id="ecs"></a>
+<div class="textblock"><p>EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies. The library now uses a static design approach**, requiring all component types to be registered at compile time through template parameters. This shift from runtime to compile-time registration improves performance, enables stronger type safety, and eliminates runtime type checks, while still maintaining a clean and lightweight API.</p>
+<p>TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.</p>
+<h1><a class="anchor" id="Quick"></a>
+Start Guide</h1>
+<p>This section will walk you through the basics of creating entities, adding components to them, and querying these components.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="de/d8c/ecs_8hpp.html">easys/ecs.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="db/de2/entity_8hpp.html">easys/entity.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// This is a very basic example to demonstrate creating an entity,</span></div>
+<div class="line"><span class="comment">// adding a component to it, and retrieving the component.</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Define a Position component structure.</span></div>
+<div class="line"><span class="comment">// Components are simple structs or classes that contain data.</span></div>
+<div class="line"><span class="keyword">struct </span>Position {</div>
+<div class="line">    <span class="keywordtype">float</span> x, y;</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">using namespace </span><a class="code hl_namespace" href="d6/dd9/namespaceEasys.html">Easys</a>;</div>
+<div class="line">  </div>
+<div class="line">    <span class="comment">// Create an instance of the ECS class and register all component types.</span></div>
+<div class="line">    <a class="code hl_class" href="d9/d50/classEasys_1_1ECS.html">ECS&lt;Position&gt;</a> ecs;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Create a new entity. An entity is just a number.</span></div>
+<div class="line">    <a class="code hl_typedef" href="d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> entity = ecs.<a class="code hl_function" href="d9/d50/classEasys_1_1ECS.html#a221f0b622b8a9dbfea9f48d0ccf48e4d">addEntity</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Add a Position component to the entity with initial values.</span></div>
+<div class="line">    ecs.<a class="code hl_function" href="d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">addComponent</a>&lt;Position&gt;(entity, {10.0f, 20.0f});</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Update the component.</span></div>
+<div class="line">    <span class="keyword">auto</span> &amp;component = ecs.<a class="code hl_function" href="d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">getComponent</a>&lt;Position&gt;(entity);</div>
+<div class="line">    component.x = 0.0f;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Retrieve the Position component from the entity to read or modify it.</span></div>
+<div class="line">    Position &amp;pos = ecs.<a class="code hl_function" href="d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">getComponent</a>&lt;Position&gt;(entity);</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Position: &quot;</span> &lt;&lt; pos.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; pos.y &lt;&lt; std::endl;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="aclassEasys_1_1ECS_html"><div class="ttname"><a href="d9/d50/classEasys_1_1ECS.html">Easys::ECS</a></div><div class="ttdoc">Manages entities and components in an Entity-Component-System architecture.</div><div class="ttdef"><b>Definition</b> ecs.hpp:19</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a17a6dbb9ff411bfb232f97a518a92165"><div class="ttname"><a href="d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">Easys::ECS::addComponent</a></div><div class="ttdeci">void addComponent(const Entity e, T component)</div><div class="ttdoc">Adds a component of type T to an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:136</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a221f0b622b8a9dbfea9f48d0ccf48e4d"><div class="ttname"><a href="d9/d50/classEasys_1_1ECS.html#a221f0b622b8a9dbfea9f48d0ccf48e4d">Easys::ECS::addEntity</a></div><div class="ttdeci">Entity addEntity()</div><div class="ttdoc">Adds a new entity to the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:58</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a6c58ba65fd96a9977c4a7284c1fdaf69"><div class="ttname"><a href="d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">Easys::ECS::getComponent</a></div><div class="ttdeci">T &amp; getComponent(const Entity e)</div><div class="ttdoc">Retrieves a reference to a component of type T from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:159</div></div>
+<div class="ttc" id="aecs_8hpp_html"><div class="ttname"><a href="de/d8c/ecs_8hpp.html">ecs.hpp</a></div></div>
+<div class="ttc" id="aentity_8hpp_html"><div class="ttname"><a href="db/de2/entity_8hpp.html">entity.hpp</a></div></div>
+<div class="ttc" id="anamespaceEasys_html"><div class="ttname"><a href="d6/dd9/namespaceEasys.html">Easys</a></div><div class="ttdef"><b>Definition</b> ecs.hpp:12</div></div>
+<div class="ttc" id="anamespaceEasys_html_a2cb67a74fe7dc55d599dac2eafad0305"><div class="ttname"><a href="d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Easys::Entity</a></div><div class="ttdeci">EASYS_ENTITY_TYPE Entity</div><div class="ttdef"><b>Definition</b> entity.hpp:11</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>For usage examples, see the <a href="https://github.com/raphaelmayer/easys">README.md</a>.</dd></dl>
+<h1><a class="anchor" id="ecs"></a>
 Easys::ECS Class</h1>
 <p>See <a class="el" href="d9/d50/classEasys_1_1ECS.html">Easys::ECS</a> - the core class and single entry point for users.</p>
 <h1><a class="anchor" id="macros"></a>
 Macros</h1>
 <ul>
 <li><a class="el" href="d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a> - define the type used for entities</li>
-<li><a class="el" href="d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a> - define max number of entities</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a> - define max number of entities </li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>For usage examples, see the <a href="https://github.com/raphaelmayer/easys">README.md</a>. </dd></dl>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,18 +1,13 @@
 var searchData=
 [
-  ['easys_0',['Easys',['../d6/dd9/namespaceEasys.html',1,'']]],
-  ['easys_2ehpp_1',['easys.hpp',['../dc/dbe/easys_8hpp.html',1,'']]],
-  ['easys_3a_20manage_20entities_20and_20components_20with_20minimal_20fuss_2',['EasyS: Manage entities and components with minimal fuss',['../d0/d30/md_README.html',1,'']]],
-  ['easys_3a_3aecs_20class_3',['Easys::ECS Class',['../index.html#ecs',1,'']]],
-  ['easys_3a_3aecs_20documentation_4',['Easys::ECS Documentation',['../index.html',1,'']]],
-  ['easys_3a_3aunsignedintegral_5',['UnsignedIntegral',['../d6/d8c/conceptEasys_1_1UnsignedIntegral.html',1,'Easys']]],
-  ['easys_5fentity_5flimit_6',['EASYS_ENTITY_LIMIT',['../d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755',1,'config.hpp']]],
-  ['easys_5fentity_5ftype_7',['EASYS_ENTITY_TYPE',['../d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291',1,'config.hpp']]],
-  ['ecs_8',['ecs',['../d9/d50/classEasys_1_1ECS.html#a73c4ad5a0fc5d3569310ec905643fe40',1,'Easys::ECS::ECS()'],['../d9/d50/classEasys_1_1ECS.html',1,'Easys::ECS&lt; AllComponentTypes &gt;'],['../d9/d50/classEasys_1_1ECS.html#ab5cf98a18326ac9ca466e15024d1bd2f',1,'Easys::ECS::ECS()']]],
-  ['ecs_20library_20documentation_9',['ECS Library Documentation',['../d0/d30/md_README.html#autotoc_md12',1,'']]],
-  ['ecs_2ehpp_10',['ecs.hpp',['../de/d8c/ecs_8hpp.html',1,'']]],
-  ['entities_20and_20components_20with_20minimal_20fuss_11',['EasyS: Manage entities and components with minimal fuss',['../d0/d30/md_README.html',1,'']]],
-  ['entity_12',['Entity',['../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305',1,'Easys']]],
-  ['entity_20management_13',['Entity Management',['../d0/d30/md_README.html#autotoc_md14',1,'']]],
-  ['entity_2ehpp_14',['entity.hpp',['../db/de2/entity_8hpp.html',1,'']]]
+  ['get_0',['get',['../d6/d28/classEasys_1_1SparseSet.html#ad57687cd8c211613f387a4cfdc6c6d27',1,'Easys::SparseSet::get(const Key key)'],['../d6/d28/classEasys_1_1SparseSet.html#ade61ca9ebe71cf2fc1ddba0da3debd82',1,'Easys::SparseSet::get(const Key key) const']]],
+  ['getcomponent_1',['getcomponent',['../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69',1,'Easys::ECS::getComponent(const Entity e)'],['../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb',1,'Easys::ECS::getComponent(const Entity e) const'],['../da/d59/classEasys_1_1Registry.html#a026c660d9578f42425490d81ef2f86c6',1,'Easys::Registry::getComponent(const Entity entity)'],['../da/d59/classEasys_1_1Registry.html#a349a196221244f30d50b96f0cb577baa',1,'Easys::Registry::getComponent(const Entity entity) const']]],
+  ['getcomponentcount_2',['getcomponentcount',['../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503',1,'Easys::ECS::getComponentCount() const'],['../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd',1,'Easys::ECS::getComponentCount() const']]],
+  ['getentities_3',['getEntities',['../d9/d50/classEasys_1_1ECS.html#a5b2d03b40a3ea9a9c429d2ea18fa252b',1,'Easys::ECS']]],
+  ['getentitiesbycomponent_4',['getentitiesbycomponent',['../d9/d50/classEasys_1_1ECS.html#ad58821a03b4862698ba5c6e6288418e9',1,'Easys::ECS::getEntitiesByComponent()'],['../da/d59/classEasys_1_1Registry.html#ab9391cb41f62dea191d72c48d95d815b',1,'Easys::Registry::getEntitiesByComponent()']]],
+  ['getentitiesbycomponents_5',['getentitiesbycomponents',['../d9/d50/classEasys_1_1ECS.html#a6f0840fd3e39b0d35a105852c6212c21',1,'Easys::ECS::getEntitiesByComponents()'],['../da/d59/classEasys_1_1Registry.html#a3f28bd65f0dccd7e3e860246867d0006',1,'Easys::Registry::getEntitiesByComponents()']]],
+  ['getentitycount_6',['getEntityCount',['../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602',1,'Easys::ECS']]],
+  ['getkeys_7',['getKeys',['../d6/d28/classEasys_1_1SparseSet.html#a71483add4573374566fb84d9889d4be1',1,'Easys::SparseSet']]],
+  ['getvalues_8',['getvalues',['../d6/d28/classEasys_1_1SparseSet.html#a45b43fe28c4ed1b87ea0f6f20444fb3e',1,'Easys::SparseSet::getValues()'],['../d6/d28/classEasys_1_1SparseSet.html#ad4b6c120bf4b46347b3d5310f99119a1',1,'Easys::SparseSet::getValues() const']]],
+  ['guide_9',['Start Guide',['../index.html#Quick',1,'']]]
 ];
