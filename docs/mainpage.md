@@ -11,7 +11,7 @@ See [Easys::ECS](@ref Easys::ECS) — the core class and single entry point for us
 
 ## Macros
 
-- [EASYS_ENTITY_TYPE](@ref EASYS_ENTITY_TYPE) — define the type used for entities  
-- [EASYS_ENTITY_LIMIT](@ref EASYS_ENTITY_LIMIT) — define max number of entities
+- [EASYS_ENTITY_TYPE](@ref EASYS_ENTITY_TYPE) - define the type used for entities  
+- [EASYS_ENTITY_LIMIT](@ref EASYS_ENTITY_LIMIT) - define max number of entities
 
-> **Note:** For usage examples, see the [README.md](github.com/raphaelmayer/easys).
+> **Note:** For usage examples, see the [README.md](www.github.com/raphaelmayer/easys).

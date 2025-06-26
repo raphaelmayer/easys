@@ -9,23 +9,6 @@
 #include "entity.hpp"
 #include "registry.hpp"
 
-/**
-@mainpage Easys::ECS Documentation
-@brief Lightweight Entity-Component-System library
-
-@include{doc} README.md
-@tableofcontents
-
-@section ecs Easys::ECS Class
-@ref Easys::ECS is the core class and single entry point for users. (click to jump to full docs)
-
-@section macros Macros
-@ref EASYS_ENTITY_TYPE		(define the type used for entities)
-@ref EASYS_ENTITY_LIMIT     (define max number of entities)
-
-@note For usage examples, see the README.md.
-*/
-
 namespace Easys {
 
 /**
