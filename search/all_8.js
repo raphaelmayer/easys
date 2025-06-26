@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['hascomponent_0',['hascomponent',['../d9/d50/classEasys_1_1ECS.html#ad127dc74d82c3a4d6a35ee4dc2741605',1,'Easys::ECS::hasComponent()'],['../da/d59/classEasys_1_1Registry.html#aa60e877920298af9a66927b137258a1f',1,'Easys::Registry::hasComponent()']]],
-  ['hasentity_1',['hasEntity',['../d9/d50/classEasys_1_1ECS.html#a8010729e9e92bc6de3dacee5f50ec8b9',1,'Easys::ECS']]],
-  ['header_20convenience_2',['Single-Header Convenience',['../d0/d30/md_README.html#autotoc_md6',1,'']]],
-  ['header_20inclusion_20options_3',['Header Inclusion Options',['../d0/d30/md_README.html#autotoc_md5',1,'']]],
-  ['headers_20for_20specific_20needs_4',['Individual Headers for Specific Needs',['../d0/d30/md_README.html#autotoc_md7',1,'']]]
+  ['macros_0',['Macros',['../index.html#macros',1,'']]],
+  ['max_5fentities_1',['MAX_ENTITIES',['../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d',1,'Easys']]],
+  ['maxsize_2',['maxSize',['../d6/d28/classEasys_1_1SparseSet.html#a0c9bf04f7823748fa23d434f70c94cfe',1,'Easys::SparseSet']]]
 ];
