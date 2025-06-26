@@ -16,7 +16,8 @@ EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = YES
 FILE_PATTERNS          = *.h *.hpp *.cpp *.cc \
                          *.dox *.md
-EXTENSION_MAPPING      = md=markdown
+MARKDOWN_SUPPORT       = YES
+EXTENSION_MAPPING      = dox=markdown
 
 # HTML output settings
 GENERATE_HTML          = YES

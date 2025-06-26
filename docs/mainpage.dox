@@ -9,8 +9,16 @@ EasyS is a minimalist, header-only C++ library designed to streamline the develo
 
 **TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.
 
+\section ecs Easys::ECS Class
 
-\section Quick Start Guide
+See \ref Easys::ECS - the core class and single entry point for users.
+
+\section macros Configurable Macros
+
+- \ref EASYS_ENTITY_TYPE - define the type used for entities
+- \ref EASYS_ENTITY_LIMIT - define max number of entities
+
+\section quickstart Quick Start Guide
 
 This section will walk you through the basics of creating entities, adding components to them, and querying these components.
 
@@ -53,14 +61,5 @@ int main()
 }
 ```
 
-\note For usage examples, see the [README.md](https://github.com/raphaelmayer/easys).
-
-\section ecs Easys::ECS Class
-
-See \ref Easys::ECS - the core class and single entry point for users.
-
-\section macros Macros
-
-- \ref EASYS_ENTITY_TYPE - define the type used for entities
-- \ref EASYS_ENTITY_LIMIT - define max number of entities
+\note For usage examples, see the [README.md](https://github.com/raphaelmayer/easys/blob/master/README.md).
 */
