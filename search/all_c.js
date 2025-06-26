@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['macros_0',['macros',['../index.html#autotoc_md1',1,'Macros'],['..//home/runner/work/easys/easys/include/easys/ecs.hpp#macros',1,'Macros']]],
+  ['macros_0',['Macros',['../index.html#autotoc_md1',1,'']]],
   ['mainpage_2emd_1',['mainpage.md',['../dc/dc6/mainpage_8md.html',1,'']]],
   ['manage_20entities_20and_20components_20with_20minimal_20fuss_2',['EasyS: Manage entities and components with minimal fuss',['../d0/d30/md_README.html',1,'']]],
   ['management_3',['management',['../d0/d30/md_README.html#autotoc_md17',1,'Component Management'],['../d0/d30/md_README.html#autotoc_md16',1,'Entity Management']]],

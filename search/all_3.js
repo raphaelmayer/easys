@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['class_0',['class',['..//home/runner/work/easys/easys/include/easys/ecs.hpp#ecs',1,'Easys::ECS Class'],['../index.html#autotoc_md0',1,'Easys::ECS Class']]],
-  ['clear_1',['clear',['../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30',1,'Easys::ECS::clear()'],['../d6/d28/classEasys_1_1SparseSet.html#af85df827b401edb6b55ea1d430534d0d',1,'Easys::SparseSet::clear()'],['../da/d59/classEasys_1_1Registry.html#a5ec6dadfd7f247cbd5525c4032130c3e',1,'Easys::Registry::clear()'],['../da/d59/classEasys_1_1Registry.html#a8b21acd30bc8f59c04aa4245ca03b014',1,'Easys::Registry::clear()']]],
+  ['class_0',['Easys::ECS Class',['../index.html#autotoc_md0',1,'']]],
+  ['clear_1',['clear',['../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30',1,'Easys::ECS::clear()'],['../da/d59/classEasys_1_1Registry.html#a8b21acd30bc8f59c04aa4245ca03b014',1,'Easys::Registry::clear()'],['../da/d59/classEasys_1_1Registry.html#a5ec6dadfd7f247cbd5525c4032130c3e',1,'Easys::Registry::clear()'],['../d6/d28/classEasys_1_1SparseSet.html#af85df827b401edb6b55ea1d430534d0d',1,'Easys::SparseSet::clear()']]],
   ['clearcomponents_2',['clearcomponents',['../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576',1,'Easys::ECS::clearComponents()'],['../d9/d50/classEasys_1_1ECS.html#a3a15c2610dd91b59dbe0dd930dc3e25e',1,'Easys::ECS::clearComponents()']]],
   ['clearing_20methods_3',['Clearing Methods',['../d0/d30/md_README.html#autotoc_md18',1,'']]],
   ['cmake_4',['Using CMake',['../d0/d30/md_README.html#autotoc_md10',1,'']]],
