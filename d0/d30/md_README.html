@@ -73,11 +73,11 @@ $(function() {
   <div class="headertitle"><div class="title">EasyS: Manage entities and components with minimal fuss</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md2"></a> <a href="https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml"><img src="https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml/badge.svg" alt="Build and test" style="pointer-events: none;" class="inline"/></a> <a href="https://raphaelmayer.github.io/easys/"><img src="https://img.shields.io/badge/docs-doxygen-blue?style=flat&amp;logo=github" alt="Documentation" class="inline"/></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> <a href="https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml"><img src="https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml/badge.svg" alt="Build and test" style="pointer-events: none;" class="inline"/></a> <a href="https://raphaelmayer.github.io/easys/"><img src="https://img.shields.io/badge/docs-doxygen-blue?style=flat&amp;logo=github" alt="Documentation" class="inline"/></a></p>
 <p>EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.</p>
 <p><b>The library now uses a static design approach</b>, requiring all component types to be registered at compile time through template parameters. This shift from runtime to compile-time registration improves performance, enables stronger type safety, and eliminates runtime type checks, while still maintaining a clean and lightweight API.</p>
 <p><b>TLDR:</b> EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md1"></a>
 Quick Start Guide</h1>
 <p>This section will walk you through the basics of creating entities, adding components to them, and querying these components.</p>
 <div class="fragment"><div class="line">#include &lt;easys/ecs.hpp&gt;</div>
@@ -117,12 +117,12 @@ Quick Start Guide</h1>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>Check out the <code>/examples</code> directory for more examples on how to use this library.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Integration Guide</h1>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Requirements</h2>
 <p>EasyS requires a compiler that supports at least C++20. This is because of the use of concepts and templated lambda functions and is subject to change.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Direct inclusion</h2>
 <p>Since EasyS is a header-only library, you can just include the whole library in your project and use it directly.</p>
 <ol type="1">
@@ -132,12 +132,12 @@ Direct inclusion</h2>
 <div class="ttc" id="aeasys_8hpp_html"><div class="ttname"><a href="../../dc/dbe/easys_8hpp.html">easys.hpp</a></div></div>
 </div><!-- fragment --></li>
 </ol>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Header Inclusion Options</h2>
-<h3><a class="anchor" id="autotoc_md8"></a>
+<h3><a class="anchor" id="autotoc_md6"></a>
 Single-Header Convenience</h3>
 <p>For simplicity and quick integration, we offer a single-header file that includes all the functionalities of our library. Include <code><a class="el" href="../../dc/dbe/easys_8hpp.html">easys.hpp</a></code> for full library access: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../dc/dbe/easys_8hpp.html">easys/easys.hpp</a>&gt;</span></div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md7"></a>
 Individual Headers for Specific Needs</h3>
 <p>You can also include individual headers, if you do not need all components: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../d8/dfd/config_8hpp.html">easys/config.hpp</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../db/de2/entity_8hpp.html">easys/entity.hpp</a>&gt;</span></div>
@@ -147,16 +147,16 @@ Individual Headers for Specific Needs</h3>
 <div class="ttc" id="aecs_8hpp_html"><div class="ttname"><a href="../../de/d8c/ecs_8hpp.html">ecs.hpp</a></div></div>
 <div class="ttc" id="aentity_8hpp_html"><div class="ttname"><a href="../../db/de2/entity_8hpp.html">entity.hpp</a></div></div>
 </div><!-- fragment --><p> Keep in mind, that <code><a class="el" href="../../d8/dfd/config_8hpp.html">config.hpp</a></code> has to be included before any other EasyS headers.</p>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 Using CMake</h2>
 <p>EasyS supports CMake integration, allowing you to easily add it to your CMake-based projects.</p>
-<h3><a class="anchor" id="autotoc_md11"></a>
+<h3><a class="anchor" id="autotoc_md9"></a>
 As a Subdirectory</h3>
 <p>If you've cloned or downloaded EasyS into your project's directory structure, you can add it as a subdirectory in your <code>CMakeLists.txt</code>:</p>
 <div class="fragment"><div class="line">add_subdirectory(path/to/easys)</div>
 <div class="line">target_link_libraries(your_target_name INTERFACE easys)</div>
 </div><!-- fragment --><p>Replace <code>path/to/easys</code> with the actual path to EasyS within your project, and <code>your_target_name</code> with the name of your project's target.</p>
-<h3><a class="anchor" id="autotoc_md12"></a>
+<h3><a class="anchor" id="autotoc_md10"></a>
 Using FetchContent (CMake 3.11+)</h3>
 <p>CMake's FetchContent module allows you to dynamically download and include libraries directly in your build process. To integrate EasyS using FetchContent:</p>
 <div class="fragment"><div class="line">FetchContent_Declare(</div>
@@ -167,13 +167,13 @@ Using FetchContent (CMake 3.11+)</h3>
 <div class="line">)</div>
 <div class="line">FetchContent_MakeAvailable(EASYS)</div>
 <div class="line">target_link_libraries(your_target_name PRIVATE easys)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md13"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md11"></a>
 Package managers</h2>
 <p><em><b>Coming soon</b></em></p>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 ECS Library Documentation</h2>
 <p>All types and functions are defined within the <code><a class="el" href="../../d6/dd9/namespaceEasys.html">Easys</a></code> namespace. This section documents the core interface of the EasyS ECS library, including entity management and component operations..</p>
-<h3><a class="anchor" id="autotoc_md15"></a>
+<h3><a class="anchor" id="autotoc_md13"></a>
 Constructor</h3>
 <ul>
 <li>**<code>ECS()</code>**<ul>
@@ -185,7 +185,7 @@ Constructor</h3>
 </ul>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md16"></a>
+<h3><a class="anchor" id="autotoc_md14"></a>
 Entity Management</h3>
 <ul>
 <li>**<code>Entity addEntity()</code>**<ul>
@@ -217,7 +217,7 @@ Entity Management</h3>
 </ul>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md17"></a>
+<h3><a class="anchor" id="autotoc_md15"></a>
 Component Management</h3>
 <ul>
 <li>**<code>void addComponent&lt;T&gt;(const Entity e, const T c)</code>**<ul>
@@ -245,7 +245,7 @@ Component Management</h3>
 </ul>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md18"></a>
+<h3><a class="anchor" id="autotoc_md16"></a>
 Clearing Methods</h3>
 <ul>
 <li>**<code>void clearComponents&lt;Ts...&gt;()</code>**<ul>
@@ -257,35 +257,35 @@ Clearing Methods</h3>
 </ul>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md19"></a>
+<h3><a class="anchor" id="autotoc_md17"></a>
 Philosophy and User Responsibilities</h3>
 <p>Users are expected to:</p>
 <ul>
 <li><b>Register all Components at Compile-Time:</b> All component types must be specified as template parameters when instantiating the ECS. Accessing a foreign component will result in a compiler error.</li>
 <li><b>Check Component Presence Before Access:</b> Always verify that an entity has a given component before accessing it. Calling <code>getComponent&lt;T&gt;(entity)</code> on an entity that lacks <code>T</code> will throw a <code><a class="el" href="../../d6/dba/classEasys_1_1KeyNotFoundException.html">Easys::KeyNotFoundException</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Configuration Options</h1>
 <p>EasyS provides a couple of configuration options to tailor the ECS to your use case:</p>
 <ul>
 <li>**<code>EASYS_ENTITY_TYPE</code>:** Defines the data type of the entity identifier. Users can choose any <em>unsigned integer type</em>. By default, it is set to <code>uint32_t</code>.</li>
 <li>**<code>EASYS_ENTITY_LIMIT</code>:** Specifies the maximum number of entities that can be created. This limit is set to <code>10000</code> by default.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md19"></a>
 Usage Instructions</h2>
 <p>To use these, define the corresponding macros before including the main file in your project. This can be done either directly in the source code or through compiler flags.</p>
-<h3><a class="anchor" id="autotoc_md22"></a>
+<h3><a class="anchor" id="autotoc_md20"></a>
 Customizing in Source Code</h3>
 <p>Before including this configuration file, define the macros as shown below:</p>
 <div class="fragment"><div class="line">#define EASYS_ENTITY_TYPE uint64_t // Change to 64-bit unsigned integer</div>
 <div class="line">#define EASYS_ENTITY_LIMIT 50000   // Increase entity limit</div>
 <div class="line">#include &lt;easys/config.hpp&gt;    // Path to the configuration file</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md21"></a>
 Customizing with Compiler Flags</h3>
 <p>Alternatively, you can use compiler flags to define these macros, avoiding modifications to the source code, for example:</p>
 <div class="fragment"><div class="line">++ -DEASYS_ENTITY_TYPE=uint64_t -DEASYS_ENTITY_LIMIT=50000 -o my_application my_application.cpp</div>
 </div><!-- fragment --><p>Replace g++ with the appropriate compiler command for your development environment if different.</p>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md22"></a>
 Support</h1>
 <p>If you encounter any issues or have questions regarding the integration process, please feel free to open an issue on the <a href="https://github.com/raphaelmayer/EasyS/issues">EasyS GitHub repository</a>. </p>
 </div></div><!-- contents -->

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['readme_2emd_0',['README.md',['../da/ddd/README_8md.html',1,'']]],
-  ['registry_2ehpp_1',['registry.hpp',['../d1/da2/registry_8hpp.html',1,'']]]
+  ['sparse_5fset_2ehpp_0',['sparse_set.hpp',['../d4/d0b/sparse__set_8hpp.html',1,'']]]
 ];
