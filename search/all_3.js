@@ -2,7 +2,7 @@ var searchData=
 [
   ['easys_0',['Easys',['../d6/dd9/namespaceEasys.html',1,'']]],
   ['easys_2ehpp_1',['easys.hpp',['../dc/dbe/easys_8hpp.html',1,'']]],
-  ['easys_3a_3aecs_20class_2',['Easys::ECS Class',['../index.html#ecs',1,'']]],
+  ['easys_3a_3aecs_2',['Easys::ECS',['../index.html#autotoc_md0',1,'']]],
   ['easys_3a_3aecs_20documentation_3',['Easys::ECS Documentation',['../index.html',1,'']]],
   ['easys_3a_3aunsignedintegral_4',['UnsignedIntegral',['../d6/d8c/conceptEasys_1_1UnsignedIntegral.html',1,'Easys']]],
   ['easys_5fentity_5flimit_5',['EASYS_ENTITY_LIMIT',['../d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755',1,'config.hpp']]],

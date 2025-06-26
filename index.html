@@ -73,22 +73,36 @@ $(function() {
   <div class="headertitle"><div class="title"><a class="el" href="d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">Easys::ECS</a> Documentation </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.<b>The library now uses a static design approach</b>, requiring all component types to be registered at compile time through template parameters. This shift from runtime to compile-time registration improves performance, enables stronger type safety, and eliminates runtime type checks, while still maintaining a clean and lightweight API.</p>
-<p><b>TLDR:</b> EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.</p>
-<h1><a class="anchor" id="ecs"></a>
-Easys::ECS Class</h1>
-<p>See <a class="el" href="d9/d50/classEasys_1_1ECS.html">Easys::ECS</a> - the core class and single entry point for users.</p>
-<h1><a class="anchor" id="macros"></a>
-Configurable Macros</h1>
-<ul>
-<li><a class="el" href="d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a> - define the type used for entities</li>
-<li><a class="el" href="d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a> - define max number of entities</li>
+<div class="toc"><h3>Table of Contents</h3>
+<ul><ul><li class="level2"><a href="#autotoc_md0">Easys::ECS</a></li>
+<li class="level2"><a href="#autotoc_md1">Quick Start Guide</a></li>
+<li class="level2"><a href="#autotoc_md2">Configuration Options</a><ul><li class="level3"><a href="#autotoc_md3">Usage Instructions</a><ul><li class="level4"><a href="#autotoc_md4">Customizing in Source Code</a></li>
+<li class="level4"><a href="#autotoc_md5">Customizing with Compiler Flags</a></li>
 </ul>
-<h1><a class="anchor" id="quickstart"></a>
-Quick Start Guide</h1>
-<p>This section will walk you through the basics of creating entities, adding components to them, and querying these components.</p>
-<div class="fragment"><div class="line">#include &lt;easys/ecs.hpp&gt;</div>
-<div class="line">#include &lt;easys/entity.hpp&gt;</div>
+</li>
+<li class="level3"><a href="#autotoc_md6">Philosophy and User Responsibilities</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</div>
+<div class="textblock"><p>EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies. <br  />
+<b>The library uses a static design approach</b>, requiring all component types to be registered at compile time through template parameters. <br  />
+</p>
+<h2><a class="anchor" id="autotoc_md0"></a>
+Easys::ECS</h2>
+<p>The <a class="el" href="d9/d50/classEasys_1_1ECS.html">Easys::ECS</a> class is the single public interface for EasyS. It provides all functionality for:</p>
+<ul>
+<li>Compile-time component registration <br  />
+</li>
+<li>Entity creation and management <br  />
+</li>
+<li>Component addition, removal, and querying <br  />
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Quick Start Guide</h2>
+<p>This basic example demonstrates how to create entities, add components, and retrieve them: </p><div class="fragment"><div class="line">#include &lt;easys/easys.hpp&gt;</div>
 <div class="line">#include &lt;iostream&gt;</div>
 <div class="line"> </div>
 <div class="line">// This is a very basic example to demonstrate creating an entity,</div>
@@ -123,7 +137,34 @@ Quick Start Guide</h1>
 <div class="line"> </div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>For usage examples, see the <a href="https://github.com/raphaelmayer/easys/blob/master/README.md">README.md</a>. </dd></dl>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>For more usage examples, take a look at the <a href="https://github.com/raphaelmayer/easys/blob/master/examples">examples</a>.</dd></dl>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Configuration Options</h2>
+<p>EasyS provides a couple of overrideable macros to tailor the ECS to your use case:</p>
+<ul>
+<li><a class="el" href="d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a> - define the integer type used for entity IDs (default: <code>uint32_t</code>)</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a> - set the maximum number of active entities (default: <code>10000</code>)</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md3"></a>
+Usage Instructions</h3>
+<p>Define these macros <b>before</b> including EasyS, either in source or via compiler flags.</p>
+<h4><a class="anchor" id="autotoc_md4"></a>
+Customizing in Source Code</h4>
+<div class="fragment"><div class="line">#define EASYS_ENTITY_TYPE uint64_t // Change to 64-bit unsigned integer</div>
+<div class="line">#define EASYS_ENTITY_LIMIT 50000   // Increase entity limit</div>
+<div class="line">#include &lt;easys/easys.hpp&gt;         // Path to the configuration file</div>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md5"></a>
+Customizing with Compiler Flags</h4>
+<p><b>GCC/Clang</b> on Linux/macOS: </p><div class="fragment"><div class="line">g++ -DEASYS_ENTITY_TYPE=uint64_t -DEASYS_ENTITY_LIMIT=50000 -o my_app my_app.cpp</div>
+</div><!-- fragment --><p><b>MSVC</b> on Windows: </p><div class="fragment"><div class="line">cl /D EASYS_ENTITY_TYPE=uint64_t /D EASYS_ENTITY_LIMIT=50000 my_app.cpp</div>
+</div><!-- fragment --><p>Depending on your compiler and development environment the exact command might be slightly different.</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Philosophy and User Responsibilities</h3>
+<dl class="section note"><dt>Note</dt><dd>Users are expected to:</dd></dl>
+<ul>
+<li><b>Register all Components at Compile-Time:</b> All component types must be specified as template parameters when instantiating the ECS. Accessing a foreign component will result in a compiler error.</li>
+<li><b>Check Component Presence Before Access:</b> Always verify that an entity has a given component before accessing it. Calling <code>getComponent&lt;T&gt;(entity)</code> on an entity that lacks <code>T</code> will throw a <code><a class="el" href="d6/dba/classEasys_1_1KeyNotFoundException.html">Easys::KeyNotFoundException</a></code>. </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
