@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['set_0',['set',['../d6/d28/classEasys_1_1SparseSet.html#a7928fb61152bdb5649a4d4a70fcf8b52',1,'Easys::SparseSet::set(const Key key, const Value &amp;value)'],['../d6/d28/classEasys_1_1SparseSet.html#a26f937b5855720f8067a0ab50647f453',1,'Easys::SparseSet::set(const Key key, Value &amp;&amp;value)']]],
-  ['size_1',['size',['../da/d59/classEasys_1_1Registry.html#a072045548af2cc80954ad782b839248e',1,'Easys::Registry::size() const'],['../da/d59/classEasys_1_1Registry.html#af78f3b2f768c096804fc2e5d452fb5e4',1,'Easys::Registry::size() const'],['../d6/d28/classEasys_1_1SparseSet.html#a71a9f83210b4750a0a9537959976349c',1,'Easys::SparseSet::size()']]],
-  ['sparse_5fset_2ehpp_2',['sparse_set.hpp',['../d4/d0b/sparse__set_8hpp.html',1,'']]],
-  ['sparseset_3',['SparseSet',['../d6/d28/classEasys_1_1SparseSet.html',1,'Easys']]]
+  ['macros_0',['Macros',['..//home/runner/work/easys/easys/include/easys/ecs.hpp#macros',1,'']]],
+  ['manage_20entities_20and_20components_20with_20minimal_20fuss_1',['EasyS: Manage entities and components with minimal fuss',['../index.html',1,'']]],
+  ['management_2',['management',['../index.html#autotoc_md15',1,'Component Management'],['../index.html#autotoc_md14',1,'Entity Management']]],
+  ['managers_3',['Package managers',['../index.html#autotoc_md11',1,'']]],
+  ['max_5fentities_4',['MAX_ENTITIES',['../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d',1,'Easys']]],
+  ['maxsize_5',['maxSize',['../d6/d28/classEasys_1_1SparseSet.html#a0c9bf04f7823748fa23d434f70c94cfe',1,'Easys::SparseSet']]],
+  ['methods_6',['Clearing Methods',['../index.html#autotoc_md16',1,'']]],
+  ['minimal_20fuss_7',['EasyS: Manage entities and components with minimal fuss',['../index.html',1,'']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['foreach_0',['forEach',['../d6/d28/classEasys_1_1SparseSet.html#ac0236e849831c359f06c34b8a23bcd32',1,'Easys::SparseSet']]]
+  ['direct_20inclusion_0',['Direct inclusion',['../index.html#autotoc_md4',1,'']]],
+  ['documentation_1',['ECS Library Documentation',['../index.html#autotoc_md12',1,'']]]
 ];
