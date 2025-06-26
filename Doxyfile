@@ -8,8 +8,8 @@ OUTPUT_DIRECTORY       = "docs"
 CREATE_SUBDIRS         = YES
 
 # Input settings
-USE_MDFILE_AS_MAINPAGE = README.md
-INPUT                  = include # Assumes your headers are in an 'include' directory
+USE_MDFILE_AS_MAINPAGE = docs/mainpage.md
+INPUT                  = docs/mainpage.md README.md include # Assumes your headers are in an 'include' directory
 RECURSIVE              = YES
 EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = NO
