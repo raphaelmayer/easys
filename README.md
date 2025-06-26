@@ -16,8 +16,7 @@ EasyS is a minimalist, header-only C++ library designed to streamline the develo
 This section will walk you through the basics of creating entities, adding components to them, and querying these components.
 
 ```
-#include <easys/ecs.hpp>
-#include <easys/entity.hpp>
+#include <easys/easys.hpp>
 #include <iostream>
 
 // This is a very basic example to demonstrate creating an entity,
@@ -125,98 +124,12 @@ FetchContent_MakeAvailable(EASYS)
 target_link_libraries(your_target_name PRIVATE easys)
 ```
 
-### Package managers
-
-***Coming soon***
-
-### ECS Library Documentation
-
-All types and functions are defined within the `Easys` namespace. This section documents the core interface of the EasyS ECS library, including entity management and component operations..
-
-#### Constructor
-
-- **`ECS()`**
-  - Initializes the ECS with a predefined maximum number of entities (`MAX_ENTITIES`). All entity IDs are initially available for assignment.
-- **`ECS(const std::set<Entity>& entities)`**
-  - Initializes the ECS with a specific set of entities. This constructor is useful for creating a new ECS instance based on a subset of entities from another instance or a predefined list.
-
-#### Entity Management
-
-- **`Entity addEntity()`**
-  - Adds a new entity to the ECS and return the entity id. If the maximum number of entities (`MAX_ENTITIES`) is reached, throws a `std::runtime_error`.
-- **`void removeEntity(const Entity e)`**
-  - Removes an entity and all its associated components from the ECS, making its ID available for reuse.
-- **`bool hasEntity(const Entity e) const`**
-  - Checks if an entity exists within the ECS.
-- **`const std::set<Entity>& getEntities() const`**
-  - Returns a reference to the set of all entities.
-- **`const std::vector<Entity>& getEntitiesByComponent<T>() const`**
-  - Returns a vector of entities that have a component of type `T`.
-- **`std::vector<Entity> getEntitiesByComponents<Ts...>() const`**
-  - Returns a vector of entities that have all of the specified component types `Ts...`.
-- **`size_t getEntityCount() const`**
-  - Returns the total number of entities in the ECS.
-
-#### Component Management
-
-- **`void addComponent<T>(const Entity e, const T c)`**
-  - Adds a component of type `T` to an entity `e`. If the entity is already associated with a component `T`, update it.
-- **`void removeComponent<T>(const Entity e)`**
-  - Removes a component of type `T` from an entity `e`.
-- **`void removeComponents<Ts...>(const Entity e)`**
-	- Removes components of types `Ts...` from an entity `e`. If the template parameters are omitted, it removes all components from the entity.
-- **`T& getComponent<T>(const Entity e)`**
-  - Retrieves a reference to a component of type `T` from an entity `e`. 
-- **`bool hasComponent<T>(const Entity e) const`**
-  - Checks if an entity `e` has a component of type `T`.
-- **`size_t getComponentCount<Ts...>() const`**
-  - Returns the total count of components of types `Ts...` within the ECS. If template parameters are omitted, it returns the total count of all component types.
- 
-#### Clearing Methods
-
-- **`void clearComponents<Ts...>()`**
-  - Removes components of types `Ts...` from all entities within the ECS. If template parameters are omitted only all types of components are cleared.
-- **`void clear()`**
-  - Clears all entities and components from the ECS, resetting it to its initial state.
-
 #### Philosophy and User Responsibilities
 
 Users are expected to:
 
 - **Register all Components at Compile-Time:** All component types must be specified as template parameters when instantiating the ECS. Accessing a foreign component will result in a compiler error.
 - **Check Component Presence Before Access:** Always verify that an entity has a given component before accessing it. Calling `getComponent<T>(entity)` on an entity that lacks `T` will throw a `Easys::KeyNotFoundException`.
-
-## Configuration Options
-
-EasyS provides a couple of configuration options to tailor the ECS to your use case:
-
-- **```EASYS_ENTITY_TYPE```:** Defines the data type of the entity identifier. Users can choose any *unsigned integer type*. 
-By default, it is set to ```uint32_t```. 
-
-- **```EASYS_ENTITY_LIMIT```:** Specifies the maximum number of entities that can be created. 
-This limit is set to ```10000``` by default. 
-
-### Usage Instructions
-
-To use these, define the corresponding macros before including the main file in your project. This can be done either directly in the source code or through compiler flags.
-
-#### Customizing in Source Code
-
-Before including this configuration file, define the macros as shown below:
-
-```
-#define EASYS_ENTITY_TYPE uint64_t // Change to 64-bit unsigned integer
-#define EASYS_ENTITY_LIMIT 50000   // Increase entity limit
-#include <easys/config.hpp>	   // Path to the configuration file
-```
-
-#### Customizing with Compiler Flags
-
-Alternatively, you can use compiler flags to define these macros, avoiding modifications to the source code, for example:
-
-```g++ -DEASYS_ENTITY_TYPE=uint64_t -DEASYS_ENTITY_LIMIT=50000 -o my_application my_application.cpp```
-
-Replace g++ with the appropriate compiler command for your development environment if different.
 
 ## Support
 

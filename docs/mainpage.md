@@ -2,28 +2,25 @@
 
 \brief
 
-EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.
+EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.  
 
-**The library now uses a static design approach**, requiring all component types to be registered at compile time through template parameters. This shift from runtime to compile-time registration improves performance, enables stronger type safety, and eliminates runtime type checks, while still maintaining a clean and lightweight API.
+**The library uses a static design approach**, requiring all component types to be registered at compile time through template parameters.  
 
-**TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.
+\tableofcontents
 
-\section ecs Easys::ECS Class
+## Easys::ECS
 
-See \ref Easys::ECS - the core class and single entry point for users.
+The \ref Easys::ECS class is the single public interface for EasyS. It provides all functionality for:
 
-\section macros Configurable Macros
+- Compile-time component registration  
+- Entity creation and management  
+- Component addition, removal, and querying  
 
-- \ref EASYS_ENTITY_TYPE - define the type used for entities
-- \ref EASYS_ENTITY_LIMIT - define max number of entities
+## Quick Start Guide
 
-\section quickstart Quick Start Guide
-
-This section will walk you through the basics of creating entities, adding components to them, and querying these components.
-
+This basic example demonstrates how to create entities, add components, and retrieve them:
 ```
-#include <easys/ecs.hpp>
-#include <easys/entity.hpp>
+#include <easys/easys.hpp>
 #include <iostream>
 
 // This is a very basic example to demonstrate creating an entity,
@@ -60,4 +57,46 @@ int main()
 }
 ```
 
-\note For usage examples, see the [README.md](https://github.com/raphaelmayer/easys/blob/master/README.md).
+\note For more usage examples, take a look at the [examples](https://github.com/raphaelmayer/easys/blob/master/examples).
+
+## Configuration Options
+
+EasyS provides a couple of overrideable macros to tailor the ECS to your use case:
+
+- \ref EASYS_ENTITY_TYPE - define the integer type used for entity IDs (default: `uint32_t`)
+- \ref EASYS_ENTITY_LIMIT - set the maximum number of active entities (default: `10000`) 
+
+### Usage Instructions
+
+Define these macros **before** including EasyS, either in source or via compiler flags.
+
+#### Customizing in Source Code
+
+```
+#define EASYS_ENTITY_TYPE uint64_t // Change to 64-bit unsigned integer
+#define EASYS_ENTITY_LIMIT 50000   // Increase entity limit
+#include <easys/easys.hpp>         // Path to the configuration file
+```
+
+#### Customizing with Compiler Flags
+
+**GCC/Clang** on Linux/macOS:
+```
+g++ -DEASYS_ENTITY_TYPE=uint64_t -DEASYS_ENTITY_LIMIT=50000 -o my_app my_app.cpp
+```
+
+**MSVC** on Windows:
+```
+cl /D EASYS_ENTITY_TYPE=uint64_t /D EASYS_ENTITY_LIMIT=50000 my_app.cpp
+```
+
+Depending on your compiler and development environment the exact command might be slightly different.
+
+### Philosophy and User Responsibilities
+
+\note Users are expected to:
+
+- **Register all Components at Compile-Time:** All component types must be specified as template parameters when instantiating the ECS. Accessing a foreign component will result in a compiler error.
+- **Check Component Presence Before Access:** Always verify that an entity has a given component before accessing it. Calling `getComponent<T>(entity)` on an entity that lacks `T` will throw a `Easys::KeyNotFoundException`.
+
+

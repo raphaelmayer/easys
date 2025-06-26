@@ -1,5 +1,4 @@
-#include <easys/ecs.hpp>
-#include <easys/entity.hpp>
+#include <easys/easys.hpp>
 #include <iostream>
 
 // This is a very basic example to demonstrate creating an entity,
