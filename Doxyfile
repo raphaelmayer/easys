@@ -8,16 +8,14 @@ OUTPUT_DIRECTORY       = "docs"
 CREATE_SUBDIRS         = YES
 
 # Input settings
-USE_MDFILE_AS_MAINPAGE = docs/mainpage.dox
-INPUT				   = docs/mainpage.dox include 
+USE_MDFILE_AS_MAINPAGE = docs/mainpage.md
+INPUT				   = docs/mainpage.md include 
 RECURSIVE              = YES
 EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = YES
-FILE_PATTERNS          = *.h *.hpp *.cpp *.cc \
-                         *.dox *.md
 MARKDOWN_SUPPORT       = YES
-EXTENSION_MAPPING      = dox=markdown
+FILE_PATTERNS		   = *.h *.hpp *.cpp *.cc *.md
 
 # HTML output settings
 GENERATE_HTML          = YES

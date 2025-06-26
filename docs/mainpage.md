@@ -1,4 +1,3 @@
-/*!
 \mainpage Easys::ECS Documentation
 
 \brief
@@ -62,4 +61,3 @@ int main()
 ```
 
 \note For usage examples, see the [README.md](https://github.com/raphaelmayer/easys/blob/master/README.md).
-*/
