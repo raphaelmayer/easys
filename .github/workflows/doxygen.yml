@@ -3,7 +3,7 @@ name: Doxygen GitHub Pages
 on:
   push:
     branches:
-      - master
+      - docs-automation # Temporarily run on test branch
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
