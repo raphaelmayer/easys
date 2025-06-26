@@ -9,11 +9,14 @@ CREATE_SUBDIRS         = YES
 
 # Input settings
 USE_MDFILE_AS_MAINPAGE = docs/mainpage.dox
-INPUT				   = docs/mainpage.dox README.md include
+INPUT				   = docs/mainpage.dox README.md include 
 RECURSIVE              = YES
 EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = YES
+FILE_PATTERNS          = *.h *.hpp *.cpp *.cc \
+                         *.dox *.md
+EXTENSION_MAPPING      = md=markdown
 
 # HTML output settings
 GENERATE_HTML          = YES
