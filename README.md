@@ -2,6 +2,7 @@
 # EasyS: Manage entities and components with minimal fuss
 
 [![Build and test](https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml/badge.svg)](https://github.com/raphaelmayer/easys/actions/workflows/cmake-build-and-test.yml)
+[![Documentation](https://img.shields.io/badge/docs-doxygen-blue?style=flat&logo=github)](https://raphaelmayer.github.io/easys/)
 
 EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.
 

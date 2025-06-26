@@ -9,6 +9,27 @@
 #include "entity.hpp"
 #include "registry.hpp"
 
+/**
+@mainpage Easys::ECS Documentation
+@brief Lightweight Entity-Component-System library
+
+@section intro Introduction
+A minimal, header-only ECS for C++17+.
+Key features:
+- Type-safe component storage
+- Macro-free entity definitions
+- [GitHub Repo](https://github.com/your/easys)
+
+@section ecs Easys::ECS Class
+@ref Easys::ECS (click to jump to full docs)
+
+@section macros Macros
+@ref ECS_COMPONENT  (define components)
+@ref ECS_SYSTEM     (define systems)
+
+@note For usage examples, see the README.md.
+*/
+
 namespace Easys {
 
 /**
