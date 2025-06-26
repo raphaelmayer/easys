@@ -2,7 +2,7 @@
 \mainpage Easys::ECS Documentation
 \brief Lightweight Entity-Component-System library
 
-\include ../README.md
+\include README.md
 
 \tableofcontents
 
