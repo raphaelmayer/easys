@@ -1,6 +1,6 @@
 var indexSectionsWithContent =
 {
-  0: "acefghkmorsw",
+  0: "acdefghikmorsw",
   1: "ekrs",
   2: "e",
   3: "cers",
@@ -8,7 +8,8 @@ var indexSectionsWithContent =
   5: "m",
   6: "e",
   7: "e",
-  8: "e"
+  8: "de",
+  9: "e"
 };
 
 var indexSectionNames =
@@ -21,7 +22,8 @@ var indexSectionNames =
   5: "variables",
   6: "typedefs",
   7: "defines",
-  8: "concepts"
+  8: "pages",
+  9: "concepts"
 };
 
 var indexSectionLabels =
@@ -34,6 +36,7 @@ var indexSectionLabels =
   5: "Variables",
   6: "Typedefs",
   7: "Macros",
-  8: "Concepts"
+  8: "Pages",
+  9: "Concepts"
 };
 

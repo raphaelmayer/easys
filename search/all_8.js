@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_5b_5d_0',['operator[]',['../d6/d28/classEasys_1_1SparseSet.html#a053f2b661aec670f9f0c1e2e9a6ada8d',1,'Easys::SparseSet::operator[](const Key key) const'],['../d6/d28/classEasys_1_1SparseSet.html#a522f7881d9176b2a679854fbcdda381c',1,'Easys::SparseSet::operator[](const Key key)']]]
+  ['keynotfoundexception_0',['keynotfoundexception',['../d6/dba/classEasys_1_1KeyNotFoundException.html',1,'Easys::KeyNotFoundException'],['../d6/dba/classEasys_1_1KeyNotFoundException.html#a5810225c482c2cd4618942b74b55458b',1,'Easys::KeyNotFoundException::KeyNotFoundException()']]]
 ];
