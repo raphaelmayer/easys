@@ -1,17 +1,19 @@
+/*!
 \mainpage Easys::ECS Documentation
 \brief Lightweight Entity-Component-System library
 
-\include README.md
+\include ../README.md
 
 \tableofcontents
 
-## Easys::ECS Class
+\section ecs Easys::ECS Class
 
-See [Easys::ECS](@ref Easys::ECS) — the core class and single entry point for users.
+See \ref Easys::ECS - the core class and single entry point for users.
 
-## Macros
+\section macros Macros
 
-- [EASYS_ENTITY_TYPE](@ref EASYS_ENTITY_TYPE) - define the type used for entities  
-- [EASYS_ENTITY_LIMIT](@ref EASYS_ENTITY_LIMIT) - define max number of entities
+- \ref EASYS_ENTITY_TYPE - define the type used for entities
+- \ref EASYS_ENTITY_LIMIT - define max number of entities
 
-> **Note:** For usage examples, see the [README.md](www.github.com/raphaelmayer/easys).
+\note For usage examples, see the [README.md](https://github.com/raphaelmayer/easys).
+*/
