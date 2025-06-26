@@ -53,7 +53,7 @@ int main()
 }
 ```
 
-Check out the ```/examples``` directory for more examples on how to use this library.
+Check out the ```/examples``` directory for more examples on how to use this library or refer to the [documentation](https://raphaelmayer.github.io/easys/).
 
 ## Integration Guide
 
