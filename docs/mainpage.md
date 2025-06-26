@@ -16,7 +16,7 @@ The ```Easys::ECS``` class is the single public interface for EasyS. It provides
 - Entity creation and management  
 - Component addition, removal, and querying  
 
-All public operations are available as member functions—see the API Reference for a complete list and descriptions.
+All public operations are available as member functions. See the API Reference for a complete list and descriptions.
 
 ## Quick Start Guide
 
@@ -65,8 +65,8 @@ int main()
 
 EasyS provides a couple of overrideable macros to tailor the ECS to your use case:
 
-- ```EASYS_ENTITY_TYPE``` - define the integer type used for entity IDs (default: `uint32_t`)
-- ```EASYS_ENTITY_LIMIT``` - set the maximum number of active entities (default: `10000`) 
+- \ref EASYS_ENTITY_TYPE - define the integer type used for entity IDs (default: `uint32_t`)
+- \ref EASYS_ENTITY_LIMIT - set the maximum number of active entities (default: `10000`) 
 
 Define these macros **before** including EasyS, either in source or via compiler flags.
 
