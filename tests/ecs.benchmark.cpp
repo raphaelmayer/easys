@@ -268,6 +268,50 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		    formatEntCompInfo("hasComponent", NUM_ENT, 0));
 	}
 
+	SECTION("Benchmarking getEntitiesByComponents<> ... TODO")
+	{
+		ECS ecs;
+		double deltaTime = 0.016;  // Assuming 60 FPS for deltaTime
+
+		// Components initialization
+		Position position = Position{};
+		RigidBody velocity = RigidBody{};
+		Data data = Data{};
+		Health health = Health{100, 100};
+		Damage damage = Damage{10};
+
+		for (int i = 0; i < NUM_ENT; i++)
+		{
+			Entity e = ecs.addEntity();
+			ecs.addComponent<Position>(e, position);
+			if (i % 2) ecs.addComponent<RigidBody>(e, velocity);
+			if (i % 3) ecs.addComponent<Data>(e, data);
+			if (i % 4) ecs.addComponent<Health>(e, health);
+			if (i % 5) ecs.addComponent<Damage>(e, damage);
+		}
+
+		benchmarkSection(
+		    [&]
+		    {
+			    ecs.getEntitiesByComponents<Damage, Health, Data, RigidBody, Position>();
+		    },
+		    formatEntCompInfo("All comps", NUM_ENT, NUM_COM * 5));
+
+		benchmarkSection(
+		    [&]
+		    {
+			    ecs.getEntitiesByComponents<Damage, Health, RigidBody>();
+		    },
+		    formatEntCompInfo("3 comps", NUM_ENT, NUM_COM * 5));
+
+		benchmarkSection(
+		    [&]
+		    {
+			    ecs.getEntitiesByComponents<Health, RigidBody, Position>();
+		    },
+		    formatEntCompInfo("3 other comps", NUM_ENT, NUM_COM * 5));
+	}
+
 	SECTION("Benchmarking simulation with multiple components per entity and systems 1")
 	{
 		ECS ecs;
