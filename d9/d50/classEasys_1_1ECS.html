@@ -112,7 +112,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad58821a03b4862698ba5c6e6288418e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f0840fd3e39b0d35a105852c6212c21" id="r_a6f0840fd3e39b0d35a105852c6212c21"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
 <tr class="memitem:a6f0840fd3e39b0d35a105852c6212c21"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a6f0840fd3e39b0d35a105852c6212c21">getEntitiesByComponents</a> () const</td></tr>
-<tr class="memdesc:a6f0840fd3e39b0d35a105852c6212c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of entities that have all of the specified component types.  <br /></td></tr>
+<tr class="memdesc:a6f0840fd3e39b0d35a105852c6212c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of entities that have all of the specified component types. Use smaller components first for optimal performance.  <br /></td></tr>
 <tr class="separator:a6f0840fd3e39b0d35a105852c6212c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a438a8c8a19215825a3a7597c1ce6a602" id="r_a438a8c8a19215825a3a7597c1ce6a602"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">getEntityCount</a> () const</td></tr>
 <tr class="memdesc:a438a8c8a19215825a3a7597c1ce6a602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of active entities in the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>.  <br /></td></tr>
@@ -665,7 +665,7 @@ template&lt;typename... Ts&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a vector of entities that have all of the specified component types. </p>
+<p>Returns a vector of entities that have all of the specified component types. Use smaller components first for optimal performance. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Ts</td><td>A variadic list of component types to query for. </td></tr>
