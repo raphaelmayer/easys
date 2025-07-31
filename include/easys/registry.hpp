@@ -84,30 +84,30 @@ class Registry {
 		std::vector<Entity> entities;
 		bool isFirstComponentType = true;
 
-		// Helper lambda to intersect two sorted vectors
-		auto intersect = [](const std::vector<Entity>& v1, const std::vector<Entity>& v2)
-		{
-			std::vector<Entity> v_intersection;
-			std::set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), std::back_inserter(v_intersection));
-			return v_intersection;
-		};
-
 		// Iterate over each component type and intersect entities
 		forEachComponentType<ComponentTypes...>(
-		    [this, &entities, &isFirstComponentType, &intersect]<typename T>()
+		    [this, &entities, &isFirstComponentType]<typename T>()
 		    {
-			    // We sort here. This is not optimal. We probably want to lazily
-			    // sort based on a flag (refer to github issue #7):
-			    auto componentEntities = getEntitiesByComponent<T>();
-			    std::sort(componentEntities.begin(), componentEntities.end());
-			    // Temporary fix end
 			    if (isFirstComponentType)
 			    {
-				    entities = componentEntities;
+				    entities = getEntitiesByComponent<T>();
 				    isFirstComponentType = false;
-			    } else
+			    }
+
+			    else
 			    {
-				    entities = intersect(entities, componentEntities);
+				    std::vector<Easys::Entity> newEntities;
+				    newEntities.reserve(entities.size());
+
+				    for (const auto& e : entities)
+				    {
+					    if (hasComponent<T>(e))
+					    {
+						    newEntities.push_back(e);
+					    }
+				    }
+				    
+					entities = std::move(newEntities);
 			    }
 		    });
 

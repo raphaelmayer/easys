@@ -109,7 +109,8 @@ class ECS {
 	}
 
 	/**
-	 * @brief Returns a vector of entities that have all of the specified component types.
+	 * @brief Returns a vector of entities that have all of the specified component types. Use smaller components first
+	 * for optimal performance.
 	 * @tparam Ts A variadic list of component types to query for.
 	 * @return A vector of entities that possess all specified components.
 	 */
