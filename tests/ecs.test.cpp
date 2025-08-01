@@ -65,6 +65,43 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE_FALSE(ecs.hasComponent<TestComponent>(entity));
 	}
 
+	SECTION("Remove Components: remove some components")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp1 = {30};
+		AnotherComponent comp2 = {5.0f};
+		ecs.addComponent<TestComponent>(entity, comp1);
+		ecs.addComponent<AnotherComponent>(entity, comp2);
+		ecs.removeComponents<TestComponent>(entity);
+
+		REQUIRE_FALSE(ecs.hasComponent<TestComponent>(entity));
+		REQUIRE(ecs.hasComponent<AnotherComponent>(entity));
+	}
+
+	SECTION("Remove Components: remove all components")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp1 = {30};
+		AnotherComponent comp2 = {5.0f};
+		ecs.addComponent<TestComponent>(entity, comp1);
+		ecs.addComponent<AnotherComponent>(entity, comp2);
+
+		ecs.removeComponents<TestComponent, AnotherComponent>(entity);
+
+		REQUIRE_FALSE(ecs.hasComponent<TestComponent>(entity));
+		REQUIRE_FALSE(ecs.hasComponent<AnotherComponent>(entity));
+
+		// ---
+
+		ecs.addComponent<TestComponent>(entity, comp1);
+		ecs.addComponent<AnotherComponent>(entity, comp2);
+
+		ecs.removeComponents(entity);
+
+		REQUIRE_FALSE(ecs.hasComponent<TestComponent>(entity));
+		REQUIRE_FALSE(ecs.hasComponent<AnotherComponent>(entity));
+	}
+
 	SECTION("Component Interaction")
 	{
 		Entity entity = ecs.addEntity();

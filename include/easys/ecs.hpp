@@ -151,6 +151,26 @@ class ECS {
 	}
 
 	/**
+	 * @brief Removes all components from an entity.
+	 * @param e The entity from which to remove all components.
+	 */
+	inline void removeComponents(const Entity e)
+	{
+		registry_.removeComponents(e);
+	}
+
+	/**
+	 * @brief Removes all components of types T from an entity.
+	 * @tparam T The types of the components to remove.
+	 * @param e The entity from which to remove the components.
+	 */
+	template <typename... T>
+	inline void removeComponents(const Entity e)
+	{
+		registry_.template removeComponents<T...>(e);
+	}
+
+	/**
 	 * @brief Retrieves a reference to a component of type T from an entity.
 	 * @tparam T The type of the component to retrieve.
 	 * @param e The entity whose component is to be retrieved.
