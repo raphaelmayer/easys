@@ -125,6 +125,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac6eb3273c9606c524f8602c6f5514b6c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c">removeComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
 <tr class="memdesc:ac6eb3273c9606c524f8602c6f5514b6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a component of type T from an entity.  <br /></td></tr>
 <tr class="separator:ac6eb3273c9606c524f8602c6f5514b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6a62b22a3f4f199e495faec533630c5" id="r_ab6a62b22a3f4f199e495faec533630c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5">removeComponents</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
+<tr class="memdesc:ab6a62b22a3f4f199e495faec533630c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all components from an entity.  <br /></td></tr>
+<tr class="separator:ab6a62b22a3f4f199e495faec533630c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae04e1e8f41e0a9177fab7c4d3e8bca69" id="r_ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memTemplParams" colspan="2">template&lt;typename... T&gt; </td></tr>
+<tr class="memitem:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">removeComponents</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
+<tr class="memdesc:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all components of types T from an entity.  <br /></td></tr>
+<tr class="separator:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c58ba65fd96a9977c4a7284c1fdaf69" id="r_a6c58ba65fd96a9977c4a7284c1fdaf69"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a6c58ba65fd96a9977c4a7284c1fdaf69"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">getComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
 <tr class="memdesc:a6c58ba65fd96a9977c4a7284c1fdaf69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a reference to a component of type T from an entity.  <br /></td></tr>
@@ -826,6 +833,86 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">e</td><td>The entity from which to remove the component. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab6a62b22a3f4f199e495faec533630c5" name="ab6a62b22a3f4f199e495faec533630c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6a62b22a3f4f199e495faec533630c5">&#9670;&#160;</a></span>removeComponents() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... AllComponentTypes&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::removeComponents </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all components from an entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The entity from which to remove all components. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae04e1e8f41e0a9177fab7c4d3e8bca69" name="ae04e1e8f41e0a9177fab7c4d3e8bca69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae04e1e8f41e0a9177fab7c4d3e8bca69">&#9670;&#160;</a></span>removeComponents() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... AllComponentTypes&gt; </div>
+<div class="memtemplate">
+template&lt;typename... T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::removeComponents </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all components of types T from an entity. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The types of the components to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The entity from which to remove the components. </td></tr>
   </table>
   </dd>
 </dl>
