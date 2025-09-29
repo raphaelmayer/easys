@@ -7,6 +7,7 @@
 #include <set>
 
 #include "entity.hpp"
+#include "eventbus.hpp"
 #include "registry.hpp"
 
 namespace Easys {
@@ -154,10 +155,7 @@ class ECS {
 	 * @brief Removes all components from an entity.
 	 * @param e The entity from which to remove all components.
 	 */
-	inline void removeComponents(const Entity e)
-	{
-		registry_.removeComponents(e);
-	}
+	inline void removeComponents(const Entity e) { registry_.removeComponents(e); }
 
 	/**
 	 * @brief Removes all components of types T from an entity.
@@ -247,6 +245,7 @@ class ECS {
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;
 	Registry<AllComponentTypes...> registry_;
+	//Eventbus<AllComponentTypes...> eventbus_;
 
 	void clearEntities()
 	{
