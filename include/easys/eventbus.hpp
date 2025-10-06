@@ -68,7 +68,7 @@ class Eventbus {
 		CallbackId id = ++nextId_;
 		// wrap callable: accept anything convertible to void(const Event&)
 		// we could handle this differently, e.g. a small custom wrapper for the functions.
-		std::function<void(const Event&)> wrapper = std::forward<Func>(f);
+		std::function<void(const Event&)> wrapper = std::forward<Func>(fn);
 		vec.push_back(Subscriber<Event>{id, std::move(wrapper)});
 		return id;
 	}
@@ -83,11 +83,12 @@ class Eventbus {
 	// Remove a subscription from the list of subscribers.
 	void unsubscribe(CallbackId id)
 	{
-		// TODO
+		if (id == 0) return;
+		unsubscribe_impl(id, std::index_sequence_for<Events...>{});
 	}
 
 	template <typename Event>
-	void emit(Event event)
+	void emit(Event ev)
 	{
 		static_assert(contains<Event>(), "Event not registered in EventBus<Event...>");
 		auto& q = queue_for<Event>();
@@ -95,12 +96,10 @@ class Eventbus {
 	}
 
 	// Process all pending events.
-	void dispatch() { 
-		// TODO
-	}
+	void dispatch() { dispatch_impl(std::index_sequence_for<Events...>{}); }
 
 	// reserve helpers to avoid allocations: call from init
-	// TODO: do we want this?
+	// TODO: do we want/need this?
 	template <typename Event>
 	void reserve_subscribers(size_t n)
 	{
@@ -122,7 +121,7 @@ class Eventbus {
 	std::tuple<std::vector<Events>...> queues_;
 	std::tuple<std::vector<Subscriber<Events>>...> subscribers_;  // is this necessary?
 	// std::vector<Subscriber> subs_;  // orcould we do something like this?
-	CallbackId nextId = 1;
+	CallbackId nextId_ = 1;
 
 	// helpers
 	template <typename Event>
@@ -142,24 +141,65 @@ class Eventbus {
 	{
 		return std::get<std::vector<Event>>(queues_);
 	}
+
+	// unsubscribe implementation: iterate event types and remove id if found
+	template <std::size_t... I>
+	void unsubscribe_impl(CallbackId id, std::index_sequence<I...>)
+	{
+		// fold-expression to call removal for each tuple entry. can we simplify?
+		(remove_from_vector(std::get<I>(subscribers_), id), ...);
+	}
+
+	template <typename SubVec>
+	static void remove_from_vector(SubVec& vec, CallbackId id)
+	{
+		auto it = std::find_if(vec.begin(),
+		                       vec.end(),
+		                       [id](const auto& s)
+		                       {
+			                       return s.id == id;
+		                       });
+		if (it != vec.end())
+		{
+			// fast remove: swap with back and pop_back
+			std::swap(*it, vec.back());
+			vec.pop_back();
+		}
+	}
+
+	// dispatch implementation: for each event type, snapshot queue, clear it, snapshot subscribers, call them
+	template <std::size_t... I>
+	void dispatch_impl(std::index_sequence<I...>)
+	{
+		// expand over event types
+		(dispatch_one<Events>(std::get<I>(queues_), std::get<I>(subscribers_)), ...);
+	}
+
+	template <typename Event>
+	void dispatch_one(std::vector<Event>& queue, std::vector<Subscriber<Event>>& subs)
+	{
+		if (queue.empty() || subs.empty())
+		{
+			queue.clear();
+			return;
+		}
+
+		// TODO: snapshotting is kind of expensive. do we need this or could we solve this somehow?
+		// move queue out to process without holding it (minimize time with queue active)
+		std::vector<Event> processing;
+		processing.swap(queue);
+
+		// snapshot subscribers to protect against subscribe/unsubscribe during callbacks
+		std::vector<Subscriber<Event>> subs_snapshot = subs;
+
+		for (const auto& ev : processing)
+		{
+			for (const auto& s : subs_snapshot)
+			{
+				s.cb(ev);
+			}
+		}
+	}
 };
-
-void test()
-{
-	struct Position {
-		float x, y;
-	};
-
-	Eventbus<EntityAdded> eb;
-	Entity e{0};
-	Position p{1, 2};
-
-	CallbackId id = eb.subscribe<EntityAdded>(e, [](EntityAdded ev) {});
-	CallbackId id2 = eb.subscribe<EntityAdded>(e, [](EntityAdded ev) {});
-
-	eb.unsubscribe(id2);
-
-	// eb.emit<ComponentAdded<Position>>(e, p);
-}
 
 };  // namespace Easys
