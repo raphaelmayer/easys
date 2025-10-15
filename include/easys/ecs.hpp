@@ -40,14 +40,19 @@ class ECS {
 	ECS(const std::set<Entity>& oldEntities)
 	{
 		// I decided against an addEntity(Entity) method to discourage
-		//  tampering with entities too much. I think this really should be the ECS's
-		//  responsibility.
+		// tampering with entities too much. I think this really should be the ECS's
+		// responsibility.
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 		{
 			if (oldEntities.contains(entity))
+			{
 				entities_.insert(entity);
+				eventbus_.template emit<EntityAdded>({entity});
+			}
 			else
+			{
 				availableEntityIds_.push(entity);
+			}
 		}
 	}
 
@@ -63,6 +68,7 @@ class ECS {
 			Entity e = availableEntityIds_.front();
 			availableEntityIds_.pop();
 			entities_.insert(e);
+			eventbus_.template emit<EntityAdded>({e});
 			return e;
 		}
 		// throwing an exception here seems kind of drastic, but on the other hand
@@ -83,6 +89,7 @@ class ECS {
 		entities_.erase(e);
 		// Make the entity ID available again
 		availableEntityIds_.push(e);
+		eventbus_.template emit<EntityRemoved>({e});
 	}
 
 	/**
@@ -137,7 +144,31 @@ class ECS {
 	template <typename T>
 	inline void addComponent(const Entity e, T component)
 	{
+		eventbus_.template emit<ComponentAdded<T>>({e, component});
+		eventbus_.template emit<EntityUpdated<T>>({e, component});
 		registry_.addComponent(e, std::move(component));
+	}
+
+	/**
+	* @brief Modifies a component of type T for a given entity.
+	* @details This function retrieves the component of type T associated with the specified entity
+	* and invokes the provided callable function with a reference to that component. The callable can
+	* be a lambda, function pointer, or any other callable type. The component can be modified directly
+	* through the callable.
+	* @tparam T The type of the component to modify.
+	* @param e The entity whose component will be modified.
+	* @param fn The callable that will be used to modify the component. It should accept a reference to
+	*           the component of type T.
+	*/
+	template <typename T, typename Func>
+	inline void modifyComponent(const Entity e, Func&& fn)
+	{
+		T& c = getComponent<T>(e);
+		eventbus_.template emit<ComponentUpdated<T>>({e, c});
+		eventbus_.template emit<EntityUpdated<T>>({e, c});
+		fn(c);
+		// classic way of forwarding ops to registry. kind of falls apart when wanting to fire events and looping over multiple types. 
+		// registry_.template modifyComponent<T>(e, fn); 
 	}
 
 	/**
@@ -148,6 +179,9 @@ class ECS {
 	template <typename T>
 	inline void removeComponent(const Entity e)
 	{
+		const T& c = getComponent<T>(e);
+		eventbus_.template emit<ComponentRemoved<T>>({e, c});
+		eventbus_.template emit<EntityUpdated<T>>({e, c});
 		registry_.template removeComponent<T>(e);
 	}
 
@@ -155,7 +189,14 @@ class ECS {
 	 * @brief Removes all components from an entity.
 	 * @param e The entity from which to remove all components.
 	 */
-	inline void removeComponents(const Entity e) { registry_.removeComponents(e); }
+	inline void removeComponents(const Entity e) { 
+		// registry_.forEachComponentType<AllComponentTypes>([](){
+		// 	T& c = getComponent<T>(e);
+		// 	eventbus_.template emit<ComponentRemoved<T>>({e, c});
+		// });
+		// registry_.removeComponents(e); 
+		(registry_.template removeComponents<AllComponentTypes>(e), ...);
+	}
 
 	/**
 	 * @brief Removes all components of types T from an entity.
@@ -245,7 +286,28 @@ class ECS {
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;
 	Registry<AllComponentTypes...> registry_;
-	//Eventbus<AllComponentTypes...> eventbus_;
+
+	// Define the event types based on the provided component types
+    using ALL_EVENT_TYPES = std::tuple<
+        EntityAdded,
+		EntityUpdated<AllComponentTypes>...,
+        EntityRemoved,
+        ComponentAdded<AllComponentTypes>...,
+        ComponentAccessed<AllComponentTypes>...,
+        ComponentUpdated<AllComponentTypes>...,
+        ComponentRemoved<AllComponentTypes>...
+    >;
+
+    // Eventbus instance using the expanded types
+    Eventbus<EntityAdded, 
+			 EntityUpdated<AllComponentTypes>..., 
+			 EntityRemoved, 
+			 ComponentAdded<AllComponentTypes>..., 
+			 ComponentAccessed<AllComponentTypes>..., 
+			 ComponentUpdated<AllComponentTypes>..., 
+			 ComponentRemoved<AllComponentTypes>...
+	> eventbus_;
+	// Eventbus<ALL_EVENT_TYPES...> eventbus_;
 
 	void clearEntities()
 	{

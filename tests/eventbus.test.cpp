@@ -137,4 +137,12 @@ TEST_CASE("Eventbus Tests", "[Eventbus]")
 	{
 		bus.dispatch();
 	}
+
+	SECTION("")
+	{
+		// bus.subscribe<ComponentUpdated<ComponentA>>([](const ComponentUpdated<ComponentA>& ev) {
+		// 	if (ev.component.value <= 0)
+		// 		ecs.
+		// });
+	}
 }

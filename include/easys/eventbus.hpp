@@ -51,10 +51,28 @@ struct ComponentRemoved {
 	Component component;
 };
 
+// #define ALL_EVENT_TYPES EntityAdded, EntityRemoved, ComponentAdded<C>, ComponentAccessed<C>, ComponentUpdated<C>, ComponentRemoved<C>
+
 // TODO: We could make CallbackId more complex, where the subscription only exists as long as the object is still alive, 
 // i.e. we could cleanup in the dtor, so the user would not have to unsubscribe. 
 // But is this an advantage? Then you would also need to keep the "connection" alive. 
 using CallbackId = uint64_t;
+
+// // something like this for solution 2; Eventbus<Ts...> would have to be specialized.
+// struct Connection {
+// 	Connection(const Eventbus& bus) : bus_(bus)
+// 	{
+// 	}
+
+// 	~Connection()
+// 	{
+// 		bus.unsubscribe(id_);
+// 	}
+
+// 	private:
+// 		CallbackId id_;
+// 		Eventbus<Ts> bus_;
+// };
 
 template <typename... Events>
 class Eventbus {
@@ -212,6 +230,17 @@ class Eventbus {
 		{
 			for (const auto& s : subs_snapshot)
 			{
+				// Regarding 2: with entity stored in Subscriber
+				// default init to some value (i.e. with s.entity = -1 the comparision would never evaluate to true)
+				
+				// if (s.entity == ev.entity)
+				// use flag (kind of unnecessary)
+				
+				// if (s.isEntitySpecific && s.entity == ev.entity)
+				// use std::optional<Entity>
+				
+				// if (s.entity && s.entity.value == ev.entity)
+				
 				s.cb(ev);
 			}
 		}
