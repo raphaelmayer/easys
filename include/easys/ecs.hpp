@@ -190,12 +190,19 @@ class ECS {
 	 * @param e The entity from which to remove all components.
 	 */
 	inline void removeComponents(const Entity e) { 
-		// registry_.forEachComponentType<AllComponentTypes>([](){
+		// registry_.forEachComponentType<AllComponentTypes>([]<typename T>(){
 		// 	T& c = getComponent<T>(e);
 		// 	eventbus_.template emit<ComponentRemoved<T>>({e, c});
 		// });
 		// registry_.removeComponents(e); 
-		(registry_.template removeComponents<AllComponentTypes>(e), ...);
+
+		// we definitely dont want to put event handling in the registry. 
+		// 1. would be a possible solution. now we dont use registry.forEachComponentType at all. 
+		// 2. we could also make registry.forEach... public and use this instead. 
+		([&](){
+			eventbus_.template emit<ComponentRemoved<AllComponentTypes>>({e, getComponent<AllComponentTypes>(e)});
+			registry_.template removeComponent<AllComponentTypes>(e);
+		}(), ...);
 	}
 
 	/**
