@@ -116,29 +116,40 @@ class Registry {
 
 	inline size_t size() const
 	{
-		size_t totalSize = 0;
+		// size_t totalSize = 0;
 
-		forEachComponentType<AllComponentTypes...>(
-		    [this, &totalSize]<typename T>()
-		    {
-			    totalSize += getComponentSet<T>().size();
-		    });
+		// forEachComponentType<AllComponentTypes...>(
+		//     [this, &totalSize]<typename T>()
+		//     {
+		// 	    totalSize += getComponentSet<T>().size();
+		//     });
 
-		return totalSize;
+		// return totalSize;
+		return size<AllComponentTypes...>();
 	}
 
 	template <typename... ComponentTypes>
 	inline size_t size() const
 	{
-		size_t totalSize = 0;
+		// size_t totalSize = 0;
 
-		forEachComponentType<ComponentTypes...>(
-		    [this, &totalSize]<typename T>()
-		    {
-			    totalSize += getComponentSet<T>().size();
-		    });
+		// 1)
+		// forEachComponentType<ComponentTypes...>(
+		//     [this, &totalSize]<typename T>()
+		//     {
+		// 	    totalSize += getComponentSet<T>().size();
+		//     });
+		// auto sizeHelper = [&]<typename T>{
+		// 	totalSize += getComponentSet<T>().size();
+		// };
 
-		return totalSize;
+		// 2)
+		// (sizeHelper.template operator()<AllComponentTypes>(), ...);
+
+		// return totalSize;
+
+		// 3
+		return (... + getComponentSet<ComponentTypes>().size());
 	}
 
 	inline void clear()
@@ -148,6 +159,7 @@ class Registry {
 		    {
 			    getComponentSet<T>().clear();
 		    });
+		// clear<AllComponentTypes>();
 	}
 
 	template <typename... ComponentTypes>
@@ -158,6 +170,7 @@ class Registry {
 		    {
 			    getComponentSet<T>().clear();
 		    });
+		// (getComponentSet<ComponentTypes>().clear(), ...)
 	}
 
    private:

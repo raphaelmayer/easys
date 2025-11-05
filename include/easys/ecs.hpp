@@ -163,10 +163,11 @@ class ECS {
 	template <typename T, typename Func>
 	inline void modifyComponent(const Entity e, Func&& fn)
 	{
+		// TODO: should we check component existence?
 		T& c = getComponent<T>(e);
+		fn(c);
 		eventbus_.template emit<ComponentUpdated<T>>({e, c});
 		eventbus_.template emit<EntityUpdated<T>>({e, c});
-		fn(c);
 		// classic way of forwarding ops to registry. kind of falls apart when wanting to fire events and looping over multiple types. 
 		// registry_.template modifyComponent<T>(e, fn); 
 	}
@@ -203,17 +204,23 @@ class ECS {
 			eventbus_.template emit<ComponentRemoved<AllComponentTypes>>({e, getComponent<AllComponentTypes>(e)});
 			registry_.template removeComponent<AllComponentTypes>(e);
 		}(), ...);
+		// We could just use the templated function...
+		// removeComponents<AllComponentTypes>(e);
 	}
 
 	/**
-	 * @brief Removes all components of types T from an entity.
+	 * @brief Removes all components of types Ts from an entity.
 	 * @tparam T The types of the components to remove.
 	 * @param e The entity from which to remove the components.
 	 */
-	template <typename... T>
+	template <typename... Ts>
 	inline void removeComponents(const Entity e)
 	{
-		registry_.template removeComponents<T...>(e);
+		// registry_.template removeComponents<Ts...>(e);
+		([&](){
+			eventbus_.template emit<ComponentRemoved<Ts>>({e, getComponent<Ts>(e)});
+			registry_.template removeComponent<Ts>(e);
+		}(), ...);
 	}
 
 	/**
