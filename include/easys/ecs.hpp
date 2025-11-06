@@ -204,8 +204,12 @@ class ECS {
 			eventbus_.template emit<ComponentRemoved<AllComponentTypes>>({e, getComponent<AllComponentTypes>(e)});
 			registry_.template removeComponent<AllComponentTypes>(e);
 		}(), ...);
+		
 		// We could just use the templated function...
 		// removeComponents<AllComponentTypes>(e);
+
+		// or something like this and get event dispatch for free
+		// (removeComponent<AllComponentTypes>(e), ...);
 	}
 
 	/**
@@ -221,6 +225,9 @@ class ECS {
 			eventbus_.template emit<ComponentRemoved<Ts>>({e, getComponent<Ts>(e)});
 			registry_.template removeComponent<Ts>(e);
 		}(), ...);
+
+		// same here
+		// (removeComponent<Ts>(e), ...);
 	}
 
 	/**
@@ -330,7 +337,10 @@ class ECS {
 		std::queue<Entity> empty;
 		std::swap(availableEntityIds_, empty);
 
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++) availableEntityIds_.push(entity);
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++) 
+		{
+			availableEntityIds_.push(entity);
+		}
 	}
 };
 
