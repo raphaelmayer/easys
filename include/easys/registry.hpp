@@ -31,23 +31,26 @@ class Registry {
 		componentSet.remove(entity);
 	}
 
-	inline void removeComponents(const Entity entity)
-	{
-		forEachComponentType<AllComponentTypes...>(
-		    [&]<typename Component>()
-		    {
-			    removeComponent<Component>(entity);
-		    });
-	}
-
 	template <typename... ComponentTypes>
 	inline void removeComponents(const Entity entity)
 	{
-		forEachComponentType<ComponentTypes...>(
-		    [&]<typename Component>()
-		    {
-			    removeComponent<Component>(entity);
-		    });
+		// forEachComponentType<ComponentTypes...>(
+		//     [&]<typename Component>()
+		//     {
+		// 	    removeComponent<Component>(entity);
+		//     });
+		(removeComponent<ComponentTypes>(entity), ...);
+	}
+
+	inline void removeComponents(const Entity entity)
+	{
+		// forEachComponentType<AllComponentTypes...>(
+		//     [&]<typename Component>()
+		//     {
+		// 	    removeComponent<Component>(entity);
+		//     });
+		// (removeComponent<AllComponentTypes>(entity), ...);
+		removeComponents<AllComponentTypes...>(entity);
 	}
 
 	template <typename ComponentType>
@@ -152,25 +155,25 @@ class Registry {
 		return (... + getComponentSet<ComponentTypes>().size());
 	}
 
-	inline void clear()
-	{
-		forEachComponentType<AllComponentTypes...>(
-		    [this]<typename T>()
-		    {
-			    getComponentSet<T>().clear();
-		    });
-		// clear<AllComponentTypes>();
-	}
-
 	template <typename... ComponentTypes>
 	inline void clear()
 	{
-		forEachComponentType<ComponentTypes...>(
-		    [this]<typename T>()
-		    {
-			    getComponentSet<T>().clear();
-		    });
-		// (getComponentSet<ComponentTypes>().clear(), ...)
+		// forEachComponentType<ComponentTypes...>(
+		//     [this]<typename T>()
+		//     {
+		// 	    getComponentSet<T>().clear();
+		//     });
+		(getComponentSet<ComponentTypes>().clear(), ...);
+	}
+
+	inline void clear()
+	{
+		// forEachComponentType<AllComponentTypes...>(
+		//     [this]<typename T>()
+		//     {
+		// 	    getComponentSet<T>().clear();
+		//     });
+		clear<AllComponentTypes...>();
 	}
 
    private:
