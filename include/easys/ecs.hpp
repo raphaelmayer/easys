@@ -173,6 +173,25 @@ class ECS {
 	}
 
 	/**
+	* @brief Modifies a component of type T for a given entity.
+	* @details This function retrieves the component of type T associated with the specified entity
+	* and replaces it with the new component provided as the argument c.
+	* @tparam T The type of the component to modify.
+	* @param e The entity whose component will be modified.
+	* @param c The new component of type T that will replace the existing component.
+	*/
+	template <typename T>
+	inline void modifyComponent(const Entity e, T c)
+	{
+		// TODO: should we check component existence?
+		getComponent<T>(e) = c;
+		eventbus_.template emit<ComponentUpdated<T>>({e, c});
+		eventbus_.template emit<EntityUpdated<T>>({e, c});
+		// classic way of forwarding ops to registry. kind of falls apart when wanting to fire events and looping over multiple types. 
+		// registry_.template modifyComponent<T>(e, c); 
+	}
+
+	/**
 	 * @brief Removes a component of type T from an entity.
 	 * @tparam T The type of the component to remove.
 	 * @param e The entity from which to remove the component.
@@ -184,6 +203,9 @@ class ECS {
 		eventbus_.template emit<ComponentRemoved<T>>({e, c});
 		eventbus_.template emit<EntityUpdated<T>>({e, c});
 		registry_.template removeComponent<T>(e);
+		// I wonder if we dont just want to have the variadic template versions and 
+		// just use those for all calls, i.e. with single T, SomeTypes and AllTypes.
+		// registry_.template removeComponents<T>(e);
 	}
 
 	/**
@@ -200,12 +222,16 @@ class ECS {
 		// we definitely dont want to put event handling in the registry. 
 		// 1. would be a possible solution. now we dont use registry.forEachComponentType at all. 
 		// 2. we could also make registry.forEach... public and use this instead. 
-		([&](){
-			eventbus_.template emit<ComponentRemoved<AllComponentTypes>>({e, getComponent<AllComponentTypes>(e)});
-			registry_.template removeComponent<AllComponentTypes>(e);
-		}(), ...);
+		// ([&](){
+		// 	eventbus_.template emit<ComponentRemoved<AllComponentTypes>>({e, getComponent<AllComponentTypes>(e)});
+		// 	registry_.template removeComponent<AllComponentTypes>(e);
+		// }(), ...);
+		
 		// We could just use the templated function...
 		// removeComponents<AllComponentTypes>(e);
+
+		// or something like this and get event dispatch for free
+		(removeComponent<AllComponentTypes>(e), ...);
 	}
 
 	/**
@@ -217,10 +243,13 @@ class ECS {
 	inline void removeComponents(const Entity e)
 	{
 		// registry_.template removeComponents<Ts...>(e);
-		([&](){
-			eventbus_.template emit<ComponentRemoved<Ts>>({e, getComponent<Ts>(e)});
-			registry_.template removeComponent<Ts>(e);
-		}(), ...);
+		// ([&](){
+		// 	eventbus_.template emit<ComponentRemoved<Ts>>({e, getComponent<Ts>(e)});
+		// 	registry_.template removeComponent<Ts>(e);
+		// }(), ...);
+
+		// same here
+		(removeComponent<Ts>(e), ...);
 	}
 
 	/**
@@ -294,7 +323,14 @@ class ECS {
 		registry_.template clear<Ts...>();
 	}
 
-	inline void clearComponents() { registry_.clear(); }
+	inline void clearComponents() 
+	{ 
+		// registry_.clear(); // forward
+		// registry_.template clear<AllComponentTypes...>();
+		// so we need the variadic version on ecs level, hence if we want the convenient all-version, we would just do it as follows:
+		clearComponents<AllComponentTypes...>();
+
+	}
 
 	void dispatch() { eventbus_.dispatch(); }
 
@@ -332,7 +368,10 @@ class ECS {
 		std::queue<Entity> empty;
 		std::swap(availableEntityIds_, empty);
 
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++) availableEntityIds_.push(entity);
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++) 
+		{
+			availableEntityIds_.push(entity);
+		}
 	}
 };
 
