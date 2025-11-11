@@ -31,23 +31,34 @@ class Registry {
 		componentSet.remove(entity);
 	}
 
+	// unused now (if we actually delegate everything to ECS::removeComponent<T>(const Entity&)
 	inline void removeComponents(const Entity entity)
 	{
-		forEachComponentType<AllComponentTypes...>(
-		    [&]<typename Component>()
-		    {
-			    removeComponent<Component>(entity);
-		    });
+		// forEachComponentType<AllComponentTypes...>(
+		//     [&]<typename Component>()
+		//     {
+		//	    removeComponent<Component>(entity);
+		//     });
+		(removeComponent<AllComponentTypes>(entity), ...);
+		//(removeComponents<AllComponentTypes...>(entity);
 	}
 
+	// unused now (if we actually delegate everything to ECS::removeComponent<T>(const Entity&)
 	template <typename... ComponentTypes>
 	inline void removeComponents(const Entity entity)
 	{
-		forEachComponentType<ComponentTypes...>(
-		    [&]<typename Component>()
-		    {
-			    removeComponent<Component>(entity);
-		    });
+		// forEachComponentType<ComponentTypes...>(
+		//     [&]<typename Component>()
+		//     {
+		//	    removeComponent<Component>(entity);
+		//     });
+		(removeComponent<ComponentTypes>(entity), ...);
+		// could also just access remove directly and remove the single component version.
+		// It is not necessary, as the removeCOmponents<Ts...>() can handle all cases.
+		// But we would miss out on ECS>>removeComponent<T>(), which is where we plan to dispatch events.
+		// Would we though? We can still call it with a single type and implement ECS::removeComponent<T>() by using
+		// Registry>>removeComponents<T>() internally.
+		(getComponentSet<ComponentTypes>().remove(entity), ...);
 	}
 
 	template <typename ComponentType>
@@ -106,8 +117,8 @@ class Registry {
 						    newEntities.push_back(e);
 					    }
 				    }
-				    
-					entities = std::move(newEntities);
+
+				    entities = std::move(newEntities);
 			    }
 		    });
 

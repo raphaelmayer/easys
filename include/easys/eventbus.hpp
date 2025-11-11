@@ -145,6 +145,25 @@ class Eventbus {
 		queue_for<Event>().reserve(n);
 	}
 
+	// what we really want is a function to check, if any unprocessed events are lingering
+	// and if/how many subscribers we have.
+	template <typename Event>
+	bool emptyEvs() const
+	{
+		auto& q = queue_for<Event>();
+		return q.empty();
+	}
+
+	template <typename Event>
+	bool emptySubs() const
+	{
+		auto& subs = subscribers_for<Event>();
+		return subs.empty();
+	}
+
+	bool emptyEvs() const { return true; }
+	bool emptySubs() const { return true; }
+
    private:
 	template <typename Event>
 	struct Subscriber {
@@ -157,7 +176,7 @@ class Eventbus {
 	// std::vector<Subscriber> subs_;  // orcould we do something like this?
 	CallbackId nextId_ = 1;
 
-	// helpers
+	// should this even be caled contains? maybe isEventRegistered would be clearer
 	template <typename Event>
 	static constexpr bool contains()
 	{
@@ -165,13 +184,13 @@ class Eventbus {
 	}
 
 	template <typename Event>
-	auto& subscribers_for()
+	std::vector<Subscriber<Event>>& subscribers_for()
 	{
 		return std::get<std::vector<Subscriber<Event>>>(subscribers_);
 	}
 
 	template <typename Event>
-	auto& queue_for()
+	std::vector<Event>& queue_for()
 	{
 		return std::get<std::vector<Event>>(queues_);
 	}

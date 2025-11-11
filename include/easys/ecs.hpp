@@ -296,6 +296,8 @@ class ECS {
 
 	inline void clearComponents() { registry_.clear(); }
 
+	void dispatch() { eventbus_.dispatch(); }
+
    private:
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;

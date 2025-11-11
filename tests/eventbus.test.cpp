@@ -1,6 +1,8 @@
 #include <catch2/catch.hpp>
 #include <easys/entity.hpp>
 #include <easys/eventbus.hpp>
+#include <iostream>
+#include <string>
 
 struct ComponentA {
 	int value;
