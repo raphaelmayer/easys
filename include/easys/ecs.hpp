@@ -144,6 +144,7 @@ class ECS {
 	template <typename T>
 	inline void addComponent(const Entity e, T component)
 	{
+		// TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types are consistent. 
 		eventbus_.template emit<ComponentAdded<T>>({e, component});
 		eventbus_.template emit<EntityUpdated<T>>({e, component});
 		registry_.addComponent(e, std::move(component));
@@ -166,10 +167,10 @@ class ECS {
 		// TODO: should we check component existence?
 		T& c = getComponent<T>(e);
 		fn(c);
-		eventbus_.template emit<ComponentUpdated<T>>({e, c});
-		eventbus_.template emit<EntityUpdated<T>>({e, c});
 		// classic way of forwarding ops to registry. kind of falls apart when wanting to fire events and looping over multiple types. 
 		// registry_.template modifyComponent<T>(e, fn); 
+		eventbus_.template emit<ComponentUpdated<T>>({e, c});
+		eventbus_.template emit<EntityUpdated<T>>({e, c});
 	}
 
 	/**
@@ -185,10 +186,10 @@ class ECS {
 	{
 		// TODO: should we check component existence?
 		getComponent<T>(e) = c;
-		eventbus_.template emit<ComponentUpdated<T>>({e, c});
-		eventbus_.template emit<EntityUpdated<T>>({e, c});
 		// classic way of forwarding ops to registry. kind of falls apart when wanting to fire events and looping over multiple types. 
 		// registry_.template modifyComponent<T>(e, c); 
+		eventbus_.template emit<ComponentUpdated<T>>({e, c});
+		eventbus_.template emit<EntityUpdated<T>>({e, c});
 	}
 
 	/**
@@ -209,32 +210,6 @@ class ECS {
 	}
 
 	/**
-	 * @brief Removes all components from an entity.
-	 * @param e The entity from which to remove all components.
-	 */
-	inline void removeComponents(const Entity e) { 
-		// registry_.forEachComponentType<AllComponentTypes>([]<typename T>(){
-		// 	T& c = getComponent<T>(e);
-		// 	eventbus_.template emit<ComponentRemoved<T>>({e, c});
-		// });
-		// registry_.removeComponents(e); 
-
-		// we definitely dont want to put event handling in the registry. 
-		// 1. would be a possible solution. now we dont use registry.forEachComponentType at all. 
-		// 2. we could also make registry.forEach... public and use this instead. 
-		// ([&](){
-		// 	eventbus_.template emit<ComponentRemoved<AllComponentTypes>>({e, getComponent<AllComponentTypes>(e)});
-		// 	registry_.template removeComponent<AllComponentTypes>(e);
-		// }(), ...);
-		
-		// We could just use the templated function...
-		// removeComponents<AllComponentTypes>(e);
-
-		// or something like this and get event dispatch for free
-		(removeComponent<AllComponentTypes>(e), ...);
-	}
-
-	/**
 	 * @brief Removes all components of types Ts from an entity.
 	 * @tparam T The types of the components to remove.
 	 * @param e The entity from which to remove the components.
@@ -242,14 +217,16 @@ class ECS {
 	template <typename... Ts>
 	inline void removeComponents(const Entity e)
 	{
-		// registry_.template removeComponents<Ts...>(e);
-		// ([&](){
-		// 	eventbus_.template emit<ComponentRemoved<Ts>>({e, getComponent<Ts>(e)});
-		// 	registry_.template removeComponent<Ts>(e);
-		// }(), ...);
-
-		// same here
 		(removeComponent<Ts>(e), ...);
+	}
+
+	/**
+	 * @brief Removes all components from an entity.
+	 * @param e The entity from which to remove all components.
+	 */
+	inline void removeComponents(const Entity e) { 
+		removeComponents<AllComponentTypes...>(e);
+		// (removeComponent<AllComponentTypes>(e), ...);
 	}
 
 	/**
@@ -300,16 +277,9 @@ class ECS {
 		return registry_.template size<Ts...>();
 	}
 
-	inline size_t getComponentCount() const { return registry_.size(); }
-
-	/**
-	 * @brief Clears all entities and components from the ECS.
-	 * @details Resets the ECS to its initial state, making all entity IDs available again.
-	 */
-	inline void clear()
-	{
-		registry_.clear();
-		clearEntities();
+	inline size_t getComponentCount() const { 
+		return getComponentCount<AllComponentTypes...>();
+		// return registry_.size(); 
 	}
 
 	/**
@@ -325,13 +295,24 @@ class ECS {
 
 	inline void clearComponents() 
 	{ 
-		// registry_.clear(); // forward
-		// registry_.template clear<AllComponentTypes...>();
-		// so we need the variadic version on ecs level, hence if we want the convenient all-version, we would just do it as follows:
 		clearComponents<AllComponentTypes...>();
-
+		// registry_.clear();
 	}
 
+	/**
+	 * @brief Clears all entities and components from the ECS.
+	 * @details Resets the ECS to its initial state, making all entity IDs available again.
+	 */
+	inline void clear()
+	{
+		clearComponents();
+		clearEntities();
+	}
+
+	/**
+	* @brief Dispatches all accumulated events.
+	* @details This function processes all events that have been accumulated since the last dispatch call.
+	*/
 	void dispatch() { eventbus_.dispatch(); }
 
    private:
@@ -339,16 +320,18 @@ class ECS {
 	std::set<Entity> entities_;
 	Registry<AllComponentTypes...> registry_;
 
+	// TODO: Something like this would be nice, but this is not functional right now
 	// Define the event types based on the provided component types
-    using ALL_EVENT_TYPES = std::tuple<
-        EntityAdded,
-		EntityUpdated<AllComponentTypes>...,
-        EntityRemoved,
-        ComponentAdded<AllComponentTypes>...,
-        ComponentAccessed<AllComponentTypes>...,
-        ComponentUpdated<AllComponentTypes>...,
-        ComponentRemoved<AllComponentTypes>...
-    >;
+    // using ALL_EVENT_TYPES = std::tuple<
+    //     EntityAdded,
+	// 	EntityUpdated<AllComponentTypes>...,
+    //     EntityRemoved,
+    //     ComponentAdded<AllComponentTypes>...,
+    //     ComponentAccessed<AllComponentTypes>...,
+    //     ComponentUpdated<AllComponentTypes>...,
+    //     ComponentRemoved<AllComponentTypes>...
+    // >;
+	// Eventbus<ALL_EVENT_TYPES...> eventbus_;
 
     // Eventbus instance using the expanded types
     Eventbus<EntityAdded, 
@@ -359,7 +342,6 @@ class ECS {
 			 ComponentUpdated<AllComponentTypes>..., 
 			 ComponentRemoved<AllComponentTypes>...
 	> eventbus_;
-	// Eventbus<ALL_EVENT_TYPES...> eventbus_;
 
 	void clearEntities()
 	{
