@@ -17,7 +17,7 @@ using ECS = Easys::ECS<Position, Velocity>;
 struct System {
 	void update(ECS& ecs)
 	{
-		for (Easys::Entity e : ecs.getEntitiesByComponents<Position, Velocity>())
+		for (Easys::Entity e : ecs.getEntities<Position, Velocity>())
 		{
 			Position& pos = ecs.getComponent<Position>(e);
 			const Velocity& vel = ecs.getComponent<Velocity>(e);

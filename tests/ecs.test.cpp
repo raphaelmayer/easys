@@ -23,16 +23,20 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 	SECTION("Add Entity")
 	{
+		REQUIRE(ecs.getEntities().size() == 0);
 		Entity entity = ecs.addEntity();
 		REQUIRE(entity != -1);
+		REQUIRE(ecs.getEntities().size() == 1);
 		REQUIRE(ecs.getEntities().find(entity) != ecs.getEntities().end());
 	}
 
 	SECTION("Remove Entity")
 	{
+		REQUIRE(ecs.getEntities().size() == 0);
 		Entity entity = ecs.addEntity();
+		REQUIRE(ecs.getEntities().size() == 1);
 		ecs.removeEntity(entity);
-		REQUIRE(ecs.getEntities().find(entity) == ecs.getEntities().end());
+		REQUIRE(ecs.getEntities().size() == 0);
 	}
 
 	SECTION("Has Component")
@@ -51,8 +55,36 @@ TEST_CASE("ECS Tests", "[ECS]")
 		TestComponent comp = {20};
 		ecs.addComponent<TestComponent>(entity, comp);
 
-		TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
+		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
 		REQUIRE(retrievedComp.data == 20);
+	}
+
+	SECTION("Modify Component (with lambda)")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp = {20};
+		ecs.addComponent<TestComponent>(entity, comp);
+
+		ecs.modifyComponent<TestComponent>(entity,
+		                                   [](TestComponent& c)
+		                                   {
+			                                   c.data = 1;
+		                                   });
+
+		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
+		REQUIRE(retrievedComp.data == 1);
+	}
+
+	SECTION("Modify Component (directly)")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp = {20};
+		ecs.addComponent<TestComponent>(entity, comp);
+
+		ecs.modifyComponent<TestComponent>(entity, {2});
+
+		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
+		REQUIRE(retrievedComp.data == 2);
 	}
 
 	SECTION("Remove Component")
@@ -137,7 +169,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ecs.addComponent<TestComponent>(entity2, comp2);
 		ecs.addComponent<AnotherComponent>(entity2, comp3);  // should not be included in results
 
-		auto testComponents = ecs.getEntitiesByComponent<TestComponent>();
+		auto testComponents = ecs.getEntities<TestComponent>();
 		REQUIRE(testComponents.size() == 2);
 	}
 
@@ -155,11 +187,11 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 		struct ForeignComponent {};  // A (for the ECS) foreign component should not cause throw.
 
-		REQUIRE(ecs.getEntitiesByComponents<TestComponent, AnotherComponent>().size() == 1);
-		REQUIRE(ecs.getEntitiesByComponents<TestComponent>().size() == 2);
-		REQUIRE(ecs.getEntitiesByComponents<AnotherComponent>().size() == 2);
+		REQUIRE(ecs.getEntities<TestComponent, AnotherComponent>().size() == 1);
+		REQUIRE(ecs.getEntities<TestComponent>().size() == 2);
+		REQUIRE(ecs.getEntities<AnotherComponent>().size() == 2);
 		// no need, since we do compile time. but stays here to test handling and error messages etc.
-		// REQUIRE(ecs.getEntitiesByComponents<AnotherComponent, ForeignComponent>().size() == 0);
+		// REQUIRE(ecs.getEntities<AnotherComponent, ForeignComponent>().size() == 0);
 	}
 
 	SECTION("getEntityCount returns correct number of entities", "[ECS]")

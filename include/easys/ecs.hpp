@@ -39,14 +39,17 @@ class ECS {
 	ECS(const std::set<Entity>& oldEntities)
 	{
 		// I decided against an addEntity(Entity) method to discourage
-		//  tampering with entities too much. I think this really should be the ECS's
-		//  responsibility.
+		// tampering with entities too much. I think this really should be the ECS's
+		// responsibility.
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 		{
 			if (oldEntities.contains(entity))
+			{
 				entities_.insert(entity);
-			else
+			} else
+			{
 				availableEntityIds_.push(entity);
+			}
 		}
 	}
 
@@ -95,18 +98,7 @@ class ECS {
 	 * @brief Returns a reference to the set of all entities.
 	 * @return A constant reference to the set of all entities currently in the ECS.
 	 */
-	inline const std::set<Entity>& getEntities() const { return entities_; }
-
-	/**
-	 * @brief Returns a vector of entities that have a component of a specific type.
-	 * @tparam T The component type to query for.
-	 * @return A constant reference to a vector of entities possessing the component.
-	 */
-	template <typename T>
-	inline const std::vector<Entity>& getEntitiesByComponent() const
-	{
-		return registry_.template getEntitiesByComponent<T>();
-	}
+	inline std::set<Entity> getEntities() const { return entities_; }
 
 	/**
 	 * @brief Returns a vector of entities that have all of the specified component types. Use smaller components first
@@ -115,9 +107,9 @@ class ECS {
 	 * @return A vector of entities that possess all specified components.
 	 */
 	template <typename... Ts>
-	inline std::vector<Entity> getEntitiesByComponents() const
+	inline std::vector<Entity> getEntities() const
 	{
-		return registry_.template getEntitiesByComponents<Ts...>();
+		return registry_.template getEntities<Ts...>();
 	}
 
 	/**
@@ -136,7 +128,45 @@ class ECS {
 	template <typename T>
 	inline void addComponent(const Entity e, T component)
 	{
+		// TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types
+		// are consistent.
 		registry_.addComponent(e, std::move(component));
+	}
+
+	/**
+	 * @brief Modifies a component of type T for a given entity.
+	 * @details This function retrieves the component of type T associated with the specified entity
+	 * and invokes the provided callable function with a reference to that component. The callable can
+	 * be a lambda, function pointer, or any other callable type. The component can be modified directly
+	 * through the callable.
+	 * @tparam T The type of the component to modify.
+	 * @param e The entity whose component will be modified.
+	 * @param fn The callable that will be used to modify the component. It should accept a reference to
+	 *           the component of type T.
+	 */
+	template <typename T, typename Func>
+	inline void modifyComponent(const Entity e, Func&& fn)
+	{
+		// we need the component for event dispatch, so we handle it manually.
+		T& c = getComponent<T>(e);
+		fn(c);
+		// registry_.template modifyComponent<T>(e, fn);
+	}
+
+	/**
+	 * @brief Modifies a component of type T for a given entity.
+	 * @details This function retrieves the component of type T associated with the specified entity
+	 * and replaces it with the new component provided as the argument c.
+	 * @tparam T The type of the component to modify.
+	 * @param e The entity whose component will be modified.
+	 * @param c The new component of type T that will replace the existing component.
+	 */
+	template <typename T>
+	inline void modifyComponent(const Entity e, T c)
+	{
+		// we need the component for event dispatch, so we handle it manually.
+		getComponent<T>(e) = c;
+		// registry_.template modifyComponent<T>(e, c);
 	}
 
 	/**
@@ -147,7 +177,19 @@ class ECS {
 	template <typename T>
 	inline void removeComponent(const Entity e)
 	{
+		const T& c = getComponent<T>(e);
 		registry_.template removeComponent<T>(e);
+	}
+
+	/**
+	 * @brief Removes all components of types Ts from an entity.
+	 * @tparam T The types of the components to remove.
+	 * @param e The entity from which to remove the components.
+	 */
+	template <typename... Ts>
+	inline void removeComponents(const Entity e)
+	{
+		(removeComponent<Ts>(e), ...);
 	}
 
 	/**
@@ -156,18 +198,8 @@ class ECS {
 	 */
 	inline void removeComponents(const Entity e)
 	{
-		registry_.removeComponents(e);
-	}
-
-	/**
-	 * @brief Removes all components of types T from an entity.
-	 * @tparam T The types of the components to remove.
-	 * @param e The entity from which to remove the components.
-	 */
-	template <typename... T>
-	inline void removeComponents(const Entity e)
-	{
-		registry_.template removeComponents<T...>(e);
+		removeComponents<AllComponentTypes...>(e);
+		// (removeComponent<AllComponentTypes>(e), ...);
 	}
 
 	/**
@@ -218,16 +250,10 @@ class ECS {
 		return registry_.template size<Ts...>();
 	}
 
-	inline size_t getComponentCount() const { return registry_.size(); }
-
-	/**
-	 * @brief Clears all entities and components from the ECS.
-	 * @details Resets the ECS to its initial state, making all entity IDs available again.
-	 */
-	inline void clear()
+	inline size_t getComponentCount() const
 	{
-		registry_.clear();
-		clearEntities();
+		return getComponentCount<AllComponentTypes...>();
+		// return registry_.size();
 	}
 
 	/**
@@ -241,7 +267,21 @@ class ECS {
 		registry_.template clear<Ts...>();
 	}
 
-	inline void clearComponents() { registry_.clear(); }
+	inline void clearComponents()
+	{
+		clearComponents<AllComponentTypes...>();
+		// registry_.clear();
+	}
+
+	/**
+	 * @brief Clears all entities and components from the ECS.
+	 * @details Resets the ECS to its initial state, making all entity IDs available again.
+	 */
+	inline void clear()
+	{
+		clearComponents();
+		clearEntities();
+	}
 
    private:
 	std::queue<Entity> availableEntityIds_;
@@ -255,7 +295,10 @@ class ECS {
 		std::queue<Entity> empty;
 		std::swap(availableEntityIds_, empty);
 
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++) availableEntityIds_.push(entity);
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		{
+			availableEntityIds_.push(entity);
+		}
 	}
 };
 

@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_RUNNER
 
-#define EASYS_ENTITY_LIMIT 10000000
+#define EASYS_ENTITY_LIMIT 1000000
 
 #include <catch2/catch.hpp>
 #include <chrono>
@@ -177,6 +177,54 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		    formatEntCompInfo("addComponent", NUM_ENT, NUM_COM * 2));
 	}
 
+	SECTION("Benchmarking Component Modification")
+	{
+		ECS ecs;
+		TestComponent c = TestComponent{};
+
+		for (int i = 0; i < NUM_ENT; i++)
+		{
+			Entity e = ecs.addEntity();
+			ecs.addComponent<TestComponent>(e, c);
+		}
+
+		benchmarkSection(
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
+				    ecs.modifyComponent<TestComponent>(i, {i});
+			    }
+		    },
+		    formatEntCompInfo("modifyComponent", NUM_ENT, NUM_COM));
+	}
+
+	SECTION("Benchmarking Component Modification (lambda)")
+	{
+		ECS ecs;
+		TestComponent c = TestComponent{};
+
+		for (int i = 0; i < NUM_ENT; i++)
+		{
+			Entity e = ecs.addEntity();
+			ecs.addComponent<TestComponent>(e, c);
+		}
+
+		benchmarkSection(
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
+				    ecs.modifyComponent<TestComponent>(i,
+				                                       [&i](TestComponent& c)
+				                                       {
+					                                       c.value = i;
+				                                       });
+			    }
+		    },
+		    formatEntCompInfo("modifyComponent (lambda)", NUM_ENT, NUM_COM));
+	}
+
 	SECTION("Benchmarking Component Removal")
 	{
 		ECS ecs;
@@ -268,7 +316,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		    formatEntCompInfo("hasComponent", NUM_ENT, 0));
 	}
 
-	SECTION("Benchmarking getEntitiesByComponents<> ... TODO")
+	SECTION("Benchmarking getEntities<> ... TODO")
 	{
 		ECS ecs;
 		double deltaTime = 0.016;  // Assuming 60 FPS for deltaTime
@@ -293,21 +341,21 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		benchmarkSection(
 		    [&]
 		    {
-			    ecs.getEntitiesByComponents<Damage, Health, Data, RigidBody, Position>();
+			    ecs.getEntities<Damage, Health, Data, RigidBody, Position>();
 		    },
 		    formatEntCompInfo("All comps", NUM_ENT, NUM_COM * 5));
 
 		benchmarkSection(
 		    [&]
 		    {
-			    ecs.getEntitiesByComponents<Damage, Health, RigidBody>();
+			    ecs.getEntities<Damage, Health, RigidBody>();
 		    },
 		    formatEntCompInfo("3 comps", NUM_ENT, NUM_COM * 5));
 
 		benchmarkSection(
 		    [&]
 		    {
-			    ecs.getEntitiesByComponents<Health, RigidBody, Position>();
+			    ecs.getEntities<Health, RigidBody, Position>();
 		    },
 		    formatEntCompInfo("3 other comps", NUM_ENT, NUM_COM * 5));
 	}
@@ -468,6 +516,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<Health>(e, health);
 			ecs.addComponent<Damage>(e, damage);
 		}
+
 
 		benchmarkSection(
 		    [&]

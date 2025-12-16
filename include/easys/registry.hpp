@@ -24,6 +24,19 @@ class Registry {
 		componentSet.set(entity, std::move(component));
 	}
 
+	template <typename T, typename Func>
+	inline void modifyComponent(const Entity e, Func&& fn)
+	{
+		T& c = getComponent<T>(e);
+		fn(c);
+	}
+
+	template <typename T>
+	inline void modifyComponent(const Entity e, T c)
+	{
+		getComponent<T>(e) = c;
+	}
+
 	template <typename ComponentType>
 	inline void removeComponent(const Entity entity)
 	{
@@ -31,23 +44,15 @@ class Registry {
 		componentSet.remove(entity);
 	}
 
-	inline void removeComponents(const Entity entity)
-	{
-		forEachComponentType<AllComponentTypes...>(
-		    [&]<typename Component>()
-		    {
-			    removeComponent<Component>(entity);
-		    });
-	}
-
 	template <typename... ComponentTypes>
 	inline void removeComponents(const Entity entity)
 	{
-		forEachComponentType<ComponentTypes...>(
-		    [&]<typename Component>()
-		    {
-			    removeComponent<Component>(entity);
-		    });
+		(removeComponent<ComponentTypes>(entity), ...);
+	}
+
+	inline void removeComponents(const Entity entity)
+	{
+		removeComponents<AllComponentTypes...>(entity);
 	}
 
 	template <typename ComponentType>
@@ -72,14 +77,8 @@ class Registry {
 		return getComponentSet<ComponentType>().contains(entity);
 	}
 
-	template <typename ComponentType>
-	inline const std::vector<Entity>& getEntitiesByComponent() const
-	{
-		return getComponentSet<ComponentType>().getKeys();
-	}
-
 	template <typename... ComponentTypes>
-	inline std::vector<Entity> getEntitiesByComponents() const
+	inline std::vector<Entity> getEntities() const
 	{
 		std::vector<Entity> entities;
 		bool isFirstComponentType = true;
@@ -90,7 +89,7 @@ class Registry {
 		    {
 			    if (isFirstComponentType)
 			    {
-				    entities = getEntitiesByComponent<T>();
+				    entities = getComponentSet<T>().getKeys();
 				    isFirstComponentType = false;
 			    }
 
@@ -106,58 +105,34 @@ class Registry {
 						    newEntities.push_back(e);
 					    }
 				    }
-				    
-					entities = std::move(newEntities);
+
+				    entities = std::move(newEntities);
 			    }
 		    });
 
 		return entities;
 	}
 
-	inline size_t size() const
-	{
-		size_t totalSize = 0;
-
-		forEachComponentType<AllComponentTypes...>(
-		    [this, &totalSize]<typename T>()
-		    {
-			    totalSize += getComponentSet<T>().size();
-		    });
-
-		return totalSize;
-	}
-
 	template <typename... ComponentTypes>
 	inline size_t size() const
 	{
-		size_t totalSize = 0;
-
-		forEachComponentType<ComponentTypes...>(
-		    [this, &totalSize]<typename T>()
-		    {
-			    totalSize += getComponentSet<T>().size();
-		    });
-
-		return totalSize;
+		return (... + getComponentSet<ComponentTypes>().size());
 	}
 
-	inline void clear()
+	inline size_t size() const
 	{
-		forEachComponentType<AllComponentTypes...>(
-		    [this]<typename T>()
-		    {
-			    getComponentSet<T>().clear();
-		    });
+		return size<AllComponentTypes...>();
 	}
 
 	template <typename... ComponentTypes>
 	inline void clear()
 	{
-		forEachComponentType<ComponentTypes...>(
-		    [this]<typename T>()
-		    {
-			    getComponentSet<T>().clear();
-		    });
+		(getComponentSet<ComponentTypes>().clear(), ...);
+	}
+
+	inline void clear()
+	{
+		clear<AllComponentTypes...>();
 	}
 
    private:
