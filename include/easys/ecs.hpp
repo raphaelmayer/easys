@@ -177,7 +177,6 @@ class ECS {
 	template <typename T>
 	inline void removeComponent(const Entity e)
 	{
-		const T& c = getComponent<T>(e);
 		registry_.template removeComponent<T>(e);
 	}
 
