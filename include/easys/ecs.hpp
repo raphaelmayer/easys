@@ -7,7 +7,6 @@
 #include <set>
 
 #include "entity.hpp"
-#include "eventbus.hpp"
 #include "registry.hpp"
 
 namespace Easys {
@@ -47,7 +46,6 @@ class ECS {
 			if (oldEntities.contains(entity))
 			{
 				entities_.insert(entity);
-				eventbus_.template emit<EntityAdded>({entity});
 			} else
 			{
 				availableEntityIds_.push(entity);
@@ -67,7 +65,6 @@ class ECS {
 			Entity e = availableEntityIds_.front();
 			availableEntityIds_.pop();
 			entities_.insert(e);
-			eventbus_.template emit<EntityAdded>({e});
 			return e;
 		}
 		// throwing an exception here seems kind of drastic, but on the other hand
@@ -88,7 +85,6 @@ class ECS {
 		entities_.erase(e);
 		// Make the entity ID available again
 		availableEntityIds_.push(e);
-		eventbus_.template emit<EntityRemoved>({e});
 	}
 
 	/**
@@ -102,7 +98,7 @@ class ECS {
 	 * @brief Returns a reference to the set of all entities.
 	 * @return A constant reference to the set of all entities currently in the ECS.
 	 */
-	inline const std::set<Entity>& getEntities() const { return entities_; }
+	inline std::set<Entity> getEntities() const { return entities_; }
 
 	/**
 	 * @brief Returns a vector of entities that have all of the specified component types. Use smaller components first
@@ -134,8 +130,6 @@ class ECS {
 	{
 		// TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types
 		// are consistent.
-		eventbus_.template emit<ComponentAdded<T>>({e, component});
-		eventbus_.template emit<EntityUpdated<T>>({e, component});
 		registry_.addComponent(e, std::move(component));
 	}
 
@@ -157,8 +151,6 @@ class ECS {
 		T& c = getComponent<T>(e);
 		fn(c);
 		// registry_.template modifyComponent<T>(e, fn);
-		eventbus_.template emit<ComponentUpdated<T>>({e, c});
-		eventbus_.template emit<EntityUpdated<T>>({e, c});
 	}
 
 	/**
@@ -175,8 +167,6 @@ class ECS {
 		// we need the component for event dispatch, so we handle it manually.
 		getComponent<T>(e) = c;
 		// registry_.template modifyComponent<T>(e, c);
-		eventbus_.template emit<ComponentUpdated<T>>({e, c});
-		eventbus_.template emit<EntityUpdated<T>>({e, c});
 	}
 
 	/**
@@ -188,8 +178,6 @@ class ECS {
 	inline void removeComponent(const Entity e)
 	{
 		const T& c = getComponent<T>(e);
-		eventbus_.template emit<ComponentRemoved<T>>({e, c});
-		eventbus_.template emit<EntityUpdated<T>>({e, c});
 		registry_.template removeComponent<T>(e);
 	}
 
@@ -295,35 +283,10 @@ class ECS {
 		clearEntities();
 	}
 
-	/**
-	 * @brief Dispatches all accumulated events.
-	 * @details This function processes all events that have been accumulated since the last dispatch call.
-	 */
-	void dispatch() { eventbus_.dispatch(); }
-
    private:
 	std::queue<Entity> availableEntityIds_;
 	std::set<Entity> entities_;
 	Registry<AllComponentTypes...> registry_;
-
-	// TODO: Something like this would be nice, but this is not functional right now
-	// Define the event types based on the provided component types
-	// using ALL_EVENT_TYPES = std::tuple<
-	//     EntityAdded,
-	// 	EntityUpdated<AllComponentTypes>...,
-	//     EntityRemoved,
-	//     ComponentAdded<AllComponentTypes>...,
-	//     ComponentAccessed<AllComponentTypes>...,
-	//     ComponentUpdated<AllComponentTypes>...,
-	//     ComponentRemoved<AllComponentTypes>...
-	// >;
-	// Eventbus<ALL_EVENT_TYPES...> eventbus_;
-
-	// Eventbus instance using the expanded types
-	Eventbus<EntityAdded, EntityUpdated<AllComponentTypes>..., EntityRemoved, ComponentAdded<AllComponentTypes>...,
-	         ComponentAccessed<AllComponentTypes>..., ComponentUpdated<AllComponentTypes>...,
-	         ComponentRemoved<AllComponentTypes>...>
-	    eventbus_;
 
 	void clearEntities()
 	{
