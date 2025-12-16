@@ -75,6 +75,18 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE(retrievedComp.data == 1);
 	}
 
+	SECTION("Modify Component (with lambda)")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp = {20};
+		ecs.addComponent<TestComponent>(entity, comp);
+
+		ecs.modifyComponent<TestComponent>(entity, [](TestComponent& c) { c.data = 1; });
+
+		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
+		REQUIRE(retrievedComp.data == 1);
+	}
+
 	SECTION("Modify Component (directly)")
 	{
 		Entity entity = ecs.addEntity();

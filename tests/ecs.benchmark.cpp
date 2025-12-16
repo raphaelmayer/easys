@@ -120,6 +120,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		for (int i = 0; i < NUM_ENT; i++)
 		{
 			Entity e = ecs.addEntity();
+			ecs.dispatch();
 		}
 
 		benchmarkSection(
@@ -141,6 +142,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		for (int i = 0; i < NUM_ENT; i++)
 		{
 			Entity e = ecs.addEntity();
+			ecs.dispatch();
 		}
 
 		benchmarkSection(
@@ -163,6 +165,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		for (int i = 0; i < NUM_ENT; i++)
 		{
 			Entity e = ecs.addEntity();
+			ecs.dispatch();
 		}
 
 		benchmarkSection(
@@ -186,6 +189,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<TestComponent>(e, c);
+			ecs.dispatch();
 		}
 
 		benchmarkSection(
@@ -208,6 +212,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<TestComponent>(e, c);
+			ecs.dispatch();
 		}
 
 		benchmarkSection(
@@ -234,6 +239,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<TestComponent>(e, c);
+			ecs.dispatch();
 		}
 
 		benchmarkSection(
@@ -256,6 +262,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<TestComponent>(e, c);
+			ecs.dispatch();
 		}
 
 		TestComponent tc;
@@ -279,6 +286,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		{
 			Entity e = ecs.addEntity();
 			ecs.addComponent<TestComponent>(e, c);
+			ecs.dispatch();
 		}
 
 		volatile int sink = 0;
@@ -301,6 +309,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		for (int i = 0; i < NUM_ENT; i++)
 		{
 			Entity e = ecs.addEntity();
+			ecs.dispatch();
 		}
 		ecs.addComponent<TestComponent>(0, c);
 
@@ -407,6 +416,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			Entity e = ecs.addEntity();
 			ecs.addComponent<Position>(e, p);
 			ecs.addComponent<RigidBody>(e, r);
+		ecs.dispatch();
 		}
 
 		benchmarkSection(
@@ -515,6 +525,7 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<Data>(e, data);
 			ecs.addComponent<Health>(e, health);
 			ecs.addComponent<Damage>(e, damage);
+		ecs.dispatch();
 		}
 
 
