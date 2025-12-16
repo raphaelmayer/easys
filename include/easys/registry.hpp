@@ -24,6 +24,19 @@ class Registry {
 		componentSet.set(entity, std::move(component));
 	}
 
+	template <typename T, typename Func>
+	inline void modifyComponent(const Entity e, Func&& fn)
+	{
+		T& c = getComponent<T>(e);
+		fn(c);
+	}
+
+	template <typename T>
+	inline void modifyComponent(const Entity e, T c)
+	{
+		getComponent<T>(e) = c;
+	}
+
 	template <typename ComponentType>
 	inline void removeComponent(const Entity entity)
 	{
@@ -64,14 +77,8 @@ class Registry {
 		return getComponentSet<ComponentType>().contains(entity);
 	}
 
-	template <typename ComponentType>
-	inline const std::vector<Entity>& getEntitiesByComponent() const
-	{
-		return getComponentSet<ComponentType>().getKeys();
-	}
-
 	template <typename... ComponentTypes>
-	inline std::vector<Entity> getEntitiesByComponents() const
+	inline std::vector<Entity> getEntities() const
 	{
 		std::vector<Entity> entities;
 		bool isFirstComponentType = true;
@@ -82,7 +89,7 @@ class Registry {
 		    {
 			    if (isFirstComponentType)
 			    {
-				    entities = getEntitiesByComponent<T>();
+				    entities = getComponentSet<T>().getKeys();
 				    isFirstComponentType = false;
 			    }
 
@@ -106,16 +113,9 @@ class Registry {
 		return entities;
 	}
 
-	// template <typename ComponentType>
-	// inline size_t size() const
-	// {
-	// 	return getComponentSet<ComponentType>().size();
-	// }
-
 	template <typename... ComponentTypes>
 	inline size_t size() const
 	{
-		// return (... + size<ComponentTypes>());
 		return (... + getComponentSet<ComponentTypes>().size());
 	}
 
@@ -124,16 +124,9 @@ class Registry {
 		return size<AllComponentTypes...>();
 	}
 
-	// template <typename ComponentType>
-	// inline void clear()
-	// {
-	// 	getComponentSet<ComponentType>().clear();
-	// }
-
 	template <typename... ComponentTypes>
 	inline void clear()
 	{
-		// (clear<ComponentTypes>(), ...);
 		(getComponentSet<ComponentTypes>().clear(), ...);
 	}
 

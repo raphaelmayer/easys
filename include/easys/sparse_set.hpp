@@ -48,8 +48,6 @@ class SparseSet {
 	}
 
 	// Associate a value with a key
-
-	// Associate a value with a key
 	inline void set(const Key key, const Value& value)
 	{
 		accommodate(key);
@@ -128,7 +126,7 @@ class SparseSet {
 
 	// Iterate over all values
 	template <typename Func>
-	inline void forEach(Func f)
+	inline void forEach(Func&& f)
 	{
 		for (size_t i = 0; i < values.size(); ++i)
 		{
