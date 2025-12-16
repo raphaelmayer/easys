@@ -102,7 +102,7 @@ class ECS {
 	 * @brief Returns a reference to the set of all entities.
 	 * @return A constant reference to the set of all entities currently in the ECS.
 	 */
-	inline const std::set<Entity>& getEntities() const { return entities_; }
+	inline std::set<Entity> getEntities() const { return entities_; }
 
 	/**
 	 * @brief Returns a vector of entities that have all of the specified component types. Use smaller components first

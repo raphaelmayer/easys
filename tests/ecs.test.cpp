@@ -23,16 +23,20 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 	SECTION("Add Entity")
 	{
+		REQUIRE(ecs.getEntities().size() == 0);
 		Entity entity = ecs.addEntity();
 		REQUIRE(entity != -1);
+		REQUIRE(ecs.getEntities().size() == 1);
 		REQUIRE(ecs.getEntities().find(entity) != ecs.getEntities().end());
 	}
 
 	SECTION("Remove Entity")
 	{
+		REQUIRE(ecs.getEntities().size() == 0);
 		Entity entity = ecs.addEntity();
+		REQUIRE(ecs.getEntities().size() == 1);
 		ecs.removeEntity(entity);
-		REQUIRE(ecs.getEntities().find(entity) == ecs.getEntities().end());
+		REQUIRE(ecs.getEntities().size() == 0);
 	}
 
 	SECTION("Has Component")
@@ -53,6 +57,22 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
 		REQUIRE(retrievedComp.data == 20);
+	}
+
+	SECTION("Modify Component (with lambda)")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp = {20};
+		ecs.addComponent<TestComponent>(entity, comp);
+
+		ecs.modifyComponent<TestComponent>(entity,
+		                                   [](TestComponent& c)
+		                                   {
+			                                   c.data = 1;
+		                                   });
+
+		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
+		REQUIRE(retrievedComp.data == 1);
 	}
 
 	SECTION("Modify Component (with lambda)")
