@@ -103,17 +103,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8010729e9e92bc6de3dacee5f50ec8b9" id="r_a8010729e9e92bc6de3dacee5f50ec8b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a8010729e9e92bc6de3dacee5f50ec8b9">hasEntity</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e) const</td></tr>
 <tr class="memdesc:a8010729e9e92bc6de3dacee5f50ec8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an entity exists within the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>.  <br /></td></tr>
 <tr class="separator:a8010729e9e92bc6de3dacee5f50ec8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b2d03b40a3ea9a9c429d2ea18fa252b" id="r_a5b2d03b40a3ea9a9c429d2ea18fa252b"><td class="memItemLeft" align="right" valign="top">const std::set&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a5b2d03b40a3ea9a9c429d2ea18fa252b">getEntities</a> () const</td></tr>
-<tr class="memdesc:a5b2d03b40a3ea9a9c429d2ea18fa252b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the set of all entities.  <br /></td></tr>
-<tr class="separator:a5b2d03b40a3ea9a9c429d2ea18fa252b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad58821a03b4862698ba5c6e6288418e9" id="r_ad58821a03b4862698ba5c6e6288418e9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ad58821a03b4862698ba5c6e6288418e9"><td class="memTemplItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ad58821a03b4862698ba5c6e6288418e9">getEntitiesByComponent</a> () const</td></tr>
-<tr class="memdesc:ad58821a03b4862698ba5c6e6288418e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of entities that have a component of a specific type.  <br /></td></tr>
-<tr class="separator:ad58821a03b4862698ba5c6e6288418e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f0840fd3e39b0d35a105852c6212c21" id="r_a6f0840fd3e39b0d35a105852c6212c21"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
-<tr class="memitem:a6f0840fd3e39b0d35a105852c6212c21"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a6f0840fd3e39b0d35a105852c6212c21">getEntitiesByComponents</a> () const</td></tr>
-<tr class="memdesc:a6f0840fd3e39b0d35a105852c6212c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of entities that have all of the specified component types. Use smaller components first for optimal performance.  <br /></td></tr>
-<tr class="separator:a6f0840fd3e39b0d35a105852c6212c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23555042e9c5b1b55c46cd37fdbdf5cf" id="r_a23555042e9c5b1b55c46cd37fdbdf5cf"><td class="memItemLeft" align="right" valign="top">std::set&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">getEntities</a> () const</td></tr>
+<tr class="memdesc:a23555042e9c5b1b55c46cd37fdbdf5cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the set of all entities.  <br /></td></tr>
+<tr class="separator:a23555042e9c5b1b55c46cd37fdbdf5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab56fe2df8453b1112c70054a00d9202e" id="r_ab56fe2df8453b1112c70054a00d9202e"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
+<tr class="memitem:ab56fe2df8453b1112c70054a00d9202e"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ab56fe2df8453b1112c70054a00d9202e">getEntities</a> () const</td></tr>
+<tr class="memdesc:ab56fe2df8453b1112c70054a00d9202e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of entities that have all of the specified component types. Use smaller components first for optimal performance.  <br /></td></tr>
+<tr class="separator:ab56fe2df8453b1112c70054a00d9202e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a438a8c8a19215825a3a7597c1ce6a602" id="r_a438a8c8a19215825a3a7597c1ce6a602"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">getEntityCount</a> () const</td></tr>
 <tr class="memdesc:a438a8c8a19215825a3a7597c1ce6a602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of active entities in the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>.  <br /></td></tr>
 <tr class="separator:a438a8c8a19215825a3a7597c1ce6a602"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,17 +117,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a17a6dbb9ff411bfb232f97a518a92165"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">addComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, T component)</td></tr>
 <tr class="memdesc:a17a6dbb9ff411bfb232f97a518a92165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a component of type T to an entity.  <br /></td></tr>
 <tr class="separator:a17a6dbb9ff411bfb232f97a518a92165"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3224a1c1e9e9f55b8907a60ae016a4e2" id="r_a3224a1c1e9e9f55b8907a60ae016a4e2"><td class="memTemplParams" colspan="2">template&lt;typename T , typename Func &gt; </td></tr>
+<tr class="memitem:a3224a1c1e9e9f55b8907a60ae016a4e2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2">modifyComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, Func &amp;&amp;fn)</td></tr>
+<tr class="memdesc:a3224a1c1e9e9f55b8907a60ae016a4e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies a component of type T for a given entity.  <br /></td></tr>
+<tr class="separator:a3224a1c1e9e9f55b8907a60ae016a4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4b34b766fcd0e3f3d0fb3c71902f0f2" id="r_af4b34b766fcd0e3f3d0fb3c71902f0f2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:af4b34b766fcd0e3f3d0fb3c71902f0f2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2">modifyComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, T c)</td></tr>
+<tr class="memdesc:af4b34b766fcd0e3f3d0fb3c71902f0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies a component of type T for a given entity.  <br /></td></tr>
+<tr class="separator:af4b34b766fcd0e3f3d0fb3c71902f0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6eb3273c9606c524f8602c6f5514b6c" id="r_ac6eb3273c9606c524f8602c6f5514b6c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ac6eb3273c9606c524f8602c6f5514b6c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c">removeComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
 <tr class="memdesc:ac6eb3273c9606c524f8602c6f5514b6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a component of type T from an entity.  <br /></td></tr>
 <tr class="separator:ac6eb3273c9606c524f8602c6f5514b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae04e1e8f41e0a9177fab7c4d3e8bca69" id="r_ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
+<tr class="memitem:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">removeComponents</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
+<tr class="memdesc:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all components of types Ts from an entity.  <br /></td></tr>
+<tr class="separator:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6a62b22a3f4f199e495faec533630c5" id="r_ab6a62b22a3f4f199e495faec533630c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5">removeComponents</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
 <tr class="memdesc:ab6a62b22a3f4f199e495faec533630c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all components from an entity.  <br /></td></tr>
 <tr class="separator:ab6a62b22a3f4f199e495faec533630c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae04e1e8f41e0a9177fab7c4d3e8bca69" id="r_ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memTemplParams" colspan="2">template&lt;typename... T&gt; </td></tr>
-<tr class="memitem:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">removeComponents</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
-<tr class="memdesc:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all components of types T from an entity.  <br /></td></tr>
-<tr class="separator:ae04e1e8f41e0a9177fab7c4d3e8bca69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c58ba65fd96a9977c4a7284c1fdaf69" id="r_a6c58ba65fd96a9977c4a7284c1fdaf69"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a6c58ba65fd96a9977c4a7284c1fdaf69"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">getComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</td></tr>
 <tr class="memdesc:a6c58ba65fd96a9977c4a7284c1fdaf69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a reference to a component of type T from an entity.  <br /></td></tr>
@@ -150,15 +154,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a48b428729273828fafaeb58cb561c503"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70a0cc05c48b53f12cf3610e4dfcaefd" id="r_a70a0cc05c48b53f12cf3610e4dfcaefd"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd">getComponentCount</a> () const</td></tr>
 <tr class="separator:a70a0cc05c48b53f12cf3610e4dfcaefd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6467eced72fe78d0e851747184552d30" id="r_a6467eced72fe78d0e851747184552d30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">clear</a> ()</td></tr>
-<tr class="memdesc:a6467eced72fe78d0e851747184552d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all entities and components from the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>.  <br /></td></tr>
-<tr class="separator:a6467eced72fe78d0e851747184552d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae30a8b288a9942b14d12712ad87d576" id="r_aae30a8b288a9942b14d12712ad87d576"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
 <tr class="memitem:aae30a8b288a9942b14d12712ad87d576"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">clearComponents</a> ()</td></tr>
 <tr class="memdesc:aae30a8b288a9942b14d12712ad87d576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes components of specific types from all entities within the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>.  <br /></td></tr>
 <tr class="separator:aae30a8b288a9942b14d12712ad87d576"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a15c2610dd91b59dbe0dd930dc3e25e" id="r_a3a15c2610dd91b59dbe0dd930dc3e25e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a3a15c2610dd91b59dbe0dd930dc3e25e">clearComponents</a> ()</td></tr>
 <tr class="separator:a3a15c2610dd91b59dbe0dd930dc3e25e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6467eced72fe78d0e851747184552d30" id="r_a6467eced72fe78d0e851747184552d30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">clear</a> ()</td></tr>
+<tr class="memdesc:a6467eced72fe78d0e851747184552d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all entities and components from the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>.  <br /></td></tr>
+<tr class="separator:a6467eced72fe78d0e851747184552d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename... AllComponentTypes&gt;<br />
@@ -577,8 +581,8 @@ template&lt;typename... AllComponentTypes&gt; </div>
 
 </div>
 </div>
-<a id="a5b2d03b40a3ea9a9c429d2ea18fa252b" name="a5b2d03b40a3ea9a9c429d2ea18fa252b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b2d03b40a3ea9a9c429d2ea18fa252b">&#9670;&#160;</a></span>getEntities()</h2>
+<a id="a23555042e9c5b1b55c46cd37fdbdf5cf" name="a23555042e9c5b1b55c46cd37fdbdf5cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23555042e9c5b1b55c46cd37fdbdf5cf">&#9670;&#160;</a></span>getEntities() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -589,7 +593,7 @@ template&lt;typename... AllComponentTypes&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::set&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt; &amp; <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::getEntities </td>
+          <td class="memname">std::set&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt; <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::getEntities </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -607,46 +611,8 @@ template&lt;typename... AllComponentTypes&gt; </div>
 
 </div>
 </div>
-<a id="ad58821a03b4862698ba5c6e6288418e9" name="ad58821a03b4862698ba5c6e6288418e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad58821a03b4862698ba5c6e6288418e9">&#9670;&#160;</a></span>getEntitiesByComponent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... AllComponentTypes&gt; </div>
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt; &amp; <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::getEntitiesByComponent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a vector of entities that have a component of a specific type. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The component type to query for. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A constant reference to a vector of entities possessing the component. </dd></dl>
-
-</div>
-</div>
-<a id="a6f0840fd3e39b0d35a105852c6212c21" name="a6f0840fd3e39b0d35a105852c6212c21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f0840fd3e39b0d35a105852c6212c21">&#9670;&#160;</a></span>getEntitiesByComponents()</h2>
+<a id="ab56fe2df8453b1112c70054a00d9202e" name="ab56fe2df8453b1112c70054a00d9202e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab56fe2df8453b1112c70054a00d9202e">&#9670;&#160;</a></span>getEntities() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -659,7 +625,7 @@ template&lt;typename... Ts&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt; <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::getEntitiesByComponents </td>
+          <td class="memname">std::vector&lt; <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &gt; <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::getEntities </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -795,6 +761,116 @@ template&lt;typename... AllComponentTypes&gt; </div>
 
 </div>
 </div>
+<a id="a3224a1c1e9e9f55b8907a60ae016a4e2" name="a3224a1c1e9e9f55b8907a60ae016a4e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3224a1c1e9e9f55b8907a60ae016a4e2">&#9670;&#160;</a></span>modifyComponent() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... AllComponentTypes&gt; </div>
+<div class="memtemplate">
+template&lt;typename T , typename Func &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::modifyComponent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Func &amp;&amp;&#160;</td>
+          <td class="paramname"><em>fn</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Modifies a component of type T for a given entity. </p>
+<p>This function retrieves the component of type T associated with the specified entity and invokes the provided callable function with a reference to that component. The callable can be a lambda, function pointer, or any other callable type. The component can be modified directly through the callable. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the component to modify. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The entity whose component will be modified. </td></tr>
+    <tr><td class="paramname">fn</td><td>The callable that will be used to modify the component. It should accept a reference to the component of type T. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af4b34b766fcd0e3f3d0fb3c71902f0f2" name="af4b34b766fcd0e3f3d0fb3c71902f0f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4b34b766fcd0e3f3d0fb3c71902f0f2">&#9670;&#160;</a></span>modifyComponent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... AllComponentTypes&gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::modifyComponent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Modifies a component of type T for a given entity. </p>
+<p>This function retrieves the component of type T associated with the specified entity and replaces it with the new component provided as the argument c. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the component to modify. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The entity whose component will be modified. </td></tr>
+    <tr><td class="paramname">c</td><td>The new component of type T that will replace the existing component. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ac6eb3273c9606c524f8602c6f5514b6c" name="ac6eb3273c9606c524f8602c6f5514b6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6eb3273c9606c524f8602c6f5514b6c">&#9670;&#160;</a></span>removeComponent()</h2>
 
@@ -839,8 +915,52 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ae04e1e8f41e0a9177fab7c4d3e8bca69" name="ae04e1e8f41e0a9177fab7c4d3e8bca69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae04e1e8f41e0a9177fab7c4d3e8bca69">&#9670;&#160;</a></span>removeComponents() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... AllComponentTypes&gt; </div>
+<div class="memtemplate">
+template&lt;typename... Ts&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::removeComponents </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all components of types Ts from an entity. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The types of the components to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The entity from which to remove the components. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ab6a62b22a3f4f199e495faec533630c5" name="ab6a62b22a3f4f199e495faec533630c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6a62b22a3f4f199e495faec533630c5">&#9670;&#160;</a></span>removeComponents() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6a62b22a3f4f199e495faec533630c5">&#9670;&#160;</a></span>removeComponents() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -869,50 +989,6 @@ template&lt;typename... AllComponentTypes&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">e</td><td>The entity from which to remove all components. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ae04e1e8f41e0a9177fab7c4d3e8bca69" name="ae04e1e8f41e0a9177fab7c4d3e8bca69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae04e1e8f41e0a9177fab7c4d3e8bca69">&#9670;&#160;</a></span>removeComponents() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... AllComponentTypes&gt; </div>
-<div class="memtemplate">
-template&lt;typename... T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::removeComponents </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td>
-          <td class="paramname"><em>e</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Removes all components of types T from an entity. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The types of the components to remove. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">e</td><td>The entity from which to remove the components. </td></tr>
   </table>
   </dd>
 </dl>
