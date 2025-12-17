@@ -49,6 +49,12 @@ int main()
 		// handle rendering (for example in another system)
 		Position p = ecs.getComponent<Position>(player);
 		std::cout << "x: " << p.x << ", y: " << p.y << std::endl;
+
+		// prevent the loop from running indefinitely
+		if (p.x > 50.f || p.y > 50.f)
+		{
+			isRunning = false;
+		}
 	}
 
 	return 0;

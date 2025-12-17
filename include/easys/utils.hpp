@@ -1,24 +1,69 @@
 #pragma once
 
 #include <cstdio>
+#include <string>
+#include <string_view>
 #include <type_traits>
+#include <typeinfo>
 
 namespace {
-// Helper to get type name without typeid().name() mangling.
+#if defined(__GNUG__) || defined(__clang__)
+#include <cxxabi.h>
+
+#include <cstdlib>
+#endif
+
+// get a compiler-provided type name (no UB)
+template <typename T>
+std::string_view raw_type_name()
+{
+#if defined(__clang__)
+	// std::string_view raw_type_name() [T = Foo]
+	std::string_view p = __PRETTY_FUNCTION__;
+	auto start = p.find("T = ") + 4;
+	auto end = p.rfind(']');
+	return p.substr(start, end - start);
+
+#elif defined(__GNUC__)
+	// std::string_view raw_type_name() [with T = Foo; ...]
+	std::string_view p = __PRETTY_FUNCTION__;
+	auto start = p.find("T = ") + 4;
+	auto end = p.find(';', start);
+	return p.substr(start, end - start);
+
+#elif defined(_MSC_VER)
+	// class std::basic_string_view<...> __cdecl raw_type_name<Foo>(void)
+	std::string_view p = __FUNCSIG__;
+	auto start = p.find("raw_type_name<") + 14;
+	auto end = p.find(">(void)", start);
+	return p.substr(start, end - start);
+
+#else
+	return typeid(T).name();
+#endif
+}
+
+// demangle if needed (mainly MSVC / fallback)
+inline std::string demangle(std::string_view sv)
+{
+#if defined(__GNUG__) || defined(__clang__)
+	int status = 0;
+	char* p = abi::__cxa_demangle(sv.data(), nullptr, nullptr, &status);
+	std::string result = (status == 0 && p) ? p : std::string(sv);
+	std::free(p);
+	return result;
+#else
+	return std::string(sv);
+#endif
+}
+
+// Helper to print a prettier type name
 template <typename T>
 const char* type_name()
 {
-#ifdef __clang__
-	static const char* name = __PRETTY_FUNCTION__ + 33;
-	name[strlen(name) - 1] = '\0';  // Remove trailing ']'
-#elif defined(__GNUC__)
-	static const char* name = __PRETTY_FUNCTION__ + 49;
-	name[strlen(name) - 1] = '\0';  // Remove trailing ']'
-#else
-	// Fallback to typeid
-	static std::string name = typeid(T).name();
+	// static std::string name = normalize_type_name(raw_type_name<T>());
+	static std::string name = std::string(demangle(raw_type_name<T>()));
 	return name.c_str();
-#endif
 }
 };  // namespace
 
