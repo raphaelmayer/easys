@@ -74,6 +74,7 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#concepts">Concepts</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">Easys Namespace Reference</div></div>
 </div><!--header-->
@@ -101,6 +102,13 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a2cb67a74fe7dc55d599dac2eafad0305" id="r_a2cb67a74fe7dc55d599dac2eafad0305"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> = <a class="el" href="../../d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a></td></tr>
 <tr class="separator:a2cb67a74fe7dc55d599dac2eafad0305"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a47a2ecef9f74b1ba1e127a4cc393cde7" id="r_a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
+<tr class="memitem:a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d6/dd9/namespaceEasys.html#a47a2ecef9f74b1ba1e127a4cc393cde7">checkComponentTraits</a> (bool verbose=false)</td></tr>
+<tr class="memdesc:a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates component types for <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> (Entity Component System) compatibility and performance.  <br /></td></tr>
+<tr class="separator:a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a0c4a055adcdccaa294cdfafe14ff3d5d" id="r_a0c4a055adcdccaa294cdfafe14ff3d5d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a> = <a class="el" href="../../d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a></td></tr>
@@ -118,6 +126,48 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a47a2ecef9f74b1ba1e127a4cc393cde7" name="a47a2ecef9f74b1ba1e127a4cc393cde7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47a2ecef9f74b1ba1e127a4cc393cde7">&#9670;&#160;</a></span>checkComponentTraits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Ts&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Easys::checkComponentTraits </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Validates component types for <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> (Entity Component System) compatibility and performance. </p>
+<p>Analyzes compile-time traits of all components Ts. When verbose, shows detailed type traits; otherwise shows only size, alignment, and optimization status.</p>
+<p>Critical checks:</p><ul>
+<li>Trivially copyable (memcpy moves between archetypes)</li>
+<li>Trivially destructible (batch destruction)</li>
+<li>Standard layout (predictable memory layout)</li>
+<li>Reasonable size/alignment (cache efficiency)</li>
+</ul>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Ts</td><td>Component types to validate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">verbose</td><td>Enable detailed diagnostic output </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
