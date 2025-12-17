@@ -4,6 +4,7 @@
 
 #define COMPONENT_TYPES TestComponent, AnotherComponent
 
+namespace REGISTRY_TEST {
 struct TestComponent {
 	int value;
 };
@@ -40,10 +41,10 @@ TEST_CASE("Registry Tests", "[Registry]")
 		registry.addComponent<TestComponent>(testEntity, comp);
 
 		registry.modifyComponent<TestComponent>(testEntity,
-		                                   [](TestComponent& c)
-		                                   {
-			                                   c.value = 1;
-		                                   });
+		                                        [](TestComponent& c)
+		                                        {
+			                                        c.value = 1;
+		                                        });
 
 		const TestComponent& retrievedComp = registry.getComponent<TestComponent>(testEntity);
 		REQUIRE(retrievedComp.value == 1);
@@ -254,3 +255,4 @@ TEST_CASE("Registry clear functionality", "[Registry]")
 		REQUIRE_FALSE(registry.hasComponent<Velocity>(entity));
 	}
 }
+}  // namespace REGISTRY_TEST

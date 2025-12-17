@@ -8,6 +8,7 @@
 
 #include "entity.hpp"
 #include "registry.hpp"
+#include "log.hpp"
 
 namespace Easys {
 
@@ -60,13 +61,22 @@ class ECS {
 	 */
 	inline Entity addEntity()
 	{
+		//EASYS_LOG_INFO(__FUNCDNAME__);
+		//EASYS_LOG_INFO(__FUNCTION__);
+		//EASYS_LOG_INFO(__FUNCSIG__);
+		//EASYS_LOG_INFO(__PRETTY_FUNCTION__);
+		//EASYS_LOG_INFO(__func__);
+		EASYS_LOG_INFO("Test logging");
+
 		if (getEntityCount() < MAX_ENTITIES)
 		{
 			Entity e = availableEntityIds_.front();
 			availableEntityIds_.pop();
 			entities_.insert(e);
+			EASYS_LOG_INFO(std::format("Added entity {}", e));
 			return e;
 		}
+		EASYS_LOG_ERROR("addEntity(): MAX_ENTITIES reached.");
 		// throwing an exception here seems kind of drastic, but on the other hand
 		// maybe not
 		throw std::runtime_error("MAX NUMBER OF ENTITIES REACHED!");
@@ -128,7 +138,8 @@ class ECS {
 	template <typename T>
 	inline void addComponent(const Entity e, T component)
 	{
-		// TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types
+		EASYS_LOG_INFO(std::format("Added component {} for entity {}", typeid(T).name(), e));
+		//  TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types
 		// are consistent.
 		registry_.addComponent(e, std::move(component));
 	}
