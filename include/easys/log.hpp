@@ -11,7 +11,7 @@
 
 // Configuration macros - user can override these before including
 #ifndef EASYS_LOG_LEVEL    // Changed from ECS_LOG_LEVEL to EASYS_LOG_LEVEL
-#define EASYS_LOG_LEVEL 2  // Default: INFO (0=NONE, 1=ERROR, 2=INFO, 3=DEBUG, 4=TRACE)
+#define EASYS_LOG_LEVEL 4  // Default: INFO (0=NONE, 1=ERROR, 2=INFO, 3=DEBUG, 4=TRACE)
 #endif
 
 #ifndef EASYS_LOG_TO_FILE    // Changed from ECS_LOG_TO_FILE
@@ -116,24 +116,33 @@ constexpr std::string_view level_to_string(LogLevel level)
 
 // Format log message
 template <typename... Args>
-inline void log_impl(LogLevel level, std::string_view funcName, std::string_view message, Args&&... args,
+inline void log_impl(LogLevel level, std::string_view message, Args&&... args,
                      const std::source_location& location = std::source_location::current())
 {
-	auto formatted = format_to_string(std::forward<Args>(args)...);
-
-	std::ostringstream oss;
-	oss << "[" << get_timestamp() << "] "
+	
+	// std::string format_log_string()
+	// {
+		auto formatted = format_to_string(std::forward<Args>(args)...);
+		
+		std::ostringstream oss;
+		oss << "[" << get_timestamp() << "] "
 	    << "[" << level_to_string(level) << "] "
 	    << "[" << location.file_name() << ":" << location.line() << "] " 
-		<< funcName << ": "
+		<< "`" << location.function_name() << "`: "
+		// << "`" << funcName << "`: "
+		// << funcName << ": "
 		<< message;
-
-	if (!formatted.empty())
-	{
-		oss << ": " << formatted;
-	}
-
-	auto final_message = oss.str();
+		
+		if (!formatted.empty())
+		{
+			oss << ": " << formatted;
+		}
+		
+		auto final_message = oss.str();
+		// auto final_message = oss.view(); better?
+		// return oss.str();
+	// }
+	// auto final_message = format_log_string();
 
 	// Console output
 	if (level == LogLevel::EASYS_ERROR)
@@ -154,7 +163,7 @@ inline void log_impl(LogLevel level, std::string_view funcName, std::string_view
 	{ \
 		if constexpr (Easys::log::is_enabled<level>::value) \
 		{ \
-			::Easys::log::log_impl(level, __func__, __VA_ARGS__); \
+			::Easys::log::log_impl(level, __VA_ARGS__); \
 		} \
 	} while (0)
 
@@ -163,5 +172,34 @@ inline void log_impl(LogLevel level, std::string_view funcName, std::string_view
 #define EASYS_LOG_INFO(...) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_INFO, __VA_ARGS__)
 #define EASYS_LOG_DEBUG(...) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_DEBUG, __VA_ARGS__)
 #define EASYS_LOG_TRACE(...) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_TRACE, __VA_ARGS__)
+
+#define EASYS_E_STR(e) std::format("entity {}", e)
+#define EASYS_EC_STR(e) std::format("entity {}, component {}", e, typeid(T).name())
+
+
+class EntryExitLogger {
+	public: 
+		EntryExitLogger(const std::string_view file, int line,const std::string_view funcName,
+                     const std::source_location& location = std::source_location::current()) 
+		: file_(file), line_(line), funcName_(funcName), location_(location)
+		{
+			EASYS_LOG_TRACE("Entry", location_);
+			// log_impl(LogLevel::EASYS_TRACE, "Entry", location_);
+		}
+		
+		~EntryExitLogger() 
+		{
+			EASYS_LOG_TRACE("Exit", location_);
+			// log_impl(LogLevel::EASYS_TRACE, "Exit", location_);
+		}
+
+		private:
+			std::string_view file_;
+			int line_;
+			std::string_view funcName_;
+			std::source_location location_;
+	};
+
+#define EASYS_LOG_ENTRY_EXIT Easys::log::EntryExitLogger eel(__FILE__, __LINE__, __func__)
 
 }  // namespace Easys::log

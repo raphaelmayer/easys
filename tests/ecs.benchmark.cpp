@@ -50,7 +50,7 @@ struct System {
 };
 
 // CATCH_CONFIG_RUNNER tells catch2, that we will implement our own main function to config the test runner.
-int main(int argc, char* argv[])
+extern "C" int main(int argc, char* argv[])
 {
 	Catch::Session session;
 
