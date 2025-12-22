@@ -123,35 +123,66 @@ struct verbose_source_location {
 	constexpr std::uint32_t column() const noexcept { return srcloc.column(); }
 };
 
-#if EASYS_LOG_VERBOSITY
-using log_location = verbose_source_location;
-#else
-using log_location = concise_source_location;
-#endif
+struct flex_source_location {
+	std::string_view file_name_;
+	std::string_view function_name_;
+	std::uint32_t line_;
+	// std::uint32_t column_;
+
+	constexpr explicit flex_source_location(std::source_location l = std::source_location::current()) noexcept
+	{
+		file_name_ = l.file_name();
+		function_name_ = l.function_name();
+		line_ = l.line();
+	}
+
+	constexpr flex_source_location(std::string_view file, std::uint32_t line, std::string_view funcName) noexcept
+	{
+		// const auto& start = file.find_last_of("/") + 1;
+		// const auto& start = file.find_last_of("\\") + 1;
+		const auto& start = std::min(file.find_last_of("/"), file.find_last_of("\\")) + 1;
+		const auto& substr = file.substr(start, file.size() - start);
+
+		file_name_ = substr;
+
+		function_name_ = funcName;
+		line_ = line;
+	}
+
+	constexpr explicit flex_source_location(std::string_view funcName, std::source_location l = std::source_location::current()) noexcept
+	{
+		file_name_ = l.file_name();
+		function_name_ = funcName;
+		line_ = l.line();
+	}
+
+	constexpr std::string_view file_name() const noexcept { return file_name_; }
+	constexpr std::string_view function_name() const noexcept { return function_name_; }
+	constexpr std::uint32_t line() const noexcept { return line_; }
+	// constexpr std::uint32_t column() const noexcept { return column; }
+};
+
+// #if EASYS_LOG_VERBOSITY
+// using log_location = verbose_source_location;
+// #else
+// using log_location = concise_source_location;
+// #endif
+using log_location = flex_source_location;
 
 // Format log message
 inline void log_impl(LogLevel level, std::string_view message,
                      log_location location = log_location{std::source_location::current()})
 {
-	// std::string format_log_string()
-	// {
 	std::ostringstream oss;
 	oss << "[" << get_timestamp() << "] "
 	    << "[" << level_to_string(level) << "] "
 	    << "[" << location.file_name() << ":" << location.line() << "] "
-	    << "`" << location.function_name()
-	    << "`: "
-	    // << "`" << funcName << "`: "
-	    // << funcName << ": "
+	    << "`" << location.function_name() << "`: "
 	    << message;
 
 	auto final_message = oss.str();
 	// auto final_message = oss.view(); better?
-	// return oss.str();
-	// }
-	// auto final_message = format_log_string();
 
-	// Console output
 	if (level == LogLevel::EASYS_ERROR)
 	{
 		std::cerr << final_message << std::endl;
@@ -160,7 +191,6 @@ inline void log_impl(LogLevel level, std::string_view message,
 		std::cout << final_message << std::endl;
 	}
 
-	// File output
 	FileWriter::write(final_message);
 }
 
@@ -170,7 +200,12 @@ inline void log_impl(LogLevel level, std::string_view message,
 	{ \
 		if constexpr (Easys::log::is_enabled<level>::value) \
 		{ \
-			::Easys::log::log_impl(level, msg); \
+			Easys::log::log_location logloc; \
+			if constexpr (EASYS_LOG_VERBOSITY) \
+				logloc = Easys::log::log_location(); \
+			else \
+				logloc = Easys::log::log_location(__FILE__, __LINE__, __func__); \
+			::Easys::log::log_impl(level, msg, logloc); \
 		} \
 	} while (0)
 

@@ -38,7 +38,7 @@
 #endif
 
 #ifndef EASYS_LOG_VERBOSITY
-#define EASYS_LOG_VERBOSITY 0
+#define EASYS_LOG_VERBOSITY 0 // Default: disabled
 #endif
 
 #ifndef EASYS_LOG_ENABLED

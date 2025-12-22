@@ -72,7 +72,7 @@ class ECS {
 			Entity e = availableEntityIds_.front();
 			availableEntityIds_.pop();
 			entities_.insert(e);
-			EASYS_LOG_INFO(std::format("Added entity {}", e));
+			EASYS_LOG_INFO(EASYS_E_STR(e));
 			return e;
 		}
 		EASYS_LOG_ERROR("addEntity(): MAX_ENTITIES reached.");
@@ -96,6 +96,7 @@ class ECS {
 		entities_.erase(e);
 		// Make the entity ID available again
 		availableEntityIds_.push(e);
+		EASYS_LOG_INFO(EASYS_E_STR(e));
 	}
 
 	/**
@@ -158,10 +159,10 @@ class ECS {
 	{
 		EASYS_LOG_ENTRY_EXIT;
 		
-		EASYS_LOG_INFO(EASYS_EC_STR(e));
 		//  TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types
 		// are consistent.
 		registry_.addComponent(e, std::move(component));
+		EASYS_LOG_INFO(EASYS_EC_STR(e));
 	}
 
 	/**
@@ -180,11 +181,11 @@ class ECS {
 	{
 		EASYS_LOG_ENTRY_EXIT;
 		
-		EASYS_LOG_INFO(EASYS_EC_STR(e));
 		// we need the component for event dispatch, so we handle it manually.
 		T& c = getComponent<T>(e);
 		fn(c);
 		// registry_.template modifyComponent<T>(e, fn);
+		EASYS_LOG_INFO(EASYS_EC_STR(e));
 	}
 
 	/**
@@ -203,6 +204,7 @@ class ECS {
 		// we need the component for event dispatch, so we handle it manually.
 		getComponent<T>(e) = c;
 		// registry_.template modifyComponent<T>(e, c);
+		EASYS_LOG_INFO(EASYS_EC_STR(e));
 	}
 
 	/**
@@ -215,8 +217,8 @@ class ECS {
 	{
 		EASYS_LOG_ENTRY_EXIT;
 		
-		EASYS_LOG_INFO(EASYS_EC_STR(e));
 		registry_.template removeComponent<T>(e);
+		EASYS_LOG_INFO(EASYS_EC_STR(e));
 	}
 
 	/**
