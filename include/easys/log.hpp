@@ -85,7 +85,7 @@ constexpr std::string_view level_to_string(LogLevel level)
 	}
 }
 
-struct log_location {
+struct source_location {
 	std::string_view file_name_;
 	std::string_view file_path_;
 	std::string_view function_name_;
@@ -93,8 +93,8 @@ struct log_location {
 	std::uint32_t line_;
 	// std::uint32_t column_;
 
-	constexpr log_location(std::string_view file, std::uint32_t line, std::string_view fullFuncName,
-	                               std::string_view funcName) noexcept
+	constexpr source_location(std::string_view file, std::uint32_t line, std::string_view funcSig,
+	                          std::string_view funcName) noexcept
 	{
 		// const auto& start = file.find_last_of("/") + 1;
 		// const auto& start = file.find_last_of("\\") + 1;
@@ -104,21 +104,24 @@ struct log_location {
 
 		file_path_ = file;
 		file_name_ = substr;
-		function_signature_ = fullFuncName;
+		function_signature_ = funcSig;
 		function_name_ = funcName;
 		line_ = line;
 	}
 
-	constexpr explicit log_location(std::string_view funcName,
-	                                        std::source_location l = std::source_location::current()) noexcept
+	constexpr explicit source_location(std::string_view funcName,
+	                                   std::source_location l = std::source_location::current()) noexcept
 	{
-		log_location(l.file_name(), l.line(), l.function_name(), funcName);
+		source_location(l.file_name(), l.line(), l.function_name(), funcName);
 	}
 
+// very hacky
 #if EASYS_LOG_VERBOSITY
 	constexpr std::string_view file_name() const noexcept { return file_path_; }
 	constexpr std::string_view function_name() const noexcept { return function_signature_; }
 #else
+	// constexpr std::string_view file_path() const noexcept { return file_path_; }
+	// constexpr std::string_view function_signature() const noexcept { return function_signature_; }
 	constexpr std::string_view file_name() const noexcept { return file_name_; }
 	constexpr std::string_view function_name() const noexcept { return function_name_; }
 #endif
@@ -128,7 +131,7 @@ struct log_location {
 };
 
 // Format log message
-inline void log_impl(LogLevel level, std::string_view message, log_location location)
+inline void log_impl(LogLevel level, std::string_view message, Easys::log::source_location location)
 {
 	std::ostringstream oss;
 	oss << "[" << get_timestamp() << "] "
@@ -150,30 +153,9 @@ inline void log_impl(LogLevel level, std::string_view message, log_location loca
 	FileWriter::write(final_message);
 }
 
-#define HERE Easys::log::log_location(__FILE__, __LINE__, __FUNCTION__, __func__)
-
-// Base logging macro with compile-time filtering
-#define EASYS_LOG_IMPL(level, msg) \
-	do \
-	{ \
-		if constexpr (Easys::log::is_enabled<level>::value) \
-		{ \
-			::Easys::log::log_impl(level, msg, HERE); \
-		} \
-	} while (0)
-
-// User-friendly logging macros
-#define EASYS_LOG_ERROR(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_ERROR, msg)
-#define EASYS_LOG_INFO(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_INFO, msg)
-#define EASYS_LOG_DEBUG(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_DEBUG, msg)
-#define EASYS_LOG_TRACE(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_TRACE, msg)
-
-#define EASYS_E_STR(e) std::format("Entity: {}", e)
-#define EASYS_EC_STR(e) std::format("Entity: {}, Component: {}", e, typeid(T).name())
-
 class EntryExitLogger {
    public:
-	EntryExitLogger(log_location location) : location_(location)
+	EntryExitLogger(Easys::log::source_location location) : location_(location)
 	{
 		if constexpr (Easys::log::is_enabled<LogLevel::EASYS_TRACE>::value)
 			log_impl(LogLevel::EASYS_TRACE, "Entry", location_);
@@ -186,9 +168,29 @@ class EntryExitLogger {
 	}
 
    private:
-	log_location location_;
+	Easys::log::source_location location_;
 };
 
-#define EASYS_LOG_ENTRY_EXIT Easys::log::EntryExitLogger eel(HERE)
+#define EASYS_HERE Easys::log::source_location(__FILE__, __LINE__, __FUNCTION__, __func__)
+
+// Base logging macro with compile-time filtering
+#define EASYS_LOG_IMPL(level, msg) \
+	do \
+	{ \
+		if constexpr (Easys::log::is_enabled<level>::value) \
+		{ \
+			::Easys::log::log_impl(level, msg, EASYS_HERE); \
+		} \
+	} while (0)
+
+// User-friendly logging macros
+#define EASYS_LOG_ERROR(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_ERROR, msg)
+#define EASYS_LOG_INFO(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_INFO, msg)
+#define EASYS_LOG_DEBUG(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_DEBUG, msg)
+#define EASYS_LOG_TRACE(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_TRACE, msg)
+#define EASYS_LOG_ENTRY_EXIT Easys::log::EntryExitLogger eel(EASYS_HERE)
+
+#define EASYS_E_STR(e) std::format("Entity: {}", e)
+#define EASYS_EC_STR(e) std::format("Entity: {}, Component: {}", e, typeid(T).name())
 
 }  // namespace Easys::log
