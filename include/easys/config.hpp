@@ -41,7 +41,7 @@
  * @note Defaults to `2` (INFO).
  */
 #ifndef EASYS_LOG_LEVEL
-#define EASYS_LOG_LEVEL 4
+#define EASYS_LOG_LEVEL 2
 #endif
 
 /**
@@ -94,5 +94,5 @@
  * @note Defaults to `0` (disabled).
  */
 #ifndef EASYS_LOG_ENABLED
-#define EASYS_LOG_ENABLED 1
+#define EASYS_LOG_ENABLED 0
 #endif
