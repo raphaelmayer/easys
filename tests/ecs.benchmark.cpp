@@ -11,6 +11,7 @@
 #define NUM_COM 1                    // number of components per entity
 #define COMPTYPES Position, RigidBody, Data, Health, Damage, TestComponent, AnotherComponent
 
+namespace ECS_BENCHMARK {
 struct Position {
 	float x, y;
 };
@@ -49,7 +50,7 @@ struct System {
 };
 
 // CATCH_CONFIG_RUNNER tells catch2, that we will implement our own main function to config the test runner.
-int main(int argc, char* argv[])
+extern "C" int main(int argc, char* argv[])
 {
 	Catch::Session session;
 
@@ -517,7 +518,6 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<Damage>(e, damage);
 		}
 
-
 		benchmarkSection(
 		    [&]
 		    {
@@ -530,3 +530,4 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		    formatEntCompInfo("5 systems, 1 update", NUM_ENT, NUM_COM * 5));
 	}
 }
+}  // namespace ECS_BENCHMARK

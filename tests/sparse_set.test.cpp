@@ -118,9 +118,9 @@ TEST_CASE("SparseSet max_size method tests", "[SparseSet]")
 
 TEST_CASE("SparseSet clear functionality", "[SparseSet]")
 {
-	SparseSet<Entity, Position> sparseSet;
+	SparseSet<Entity, int> sparseSet;
 	// Setup initial state
-	sparseSet.set(1, {1.0f, 2.0f});  // Example entity and component
+	sparseSet.set(1, 1);  // Example entity and component
 
 	SECTION("Clearing the SparseSet")
 	{

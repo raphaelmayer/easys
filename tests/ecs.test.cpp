@@ -7,16 +7,17 @@ using namespace Easys;
 
 #define ECS_TEST_COMPTYPES TestComponent, AnotherComponent
 
+namespace ECS_TEST {
+struct TestComponent {
+	int data;
+};
+
+struct AnotherComponent {
+	float value;
+};
+
 TEST_CASE("ECS Tests", "[ECS]")
 {
-	struct TestComponent {
-		int data;
-	};
-
-	struct AnotherComponent {
-		float value;
-	};
-
 	ECS<ECS_TEST_COMPTYPES> ecs;
 
 	// TODO: test constructors
@@ -258,3 +259,4 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
 	}
 }
+}  // namespace ECS_TEST
