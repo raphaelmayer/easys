@@ -157,15 +157,10 @@ class EntryExitLogger {
    public:
 	EntryExitLogger(Easys::log::source_location location) : location_(location)
 	{
-		if constexpr (Easys::log::is_enabled<LogLevel::EASYS_TRACE>::value)
-			log_impl(LogLevel::EASYS_TRACE, "Entry", location_);
+		log_impl(LogLevel::EASYS_TRACE, "Entry", location_);
 	}
 
-	~EntryExitLogger()
-	{
-		if constexpr (Easys::log::is_enabled<LogLevel::EASYS_TRACE>::value)
-			log_impl(LogLevel::EASYS_TRACE, "Exit", location_);
-	}
+	~EntryExitLogger() { log_impl(LogLevel::EASYS_TRACE, "Exit", location_); }
 
    private:
 	Easys::log::source_location location_;
@@ -188,7 +183,14 @@ class EntryExitLogger {
 #define EASYS_LOG_INFO(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_INFO, msg)
 #define EASYS_LOG_DEBUG(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_DEBUG, msg)
 #define EASYS_LOG_TRACE(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_TRACE, msg)
-#define EASYS_LOG_ENTRY_EXIT Easys::log::EntryExitLogger eel(EASYS_HERE)
+#define EASYS_LOG_ENTRY_EXIT \
+	do \
+	{ \
+		if constexpr (Easys::log::is_enabled<Easys::log::LogLevel::EASYS_TRACE>::value) \
+		{ \
+			::Easys::log::EntryExitLogger eel(EASYS_HERE); \
+		} \
+	} while (0)
 
 #define EASYS_E_STR(e) std::format("Entity: {}", e)
 #define EASYS_EC_STR(e) std::format("Entity: {}, Component: {}", e, typeid(T).name())
