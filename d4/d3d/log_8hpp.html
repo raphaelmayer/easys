@@ -138,7 +138,7 @@ Macros</h2></td></tr>
 <tr class="separator:a27c5c9f66f0c5fea98429f07ebfc2408"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5029f1d9cb5fe21a7c4210b1f2015bfc" id="r_a5029f1d9cb5fe21a7c4210b1f2015bfc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d3d/log_8hpp.html#a5029f1d9cb5fe21a7c4210b1f2015bfc">EASYS_LOG_TRACE</a>(msg)&#160;&#160;&#160;<a class="el" href="../../d4/d3d/log_8hpp.html#a59e4331c6b170003eab87eddc0fa44e6">EASYS_LOG_IMPL</a>(<a class="el" href="../../de/d5d/namespaceEasys_1_1log.html#a8eb079afe6053c5a0241d68668da1675a17595083c3468762c71e77335b2615a6">Easys::log::LogLevel::EASYS_TRACE</a>, msg)</td></tr>
 <tr class="separator:a5029f1d9cb5fe21a7c4210b1f2015bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59bf4cc6175f837b0061f33894079805" id="r_a59bf4cc6175f837b0061f33894079805"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>&#160;&#160;&#160;<a class="el" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html">Easys::log::EntryExitLogger</a> eel(<a class="el" href="../../d4/d3d/log_8hpp.html#a1314e5a0376ea8e5f8f54cb51d83016b">EASYS_HERE</a>)</td></tr>
+<tr class="memitem:a59bf4cc6175f837b0061f33894079805" id="r_a59bf4cc6175f837b0061f33894079805"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a></td></tr>
 <tr class="separator:a59bf4cc6175f837b0061f33894079805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84b9d5b7fc2347b5f6d01287fbfadaaa" id="r_a84b9d5b7fc2347b5f6d01287fbfadaaa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d3d/log_8hpp.html#a84b9d5b7fc2347b5f6d01287fbfadaaa">EASYS_E_STR</a>(e)&#160;&#160;&#160;std::format(&quot;Entity: {}&quot;, e)</td></tr>
 <tr class="separator:a84b9d5b7fc2347b5f6d01287fbfadaaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,11 +243,21 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EASYS_LOG_ENTRY_EXIT&#160;&#160;&#160;<a class="el" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html">Easys::log::EntryExitLogger</a> eel(<a class="el" href="../../d4/d3d/log_8hpp.html#a1314e5a0376ea8e5f8f54cb51d83016b">EASYS_HERE</a>)</td>
+          <td class="memname">#define EASYS_LOG_ENTRY_EXIT</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> \</div>
+<div class="line">    { \</div>
+<div class="line">        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_struct" href="../../d6/d4e/structEasys_1_1log_1_1is__enabled.html">Easys::log::is_enabled&lt;Easys::log::LogLevel::EASYS_TRACE&gt;::value</a>) \</div>
+<div class="line">        { \</div>
+<div class="line">            <a class="code hl_class" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html">::Easys::log::EntryExitLogger</a> eel(<a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a1314e5a0376ea8e5f8f54cb51d83016b">EASYS_HERE</a>); \</div>
+<div class="line">        } \</div>
+<div class="line">    } <span class="keywordflow">while</span> (0)</div>
+<div class="ttc" id="aclassEasys_1_1log_1_1EntryExitLogger_html"><div class="ttname"><a href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html">Easys::log::EntryExitLogger</a></div><div class="ttdef"><b>Definition</b> log.hpp:156</div></div>
+<div class="ttc" id="alog_8hpp_html_a1314e5a0376ea8e5f8f54cb51d83016b"><div class="ttname"><a href="../../d4/d3d/log_8hpp.html#a1314e5a0376ea8e5f8f54cb51d83016b">EASYS_HERE</a></div><div class="ttdeci">#define EASYS_HERE</div><div class="ttdef"><b>Definition</b> log.hpp:169</div></div>
+<div class="ttc" id="astructEasys_1_1log_1_1is__enabled_html"><div class="ttname"><a href="../../d6/d4e/structEasys_1_1log_1_1is__enabled.html">Easys::log::is_enabled</a></div><div class="ttdef"><b>Definition</b> log.hpp:21</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a6b73f10797e2d1b8b283efab3f37ab4e" name="a6b73f10797e2d1b8b283efab3f37ab4e"></a>
@@ -300,8 +310,6 @@ Functions</h2></td></tr>
 <div class="line">            ::Easys::log::log_impl(level, msg, <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a1314e5a0376ea8e5f8f54cb51d83016b">EASYS_HERE</a>); \</div>
 <div class="line">        } \</div>
 <div class="line">    } <span class="keywordflow">while</span> (0)</div>
-<div class="ttc" id="alog_8hpp_html_a1314e5a0376ea8e5f8f54cb51d83016b"><div class="ttname"><a href="../../d4/d3d/log_8hpp.html#a1314e5a0376ea8e5f8f54cb51d83016b">EASYS_HERE</a></div><div class="ttdeci">#define EASYS_HERE</div><div class="ttdef"><b>Definition</b> log.hpp:174</div></div>
-<div class="ttc" id="astructEasys_1_1log_1_1is__enabled_html"><div class="ttname"><a href="../../d6/d4e/structEasys_1_1log_1_1is__enabled.html">Easys::log::is_enabled</a></div><div class="ttdef"><b>Definition</b> log.hpp:21</div></div>
 </div><!-- fragment -->
 </div>
 </div>

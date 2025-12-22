@@ -262,52 +262,54 @@ $(document).ready(function() { init_codefold(1); });
 <div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#af43da61b0a478cb03df31c06c825ea0b">  158</a></span>    <a class="code hl_function" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#af43da61b0a478cb03df31c06c825ea0b">EntryExitLogger</a>(<a class="code hl_struct" href="../../d9/df7/structEasys_1_1log_1_1source__location.html">Easys::log::source_location</a> location) : location_(location)</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    {</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_struct" href="../../d6/d4e/structEasys_1_1log_1_1is__enabled.html">Easys::log::is_enabled&lt;LogLevel::EASYS_TRACE&gt;::value</a>)</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            <a class="code hl_function" href="../../de/d5d/namespaceEasys_1_1log.html#ae9a9a839aba3dbe76c3c3e2de7d2261f">log_impl</a>(<a class="code hl_enumvalue" href="../../de/d5d/namespaceEasys_1_1log.html#a8eb079afe6053c5a0241d68668da1675a17595083c3468762c71e77335b2615a6">LogLevel::EASYS_TRACE</a>, <span class="stringliteral">&quot;Entry&quot;</span>, location_);</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <a class="code hl_function" href="../../de/d5d/namespaceEasys_1_1log.html#ae9a9a839aba3dbe76c3c3e2de7d2261f">log_impl</a>(<a class="code hl_enumvalue" href="../../de/d5d/namespaceEasys_1_1log.html#a8eb079afe6053c5a0241d68668da1675a17595083c3468762c71e77335b2615a6">LogLevel::EASYS_TRACE</a>, <span class="stringliteral">&quot;Entry&quot;</span>, location_);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    }</div>
 </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#ab05863e0ebabc48956e4534b24f49e7e">  164</a></span>    <a class="code hl_function" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#ab05863e0ebabc48956e4534b24f49e7e">~EntryExitLogger</a>()</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    {</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_struct" href="../../d6/d4e/structEasys_1_1log_1_1is__enabled.html">Easys::log::is_enabled&lt;LogLevel::EASYS_TRACE&gt;::value</a>)</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <a class="code hl_function" href="../../de/d5d/namespaceEasys_1_1log.html#ae9a9a839aba3dbe76c3c3e2de7d2261f">log_impl</a>(<a class="code hl_enumvalue" href="../../de/d5d/namespaceEasys_1_1log.html#a8eb079afe6053c5a0241d68668da1675a17595083c3468762c71e77335b2615a6">LogLevel::EASYS_TRACE</a>, <span class="stringliteral">&quot;Exit&quot;</span>, location_);</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#ab05863e0ebabc48956e4534b24f49e7e">  163</a></span>    <a class="code hl_function" href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#ab05863e0ebabc48956e4534b24f49e7e">~EntryExitLogger</a>() { <a class="code hl_function" href="../../de/d5d/namespaceEasys_1_1log.html#ae9a9a839aba3dbe76c3c3e2de7d2261f">log_impl</a>(<a class="code hl_enumvalue" href="../../de/d5d/namespaceEasys_1_1log.html#a8eb079afe6053c5a0241d68668da1675a17595083c3468762c71e77335b2615a6">LogLevel::EASYS_TRACE</a>, <span class="stringliteral">&quot;Exit&quot;</span>, location_); }</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>   <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <a class="code hl_struct" href="../../d9/df7/structEasys_1_1log_1_1source__location.html">Easys::log::source_location</a> location_;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>};</div>
 </div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>   <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <a class="code hl_struct" href="../../d9/df7/structEasys_1_1log_1_1source__location.html">Easys::log::source_location</a> location_;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>};</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a1314e5a0376ea8e5f8f54cb51d83016b">  169</a></span><span class="preprocessor">#define EASYS_HERE Easys::log::source_location(__FILE__, __LINE__, __FUNCTION__, __func__)</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">// Base logging macro with compile-time filtering</span></div>
+<div class="foldopen" id="foldopen00172" data-start="" data-end="">
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a59e4331c6b170003eab87eddc0fa44e6">  172</a></span><span class="preprocessor">#define EASYS_LOG_IMPL(level, msg) \</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="preprocessor">    do \</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="preprocessor">    { \</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="preprocessor">        if constexpr (Easys::log::is_enabled&lt;level&gt;::value) \</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">        { \</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="preprocessor">            ::Easys::log::log_impl(level, msg, EASYS_HERE); \</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="preprocessor">    } while (0)</span></div>
 </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a1314e5a0376ea8e5f8f54cb51d83016b">  174</a></span><span class="preprocessor">#define EASYS_HERE Easys::log::source_location(__FILE__, __LINE__, __FUNCTION__, __func__)</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">// Base logging macro with compile-time filtering</span></div>
-<div class="foldopen" id="foldopen00177" data-start="" data-end="">
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a59e4331c6b170003eab87eddc0fa44e6">  177</a></span><span class="preprocessor">#define EASYS_LOG_IMPL(level, msg) \</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">    do \</span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="preprocessor">    { \</span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="preprocessor">        if constexpr (Easys::log::is_enabled&lt;level&gt;::value) \</span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="preprocessor">        { \</span></div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="preprocessor">            ::Easys::log::log_impl(level, msg, EASYS_HERE); \</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="preprocessor">        } \</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="preprocessor">    } while (0)</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">// User-friendly logging macros</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a6b73f10797e2d1b8b283efab3f37ab4e">  182</a></span><span class="preprocessor">#define EASYS_LOG_ERROR(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_ERROR, msg)</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">  183</a></span><span class="preprocessor">#define EASYS_LOG_INFO(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_INFO, msg)</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a27c5c9f66f0c5fea98429f07ebfc2408">  184</a></span><span class="preprocessor">#define EASYS_LOG_DEBUG(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_DEBUG, msg)</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a5029f1d9cb5fe21a7c4210b1f2015bfc">  185</a></span><span class="preprocessor">#define EASYS_LOG_TRACE(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_TRACE, msg)</span></div>
+<div class="foldopen" id="foldopen00186" data-start="" data-end="">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">  186</a></span><span class="preprocessor">#define EASYS_LOG_ENTRY_EXIT \</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="preprocessor">    do \</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="preprocessor">    { \</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="preprocessor">        if constexpr (Easys::log::is_enabled&lt;Easys::log::LogLevel::EASYS_TRACE&gt;::value) \</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">        { \</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="preprocessor">            ::Easys::log::EntryExitLogger eel(EASYS_HERE); \</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">        } \</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">    } while (0)</span></div>
 </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment">// User-friendly logging macros</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a6b73f10797e2d1b8b283efab3f37ab4e">  187</a></span><span class="preprocessor">#define EASYS_LOG_ERROR(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_ERROR, msg)</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">  188</a></span><span class="preprocessor">#define EASYS_LOG_INFO(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_INFO, msg)</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a27c5c9f66f0c5fea98429f07ebfc2408">  189</a></span><span class="preprocessor">#define EASYS_LOG_DEBUG(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_DEBUG, msg)</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a5029f1d9cb5fe21a7c4210b1f2015bfc">  190</a></span><span class="preprocessor">#define EASYS_LOG_TRACE(msg) EASYS_LOG_IMPL(Easys::log::LogLevel::EASYS_TRACE, msg)</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">  191</a></span><span class="preprocessor">#define EASYS_LOG_ENTRY_EXIT Easys::log::EntryExitLogger eel(EASYS_HERE)</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a84b9d5b7fc2347b5f6d01287fbfadaaa">  193</a></span><span class="preprocessor">#define EASYS_E_STR(e) std::format(&quot;Entity: {}&quot;, e)</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#ae95451be61417ee03644d490224fa489">  194</a></span><span class="preprocessor">#define EASYS_EC_STR(e) std::format(&quot;Entity: {}, Component: {}&quot;, e, typeid(T).name())</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>}  <span class="comment">// namespace Easys::log</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#a84b9d5b7fc2347b5f6d01287fbfadaaa">  195</a></span><span class="preprocessor">#define EASYS_E_STR(e) std::format(&quot;Entity: {}&quot;, e)</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="../../d4/d3d/log_8hpp.html#ae95451be61417ee03644d490224fa489">  196</a></span><span class="preprocessor">#define EASYS_EC_STR(e) std::format(&quot;Entity: {}, Component: {}&quot;, e, typeid(T).name())</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>}  <span class="comment">// namespace Easys::log</span></div>
 </div>
 <div class="ttc" id="aclassEasys_1_1log_1_1EntryExitLogger_html"><div class="ttname"><a href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html">Easys::log::EntryExitLogger</a></div><div class="ttdef"><b>Definition</b> log.hpp:156</div></div>
-<div class="ttc" id="aclassEasys_1_1log_1_1EntryExitLogger_html_ab05863e0ebabc48956e4534b24f49e7e"><div class="ttname"><a href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#ab05863e0ebabc48956e4534b24f49e7e">Easys::log::EntryExitLogger::~EntryExitLogger</a></div><div class="ttdeci">~EntryExitLogger()</div><div class="ttdef"><b>Definition</b> log.hpp:164</div></div>
+<div class="ttc" id="aclassEasys_1_1log_1_1EntryExitLogger_html_ab05863e0ebabc48956e4534b24f49e7e"><div class="ttname"><a href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#ab05863e0ebabc48956e4534b24f49e7e">Easys::log::EntryExitLogger::~EntryExitLogger</a></div><div class="ttdeci">~EntryExitLogger()</div><div class="ttdef"><b>Definition</b> log.hpp:163</div></div>
 <div class="ttc" id="aclassEasys_1_1log_1_1EntryExitLogger_html_af43da61b0a478cb03df31c06c825ea0b"><div class="ttname"><a href="../../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#af43da61b0a478cb03df31c06c825ea0b">Easys::log::EntryExitLogger::EntryExitLogger</a></div><div class="ttdeci">EntryExitLogger(Easys::log::source_location location)</div><div class="ttdef"><b>Definition</b> log.hpp:158</div></div>
 <div class="ttc" id="aclassEasys_1_1log_1_1FileWriter_html"><div class="ttname"><a href="../../df/d11/classEasys_1_1log_1_1FileWriter.html">Easys::log::FileWriter</a></div><div class="ttdef"><b>Definition</b> log.hpp:26</div></div>
 <div class="ttc" id="aclassEasys_1_1log_1_1FileWriter_html_ac7bc30d0fa65fa6f97fff415808ea903"><div class="ttname"><a href="../../df/d11/classEasys_1_1log_1_1FileWriter.html#ac7bc30d0fa65fa6f97fff415808ea903">Easys::log::FileWriter::write</a></div><div class="ttdeci">static void write(std::string_view message)</div><div class="ttdef"><b>Definition</b> log.hpp:31</div></div>
