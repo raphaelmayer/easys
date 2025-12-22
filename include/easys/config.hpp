@@ -22,3 +22,25 @@
 #ifndef EASYS_ENTITY_LIMIT
 #define EASYS_ENTITY_LIMIT 10000
 #endif
+
+// TODO: doxygen comments
+// Logging configuration macros - override these before including
+#ifndef EASYS_LOG_LEVEL
+#define EASYS_LOG_LEVEL 2  // Default: INFO (0=NONE, 1=ERROR, 2=INFO, 3=DEBUG, 4=TRACE)
+#endif
+
+#ifndef EASYS_LOG_TO_FILE
+#define EASYS_LOG_TO_FILE 0  // Default: disabled
+#endif
+
+#ifndef EASYS_LOG_FILE_PATH
+#define EASYS_LOG_FILE_PATH "easys_log.txt"
+#endif
+
+#ifndef EASYS_LOG_VERBOSITY
+#define EASYS_LOG_VERBOSITY 0
+#endif
+
+#ifndef EASYS_LOG_ENABLED
+#define EASYS_LOG_ENABLED 1  // Master switch
+#endif
