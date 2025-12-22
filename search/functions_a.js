@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['set_0',['set',['../d6/d28/classEasys_1_1SparseSet.html#a7928fb61152bdb5649a4d4a70fcf8b52',1,'Easys::SparseSet::set(const Key key, const Value &amp;value)'],['../d6/d28/classEasys_1_1SparseSet.html#a26f937b5855720f8067a0ab50647f453',1,'Easys::SparseSet::set(const Key key, Value &amp;&amp;value)']]],
-  ['size_1',['size',['../da/d59/classEasys_1_1Registry.html#af78f3b2f768c096804fc2e5d452fb5e4',1,'Easys::Registry::size() const'],['../da/d59/classEasys_1_1Registry.html#a072045548af2cc80954ad782b839248e',1,'Easys::Registry::size() const'],['../d6/d28/classEasys_1_1SparseSet.html#a71a9f83210b4750a0a9537959976349c',1,'Easys::SparseSet::size()']]]
+  ['remove_0',['remove',['../d6/d28/classEasys_1_1SparseSet.html#a1f2b61e17ed9af4ab5eab0173deea495',1,'Easys::SparseSet']]],
+  ['removecomponent_1',['removecomponent',['../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c',1,'Easys::ECS::removeComponent()'],['../da/d59/classEasys_1_1Registry.html#acbf59661c15a560cc8e6df7d62ced229',1,'Easys::Registry::removeComponent()']]],
+  ['removecomponents_2',['removecomponents',['../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69',1,'Easys::ECS::removeComponents(const Entity e)'],['../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5',1,'Easys::ECS::removeComponents(const Entity e)'],['../da/d59/classEasys_1_1Registry.html#a5e5896f0d42fcf6027f6fbbf69e8f518',1,'Easys::Registry::removeComponents(const Entity entity)'],['../da/d59/classEasys_1_1Registry.html#aca3fed7ddcf04fda7016c46a5e17fc82',1,'Easys::Registry::removeComponents(const Entity entity)']]],
+  ['removeentity_3',['removeEntity',['../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db',1,'Easys::ECS']]]
 ];

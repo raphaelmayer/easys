@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['maxsize_0',['maxSize',['../d6/d28/classEasys_1_1SparseSet.html#a0c9bf04f7823748fa23d434f70c94cfe',1,'Easys::SparseSet']]],
-  ['modifycomponent_1',['modifycomponent',['../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2',1,'Easys::ECS::modifyComponent(const Entity e, Func &amp;&amp;fn)'],['../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2',1,'Easys::ECS::modifyComponent(const Entity e, T c)'],['../da/d59/classEasys_1_1Registry.html#a4e0c8114019d3c1f95fd706be5921110',1,'Easys::Registry::modifyComponent(const Entity e, Func &amp;&amp;fn)'],['../da/d59/classEasys_1_1Registry.html#a66da9e3c932c5323b40554436ae259f2',1,'Easys::Registry::modifyComponent(const Entity e, T c)']]]
+  ['level_5fto_5fstring_0',['level_to_string',['../de/d5d/namespaceEasys_1_1log.html#a41bebe29efe83b2f1f62dfcb4e196cd0',1,'Easys::log']]],
+  ['line_1',['line',['../d9/df7/structEasys_1_1log_1_1source__location.html#aeb39ec9a542dd8ec971ab39f75d48849',1,'Easys::log::source_location']]],
+  ['log_5fimpl_2',['log_impl',['../de/d5d/namespaceEasys_1_1log.html#ae9a9a839aba3dbe76c3c3e2de7d2261f',1,'Easys::log']]]
 ];

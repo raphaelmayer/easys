@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keynotfoundexception_0',['KeyNotFoundException',['../d6/dba/classEasys_1_1KeyNotFoundException.html',1,'Easys']]]
+  ['filewriter_0',['FileWriter',['../df/d11/classEasys_1_1log_1_1FileWriter.html',1,'Easys::log']]]
 ];

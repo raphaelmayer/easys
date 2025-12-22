@@ -76,11 +76,12 @@ $(function() {
 <div class="toc"><h3>Table of Contents</h3>
 <ul><ul><li class="level2"><a href="#autotoc_md0">Easys::ECS</a></li>
 <li class="level2"><a href="#autotoc_md1">Quick Start Guide</a></li>
-<li class="level2"><a href="#autotoc_md2">Configuration Options</a><ul><li class="level3"><a href="#autotoc_md3">Customizing in Source Code</a></li>
-<li class="level3"><a href="#autotoc_md4">Customizing with Compiler Flags</a></li>
+<li class="level2"><a href="#autotoc_md2">Configuration Options</a></li>
+<li class="level2"><a href="#autotoc_md3">Configuration Options</a><ul><li class="level3"><a href="#autotoc_md4">Customizing in Source Code</a></li>
+<li class="level3"><a href="#autotoc_md5">Customizing with Compiler Flags</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md5">Philosophy and User Responsibilities</a></li>
+<li class="level2"><a href="#autotoc_md6">Philosophy and User Responsibilities</a></li>
 </ul>
 </ul>
 </div>
@@ -139,23 +140,40 @@ Quick Start Guide</h2>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>For more usage examples, take a look at the <a href="https://github.com/raphaelmayer/easys/blob/master/examples">examples</a>.</dd></dl>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Configuration Options</h2>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Configuration Options</h2>
 <p>EasyS provides a couple of overrideable macros to tailor the ECS to your use case:</p>
 <ul>
-<li><a class="el" href="d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a> - define the integer type used for entity IDs (default: <code>uint32_t</code>)</li>
-<li><a class="el" href="d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a> - set the maximum number of active entities (default: <code>10000</code>)</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a> <br  />
+ Define the integer type used for entity IDs (default: <code>uint32_t</code>)</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a> <br  />
+ Set the maximum number of active entities (default: <code>10000</code>)</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#a4098f101727af990ecb5c9eb74117221">EASYS_LOG_ENABLED</a> <br  />
+ Master switch for all logging functionality (default: disabled)</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#aa5806ef764382e0b0566e7abc5c5d8d2">EASYS_LOG_LEVEL</a> <br  />
+ Set the global logging severity threshold <br  />
+ (<code>0</code> = NONE, <code>1</code> = ERROR, <code>2</code> = INFO, <code>3</code> = DEBUG, <code>4</code> = TRACE; default: <code>2</code>)</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#a46c650cb80d7c09d0ad03fc3c9bd4a78">EASYS_LOG_TO_FILE</a> <br  />
+ Enable or disable logging to a file (default: disabled)</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#a32ead8eded630d6897adab83d9fbfecf">EASYS_LOG_FILE_PATH</a> <br  />
+ Specify the output file path used when file logging is enabled <br  />
+ (default: <code>"easys_log.txt"</code>)</li>
+<li><a class="el" href="d8/dfd/config_8hpp.html#a9746b29758f7b996b78cf1ff9e152abe">EASYS_LOG_VERBOSITY</a> <br  />
+ Enable additional verbose or diagnostic logging <br  />
+ (default: disabled)</li>
 </ul>
 <p>Define these macros <b>before</b> including EasyS, either in source or via compiler flags.</p>
-<h3><a class="anchor" id="autotoc_md3"></a>
+<h3><a class="anchor" id="autotoc_md4"></a>
 Customizing in Source Code</h3>
 <div class="fragment"><div class="line">#define EASYS_ENTITY_TYPE uint64_t // Change to 64-bit unsigned integer</div>
 <div class="line">#define EASYS_ENTITY_LIMIT 50000   // Increase entity limit</div>
 <div class="line">#include &lt;easys/easys.hpp&gt;         // Path to the configuration file</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md5"></a>
 Customizing with Compiler Flags</h3>
 <p><b>GCC/Clang</b> on Linux/macOS: </p><div class="fragment"><div class="line">g++ -DEASYS_ENTITY_TYPE=uint64_t -DEASYS_ENTITY_LIMIT=50000 -o my_app my_app.cpp</div>
 </div><!-- fragment --><p><b>MSVC</b> on Windows: </p><div class="fragment"><div class="line">cl /D EASYS_ENTITY_TYPE=uint64_t /D EASYS_ENTITY_LIMIT=50000 my_app.cpp</div>
 </div><!-- fragment --><p>Depending on your compiler and development environment the exact command might be slightly different.</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
 Philosophy and User Responsibilities</h2>
 <dl class="section note"><dt>Note</dt><dd>Users are expected to:<ul>
 <li><b>Register all Components at Compile-Time:</b> All component types must be specified as template parameters when instantiating the ECS. Accessing a foreign component will result in a compiler error.</li>

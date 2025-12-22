@@ -91,256 +91,353 @@ $(document).ready(function() { init_codefold(1); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;set&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/de2/entity_8hpp.html">entity.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/da2/registry_8hpp.html">registry.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../d6/dd9/namespaceEasys.html">   12</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d6/dd9/namespaceEasys.html">Easys</a> {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... AllComponentTypes&gt;</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d9/d50/classEasys_1_1ECS.html">ECS</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>   <span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ab5cf98a18326ac9ca466e15024d1bd2f">   25</a></span>    <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ab5cf98a18326ac9ca466e15024d1bd2f">ECS</a>()</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> entity = 0; entity &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>; entity++)</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            availableEntityIds_.push(entity);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d3d/log_8hpp.html">log.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/da2/registry_8hpp.html">registry.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../d6/dd9/namespaceEasys.html">   13</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d6/dd9/namespaceEasys.html">Easys</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... AllComponentTypes&gt;</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d9/d50/classEasys_1_1ECS.html">ECS</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>   <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ab5cf98a18326ac9ca466e15024d1bd2f">   26</a></span>    <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ab5cf98a18326ac9ca466e15024d1bd2f">ECS</a>()</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> entity = 0; entity &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>; entity++)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            availableEntityIds_.push(entity);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
 </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a73c4ad5a0fc5d3569310ec905643fe40">   39</a></span>    <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a73c4ad5a0fc5d3569310ec905643fe40">ECS</a>(<span class="keyword">const</span> std::set&lt;Entity&gt;&amp; oldEntities)</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="comment">// I decided against an addEntity(Entity) method to discourage</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">// tampering with entities too much. I think this really should be the ECS&#39;s</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="comment">// responsibility.</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> entity = 0; entity &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>; entity++)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordflow">if</span> (oldEntities.contains(entity))</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                entities_.insert(entity);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            } <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                availableEntityIds_.push(entity);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a73c4ad5a0fc5d3569310ec905643fe40">   42</a></span>    <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a73c4ad5a0fc5d3569310ec905643fe40">ECS</a>(<span class="keyword">const</span> std::set&lt;Entity&gt;&amp; oldEntities)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="comment">// I decided against an addEntity(Entity) method to discourage</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="comment">// tampering with entities too much. I think this really should be the ECS&#39;s</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="comment">// responsibility.</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> entity = 0; entity &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>; entity++)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keywordflow">if</span> (oldEntities.contains(entity))</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                entities_.insert(entity);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            } <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                availableEntityIds_.push(entity);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a221f0b622b8a9dbfea9f48d0ccf48e4d">   61</a></span>    <span class="keyword">inline</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a221f0b622b8a9dbfea9f48d0ccf48e4d">addEntity</a>()</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">getEntityCount</a>() &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>)</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e = availableEntityIds_.front();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            availableEntityIds_.pop();</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            entities_.insert(e);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">return</span> e;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="comment">// throwing an exception here seems kind of drastic, but on the other hand</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="comment">// maybe not</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MAX NUMBER OF ENTITIES REACHED!&quot;</span>);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a221f0b622b8a9dbfea9f48d0ccf48e4d">   66</a></span>    <span class="keyword">inline</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a221f0b622b8a9dbfea9f48d0ccf48e4d">addEntity</a>()</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">getEntityCount</a>() &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e = availableEntityIds_.front();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            availableEntityIds_.pop();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            entities_.insert(e);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a>(<a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a84b9d5b7fc2347b5f6d01287fbfadaaa">EASYS_E_STR</a>(e));</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">return</span> e;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a6b73f10797e2d1b8b283efab3f37ab4e">EASYS_LOG_ERROR</a>(<span class="stringliteral">&quot;addEntity(): MAX_ENTITIES reached.&quot;</span>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="comment">// throwing an exception here seems kind of drastic, but on the other hand</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="comment">// maybe not</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MAX NUMBER OF ENTITIES REACHED!&quot;</span>);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
 </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db">   80</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db">removeEntity</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    {</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// Remove all components associated with the entity</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        registry_.<a class="code hl_function" href="../../da/d59/classEasys_1_1Registry.html#a5e5896f0d42fcf6027f6fbbf69e8f518">removeComponents</a>(e);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="comment">// Remove entity from the set of active entities_</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        entities_.erase(e);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="comment">// Make the entity ID available again</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        availableEntityIds_.push(e);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db">   90</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db">removeEntity</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="comment">// Remove all components associated with the entity</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        registry_.<a class="code hl_function" href="../../da/d59/classEasys_1_1Registry.html#a5e5896f0d42fcf6027f6fbbf69e8f518">removeComponents</a>(e);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="comment">// Remove entity from the set of active entities_</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        entities_.erase(e);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">// Make the entity ID available again</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        availableEntityIds_.push(e);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a>(<a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a84b9d5b7fc2347b5f6d01287fbfadaaa">EASYS_E_STR</a>(e));</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
 </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a8010729e9e92bc6de3dacee5f50ec8b9">   95</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a8010729e9e92bc6de3dacee5f50ec8b9">hasEntity</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entities_.contains(e); }</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">  101</a></span>    <span class="keyword">inline</span> std::set&lt;Entity&gt; <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">getEntities</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entities_; }</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Ts&gt;</div>
-<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ab56fe2df8453b1112c70054a00d9202e">  110</a></span>    <span class="keyword">inline</span> std::vector&lt;Entity&gt; <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ab56fe2df8453b1112c70054a00d9202e">getEntities</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> registry_.template <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">getEntities</a>&lt;Ts...&gt;();</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a8010729e9e92bc6de3dacee5f50ec8b9">  109</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a8010729e9e92bc6de3dacee5f50ec8b9">hasEntity</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">return</span> entities_.contains(e);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
 </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">  119</a></span>    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">getEntityCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> entities_.size(); }</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">  129</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">addComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, T component)</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="comment">// TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="comment">// are consistent.</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        registry_.<a class="code hl_function" href="../../da/d59/classEasys_1_1Registry.html#a659669e164a318a65dcba8c07d639012">addComponent</a>(e, std::move(component));</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">  120</a></span>    <span class="keyword">inline</span> std::set&lt;Entity&gt; <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">getEntities</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">return</span> entities_;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    }</div>
 </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Func&gt;</div>
-<div class="foldopen" id="foldopen00148" data-start="{" data-end="}">
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2">  148</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2">modifyComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, Func&amp;&amp; fn)</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    {</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="comment">// we need the component for event dispatch, so we handle it manually.</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        T&amp; c = getComponent&lt;T&gt;(e);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        fn(c);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="comment">// registry_.template modifyComponent&lt;T&gt;(e, fn);</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    }</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Ts&gt;</div>
+<div class="foldopen" id="foldopen00134" data-start="{" data-end="}">
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ab56fe2df8453b1112c70054a00d9202e">  134</a></span>    <span class="keyword">inline</span> std::vector&lt;Entity&gt; <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ab56fe2df8453b1112c70054a00d9202e">getEntities</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordflow">return</span> registry_.template <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">getEntities</a>&lt;Ts...&gt;();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    }</div>
 </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00165" data-start="{" data-end="}">
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2">  165</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2">modifyComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, T c)</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    {</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="comment">// we need the component for event dispatch, so we handle it manually.</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        getComponent&lt;T&gt;(e) = c;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="comment">// registry_.template modifyComponent&lt;T&gt;(e, c);</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="foldopen" id="foldopen00145" data-start="{" data-end="}">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">  145</a></span>    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">getEntityCount</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> entities_.size();</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
 </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00178" data-start="{" data-end="}">
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c">  178</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c">removeComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    {</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        registry_.template removeComponent&lt;T&gt;(e);</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    }</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">  160</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">addComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, T component)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    {</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="comment">//  TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="comment">// are consistent.</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        registry_.<a class="code hl_function" href="../../da/d59/classEasys_1_1Registry.html#a659669e164a318a65dcba8c07d639012">addComponent</a>(e, std::move(component));</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a>(<a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ae95451be61417ee03644d490224fa489">EASYS_EC_STR</a>(e));</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
 </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Ts&gt;</div>
-<div class="foldopen" id="foldopen00189" data-start="{" data-end="}">
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">  189</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">removeComponents</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        (removeComponent&lt;Ts&gt;(e), ...);</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Func&gt;</div>
+<div class="foldopen" id="foldopen00183" data-start="{" data-end="}">
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2">  183</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2">modifyComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, Func&amp;&amp; fn)</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="comment">// we need the component for event dispatch, so we handle it manually.</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        T&amp; c = getComponent&lt;T&gt;(e);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        fn(c);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="comment">// registry_.template modifyComponent&lt;T&gt;(e, fn);</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a>(<a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ae95451be61417ee03644d490224fa489">EASYS_EC_STR</a>(e));</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
 </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="foldopen" id="foldopen00198" data-start="{" data-end="}">
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5">  198</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5">removeComponents</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    {</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">removeComponents</a>&lt;AllComponentTypes...&gt;(e);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="comment">// (removeComponent&lt;AllComponentTypes&gt;(e), ...);</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00204" data-start="{" data-end="}">
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2">  204</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2">modifyComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, T c)</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <span class="comment">// we need the component for event dispatch, so we handle it manually.</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        getComponent&lt;T&gt;(e) = c;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="comment">// registry_.template modifyComponent&lt;T&gt;(e, c);</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a>(<a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ae95451be61417ee03644d490224fa489">EASYS_EC_STR</a>(e));</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
 </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00211" data-start="{" data-end="}">
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">  211</a></span>    <span class="keyword">inline</span> T&amp; <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">getComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    {</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <span class="keywordflow">return</span> registry_.template getComponent&lt;T&gt;(e);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    }</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00221" data-start="{" data-end="}">
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c">  221</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c">removeComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    {</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        registry_.template removeComponent&lt;T&gt;(e);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a>(<a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ae95451be61417ee03644d490224fa489">EASYS_EC_STR</a>(e));</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    }</div>
 </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00223" data-start="{" data-end="}">
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb">  223</a></span>    <span class="keyword">inline</span> <span class="keyword">const</span> T&amp; <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb">getComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">return</span> registry_.template getComponent&lt;T&gt;(e);</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    }</div>
-</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00235" data-start="{" data-end="}">
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ad127dc74d82c3a4d6a35ee4dc2741605">  235</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ad127dc74d82c3a4d6a35ee4dc2741605">hasComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordflow">return</span> registry_.template hasComponent&lt;T&gt;(e);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    }</div>
-</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Ts&gt;</div>
+<div class="foldopen" id="foldopen00236" data-start="{" data-end="}">
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">  236</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">removeComponents</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    {</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Ts&gt;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        (removeComponent&lt;Ts&gt;(e), ...);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    }</div>
+</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
 <div class="foldopen" id="foldopen00247" data-start="{" data-end="}">
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503">  247</a></span>    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503">getComponentCount</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="keywordflow">return</span> registry_.template size&lt;Ts...&gt;();</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5">  247</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5">removeComponents</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">removeComponents</a>&lt;AllComponentTypes...&gt;(e);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        <span class="comment">// (removeComponent&lt;AllComponentTypes&gt;(e), ...);</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    }</div>
 </div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="foldopen" id="foldopen00252" data-start="{" data-end="}">
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd">  252</a></span>    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd">getComponentCount</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503">getComponentCount</a>&lt;AllComponentTypes...&gt;();</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        <span class="comment">// return registry_.size();</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    }</div>
-</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Ts&gt;</div>
-<div class="foldopen" id="foldopen00264" data-start="{" data-end="}">
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">  264</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">clearComponents</a>()</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    {</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        registry_.template <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">clear</a>&lt;Ts...&gt;();</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00262" data-start="{" data-end="}">
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">  262</a></span>    <span class="keyword">inline</span> T&amp; <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">getComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    {</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keywordflow">return</span> registry_.template getComponent&lt;T&gt;(e);</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    }</div>
 </div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
-<div class="foldopen" id="foldopen00269" data-start="{" data-end="}">
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a3a15c2610dd91b59dbe0dd930dc3e25e">  269</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a3a15c2610dd91b59dbe0dd930dc3e25e">clearComponents</a>()</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    {</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">clearComponents</a>&lt;AllComponentTypes...&gt;();</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <span class="comment">// registry_.clear();</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    }</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00276" data-start="{" data-end="}">
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb">  276</a></span>    <span class="keyword">inline</span> <span class="keyword">const</span> T&amp; <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb">getComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        <span class="keywordflow">return</span> registry_.template getComponent&lt;T&gt;(e);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    }</div>
 </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
-<div class="foldopen" id="foldopen00279" data-start="{" data-end="}">
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">  279</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">clear</a>()</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    {</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">clearComponents</a>();</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        clearEntities();</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    }</div>
-</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>   <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    std::queue&lt;Entity&gt; availableEntityIds_;</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    std::set&lt;Entity&gt; entities_;</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_class" href="../../da/d59/classEasys_1_1Registry.html">Registry</a>&lt;AllComponentTypes...&gt; registry_;</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordtype">void</span> clearEntities()</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    {</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        entities_.<a class="code hl_function" href="../../da/d59/classEasys_1_1Registry.html#a5ec6dadfd7f247cbd5525c4032130c3e">clear</a>();</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00290" data-start="{" data-end="}">
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#ad127dc74d82c3a4d6a35ee4dc2741605">  290</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#ad127dc74d82c3a4d6a35ee4dc2741605">hasComponent</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        std::queue&lt;Entity&gt; empty;</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        std::swap(availableEntityIds_, empty);</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        <span class="keywordflow">return</span> registry_.template hasComponent&lt;T&gt;(e);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    }</div>
+</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> entity = 0; entity &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>; entity++)</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        {</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            availableEntityIds_.push(entity);</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        }</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    }</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>};</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Ts&gt;</div>
+<div class="foldopen" id="foldopen00304" data-start="{" data-end="}">
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503">  304</a></span>    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503">getComponentCount</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        <span class="keywordflow">return</span> registry_.template size&lt;Ts...&gt;();</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    }</div>
 </div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>}  <span class="comment">// namespace Easys</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="foldopen" id="foldopen00311" data-start="{" data-end="}">
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd">  311</a></span>    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd">getComponentCount</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503">getComponentCount</a>&lt;AllComponentTypes...&gt;();</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        <span class="comment">// return registry_.size();</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    }</div>
 </div>
-<div class="ttc" id="aclassEasys_1_1ECS_html"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a></div><div class="ttdoc">Manages entities and components in an Entity-Component-System architecture.</div><div class="ttdef"><b>Definition</b> ecs.hpp:19</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a17a6dbb9ff411bfb232f97a518a92165"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">Easys::ECS::addComponent</a></div><div class="ttdeci">void addComponent(const Entity e, T component)</div><div class="ttdoc">Adds a component of type T to an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:129</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a221f0b622b8a9dbfea9f48d0ccf48e4d"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a221f0b622b8a9dbfea9f48d0ccf48e4d">Easys::ECS::addEntity</a></div><div class="ttdeci">Entity addEntity()</div><div class="ttdoc">Adds a new entity to the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:61</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a23555042e9c5b1b55c46cd37fdbdf5cf"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">Easys::ECS::getEntities</a></div><div class="ttdeci">std::set&lt; Entity &gt; getEntities() const</div><div class="ttdoc">Returns a reference to the set of all entities.</div><div class="ttdef"><b>Definition</b> ecs.hpp:101</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a3224a1c1e9e9f55b8907a60ae016a4e2"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2">Easys::ECS::modifyComponent</a></div><div class="ttdeci">void modifyComponent(const Entity e, Func &amp;&amp;fn)</div><div class="ttdoc">Modifies a component of type T for a given entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:148</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a3a15c2610dd91b59dbe0dd930dc3e25e"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a3a15c2610dd91b59dbe0dd930dc3e25e">Easys::ECS::clearComponents</a></div><div class="ttdeci">void clearComponents()</div><div class="ttdef"><b>Definition</b> ecs.hpp:269</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a4183a3a16cfac503321f213cbf5d3aeb"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb">Easys::ECS::getComponent</a></div><div class="ttdeci">const T &amp; getComponent(const Entity e) const</div><div class="ttdoc">Retrieves a reference to a component of type T from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:223</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a438a8c8a19215825a3a7597c1ce6a602"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">Easys::ECS::getEntityCount</a></div><div class="ttdeci">size_t getEntityCount() const</div><div class="ttdoc">Returns the total number of active entities in the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:119</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a48b428729273828fafaeb58cb561c503"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503">Easys::ECS::getComponentCount</a></div><div class="ttdeci">size_t getComponentCount() const</div><div class="ttdoc">Returns the total count of components of the specified types within the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:247</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a4c01f019cb8d433aea51e976b8a967db"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db">Easys::ECS::removeEntity</a></div><div class="ttdeci">void removeEntity(const Entity e)</div><div class="ttdoc">Removes an entity and all its associated components from the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:80</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a6467eced72fe78d0e851747184552d30"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">Easys::ECS::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears all entities and components from the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:279</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a6c58ba65fd96a9977c4a7284c1fdaf69"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">Easys::ECS::getComponent</a></div><div class="ttdeci">T &amp; getComponent(const Entity e)</div><div class="ttdoc">Retrieves a reference to a component of type T from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:211</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a70a0cc05c48b53f12cf3610e4dfcaefd"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd">Easys::ECS::getComponentCount</a></div><div class="ttdeci">size_t getComponentCount() const</div><div class="ttdef"><b>Definition</b> ecs.hpp:252</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a73c4ad5a0fc5d3569310ec905643fe40"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a73c4ad5a0fc5d3569310ec905643fe40">Easys::ECS::ECS</a></div><div class="ttdeci">ECS(const std::set&lt; Entity &gt; &amp;oldEntities)</div><div class="ttdoc">Initializes the ECS with a specific set of entities.</div><div class="ttdef"><b>Definition</b> ecs.hpp:39</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_a8010729e9e92bc6de3dacee5f50ec8b9"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a8010729e9e92bc6de3dacee5f50ec8b9">Easys::ECS::hasEntity</a></div><div class="ttdeci">bool hasEntity(const Entity e) const</div><div class="ttdoc">Checks if an entity exists within the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:95</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_aae30a8b288a9942b14d12712ad87d576"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">Easys::ECS::clearComponents</a></div><div class="ttdeci">void clearComponents()</div><div class="ttdoc">Removes components of specific types from all entities within the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:264</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_ab56fe2df8453b1112c70054a00d9202e"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ab56fe2df8453b1112c70054a00d9202e">Easys::ECS::getEntities</a></div><div class="ttdeci">std::vector&lt; Entity &gt; getEntities() const</div><div class="ttdoc">Returns a vector of entities that have all of the specified component types. Use smaller components f...</div><div class="ttdef"><b>Definition</b> ecs.hpp:110</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_ab5cf98a18326ac9ca466e15024d1bd2f"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ab5cf98a18326ac9ca466e15024d1bd2f">Easys::ECS::ECS</a></div><div class="ttdeci">ECS()</div><div class="ttdoc">Initializes the ECS with a predefined maximum number of entities (MAX_ENTITIES).</div><div class="ttdef"><b>Definition</b> ecs.hpp:25</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_ab6a62b22a3f4f199e495faec533630c5"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5">Easys::ECS::removeComponents</a></div><div class="ttdeci">void removeComponents(const Entity e)</div><div class="ttdoc">Removes all components from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:198</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_ac6eb3273c9606c524f8602c6f5514b6c"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c">Easys::ECS::removeComponent</a></div><div class="ttdeci">void removeComponent(const Entity e)</div><div class="ttdoc">Removes a component of type T from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:178</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_ad127dc74d82c3a4d6a35ee4dc2741605"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ad127dc74d82c3a4d6a35ee4dc2741605">Easys::ECS::hasComponent</a></div><div class="ttdeci">bool hasComponent(const Entity e) const</div><div class="ttdoc">Checks if an entity has a component of type T.</div><div class="ttdef"><b>Definition</b> ecs.hpp:235</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_ae04e1e8f41e0a9177fab7c4d3e8bca69"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">Easys::ECS::removeComponents</a></div><div class="ttdeci">void removeComponents(const Entity e)</div><div class="ttdoc">Removes all components of types Ts from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:189</div></div>
-<div class="ttc" id="aclassEasys_1_1ECS_html_af4b34b766fcd0e3f3d0fb3c71902f0f2"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2">Easys::ECS::modifyComponent</a></div><div class="ttdeci">void modifyComponent(const Entity e, T c)</div><div class="ttdoc">Modifies a component of type T for a given entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:165</div></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00324" data-start="{" data-end="}">
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a39841ba7a1b69149a7d3661b3a0fd058">  324</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a39841ba7a1b69149a7d3661b3a0fd058">clearComponent</a>()</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    {</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        registry_.template clear&lt;T&gt;();</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a>(std::format(<span class="stringliteral">&quot;Clearing all components of type {}&quot;</span>, <span class="keyword">typeid</span>(T).name()));</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    }</div>
+</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Ts&gt;</div>
+<div class="foldopen" id="foldopen00339" data-start="{" data-end="}">
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">  339</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">clearComponents</a>()</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    {</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        <span class="comment">// registry_.template clear&lt;Ts...&gt;();</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        (clearComponent&lt;Ts&gt;(), ...);</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    }</div>
+</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="foldopen" id="foldopen00347" data-start="{" data-end="}">
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a3a15c2610dd91b59dbe0dd930dc3e25e">  347</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a3a15c2610dd91b59dbe0dd930dc3e25e">clearComponents</a>()</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    {</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        (clearComponent&lt;AllComponentTypes&gt;(), ...);</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <span class="comment">// registry_.clear();</span></div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    }</div>
+</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
+<div class="foldopen" id="foldopen00359" data-start="{" data-end="}">
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno"><a class="line" href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">  359</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">clear</a>()</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    {</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        <a class="code hl_function" href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">clearComponents</a>();</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        clearEntities();</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    }</div>
+</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>   <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    std::queue&lt;Entity&gt; availableEntityIds_;</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    std::set&lt;Entity&gt; entities_;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    <a class="code hl_class" href="../../da/d59/classEasys_1_1Registry.html">Registry</a>&lt;AllComponentTypes...&gt; registry_;</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span> </div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="keywordtype">void</span> clearEntities()</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    {</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a>;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span> </div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>        entities_.<a class="code hl_function" href="../../da/d59/classEasys_1_1Registry.html#a5ec6dadfd7f247cbd5525c4032130c3e">clear</a>();</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        std::queue&lt;Entity&gt; empty;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>        std::swap(availableEntityIds_, empty);</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> entity = 0; entity &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>; entity++)</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        {</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>            availableEntityIds_.push(entity);</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>        }</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>        <a class="code hl_define" href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a>(<span class="stringliteral">&quot;Cleared all entities&quot;</span>);</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    }</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>};</div>
+</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>}  <span class="comment">// namespace Easys</span></div>
+</div>
+<div class="ttc" id="aclassEasys_1_1ECS_html"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a></div><div class="ttdoc">Manages entities and components in an Entity-Component-System architecture.</div><div class="ttdef"><b>Definition</b> ecs.hpp:20</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a17a6dbb9ff411bfb232f97a518a92165"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a17a6dbb9ff411bfb232f97a518a92165">Easys::ECS::addComponent</a></div><div class="ttdeci">void addComponent(const Entity e, T component)</div><div class="ttdoc">Adds a component of type T to an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:160</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a221f0b622b8a9dbfea9f48d0ccf48e4d"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a221f0b622b8a9dbfea9f48d0ccf48e4d">Easys::ECS::addEntity</a></div><div class="ttdeci">Entity addEntity()</div><div class="ttdoc">Adds a new entity to the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:66</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a23555042e9c5b1b55c46cd37fdbdf5cf"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf">Easys::ECS::getEntities</a></div><div class="ttdeci">std::set&lt; Entity &gt; getEntities() const</div><div class="ttdoc">Returns a reference to the set of all entities.</div><div class="ttdef"><b>Definition</b> ecs.hpp:120</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a3224a1c1e9e9f55b8907a60ae016a4e2"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2">Easys::ECS::modifyComponent</a></div><div class="ttdeci">void modifyComponent(const Entity e, Func &amp;&amp;fn)</div><div class="ttdoc">Modifies a component of type T for a given entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:183</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a39841ba7a1b69149a7d3661b3a0fd058"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a39841ba7a1b69149a7d3661b3a0fd058">Easys::ECS::clearComponent</a></div><div class="ttdeci">void clearComponent()</div><div class="ttdoc">Removes component of specific type from all entities within the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:324</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a3a15c2610dd91b59dbe0dd930dc3e25e"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a3a15c2610dd91b59dbe0dd930dc3e25e">Easys::ECS::clearComponents</a></div><div class="ttdeci">void clearComponents()</div><div class="ttdef"><b>Definition</b> ecs.hpp:347</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a4183a3a16cfac503321f213cbf5d3aeb"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb">Easys::ECS::getComponent</a></div><div class="ttdeci">const T &amp; getComponent(const Entity e) const</div><div class="ttdoc">Retrieves a reference to a component of type T from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:276</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a438a8c8a19215825a3a7597c1ce6a602"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">Easys::ECS::getEntityCount</a></div><div class="ttdeci">size_t getEntityCount() const</div><div class="ttdoc">Returns the total number of active entities in the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:145</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a48b428729273828fafaeb58cb561c503"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503">Easys::ECS::getComponentCount</a></div><div class="ttdeci">size_t getComponentCount() const</div><div class="ttdoc">Returns the total count of components of the specified types within the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:304</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a4c01f019cb8d433aea51e976b8a967db"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db">Easys::ECS::removeEntity</a></div><div class="ttdeci">void removeEntity(const Entity e)</div><div class="ttdoc">Removes an entity and all its associated components from the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:90</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a6467eced72fe78d0e851747184552d30"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a6467eced72fe78d0e851747184552d30">Easys::ECS::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears all entities and components from the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:359</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a6c58ba65fd96a9977c4a7284c1fdaf69"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69">Easys::ECS::getComponent</a></div><div class="ttdeci">T &amp; getComponent(const Entity e)</div><div class="ttdoc">Retrieves a reference to a component of type T from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:262</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a70a0cc05c48b53f12cf3610e4dfcaefd"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd">Easys::ECS::getComponentCount</a></div><div class="ttdeci">size_t getComponentCount() const</div><div class="ttdef"><b>Definition</b> ecs.hpp:311</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a73c4ad5a0fc5d3569310ec905643fe40"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a73c4ad5a0fc5d3569310ec905643fe40">Easys::ECS::ECS</a></div><div class="ttdeci">ECS(const std::set&lt; Entity &gt; &amp;oldEntities)</div><div class="ttdoc">Initializes the ECS with a specific set of entities.</div><div class="ttdef"><b>Definition</b> ecs.hpp:42</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_a8010729e9e92bc6de3dacee5f50ec8b9"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#a8010729e9e92bc6de3dacee5f50ec8b9">Easys::ECS::hasEntity</a></div><div class="ttdeci">bool hasEntity(const Entity e) const</div><div class="ttdoc">Checks if an entity exists within the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:109</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_aae30a8b288a9942b14d12712ad87d576"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#aae30a8b288a9942b14d12712ad87d576">Easys::ECS::clearComponents</a></div><div class="ttdeci">void clearComponents()</div><div class="ttdoc">Removes components of specific types from all entities within the ECS.</div><div class="ttdef"><b>Definition</b> ecs.hpp:339</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_ab56fe2df8453b1112c70054a00d9202e"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ab56fe2df8453b1112c70054a00d9202e">Easys::ECS::getEntities</a></div><div class="ttdeci">std::vector&lt; Entity &gt; getEntities() const</div><div class="ttdoc">Returns a vector of entities that have all of the specified component types. Use smaller components f...</div><div class="ttdef"><b>Definition</b> ecs.hpp:134</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_ab5cf98a18326ac9ca466e15024d1bd2f"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ab5cf98a18326ac9ca466e15024d1bd2f">Easys::ECS::ECS</a></div><div class="ttdeci">ECS()</div><div class="ttdoc">Initializes the ECS with a predefined maximum number of entities (MAX_ENTITIES).</div><div class="ttdef"><b>Definition</b> ecs.hpp:26</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_ab6a62b22a3f4f199e495faec533630c5"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5">Easys::ECS::removeComponents</a></div><div class="ttdeci">void removeComponents(const Entity e)</div><div class="ttdoc">Removes all components from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:247</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_ac6eb3273c9606c524f8602c6f5514b6c"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c">Easys::ECS::removeComponent</a></div><div class="ttdeci">void removeComponent(const Entity e)</div><div class="ttdoc">Removes a component of type T from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:221</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_ad127dc74d82c3a4d6a35ee4dc2741605"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ad127dc74d82c3a4d6a35ee4dc2741605">Easys::ECS::hasComponent</a></div><div class="ttdeci">bool hasComponent(const Entity e) const</div><div class="ttdoc">Checks if an entity has a component of type T.</div><div class="ttdef"><b>Definition</b> ecs.hpp:290</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_ae04e1e8f41e0a9177fab7c4d3e8bca69"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69">Easys::ECS::removeComponents</a></div><div class="ttdeci">void removeComponents(const Entity e)</div><div class="ttdoc">Removes all components of types Ts from an entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:236</div></div>
+<div class="ttc" id="aclassEasys_1_1ECS_html_af4b34b766fcd0e3f3d0fb3c71902f0f2"><div class="ttname"><a href="../../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2">Easys::ECS::modifyComponent</a></div><div class="ttdeci">void modifyComponent(const Entity e, T c)</div><div class="ttdoc">Modifies a component of type T for a given entity.</div><div class="ttdef"><b>Definition</b> ecs.hpp:204</div></div>
 <div class="ttc" id="aclassEasys_1_1Registry_html"><div class="ttname"><a href="../../da/d59/classEasys_1_1Registry.html">Easys::Registry</a></div><div class="ttdef"><b>Definition</b> registry.hpp:15</div></div>
 <div class="ttc" id="aclassEasys_1_1Registry_html_a5e5896f0d42fcf6027f6fbbf69e8f518"><div class="ttname"><a href="../../da/d59/classEasys_1_1Registry.html#a5e5896f0d42fcf6027f6fbbf69e8f518">Easys::Registry::removeComponents</a></div><div class="ttdeci">void removeComponents(const Entity entity)</div><div class="ttdef"><b>Definition</b> registry.hpp:48</div></div>
 <div class="ttc" id="aclassEasys_1_1Registry_html_a5ec6dadfd7f247cbd5525c4032130c3e"><div class="ttname"><a href="../../da/d59/classEasys_1_1Registry.html#a5ec6dadfd7f247cbd5525c4032130c3e">Easys::Registry::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition</b> registry.hpp:128</div></div>
 <div class="ttc" id="aclassEasys_1_1Registry_html_a659669e164a318a65dcba8c07d639012"><div class="ttname"><a href="../../da/d59/classEasys_1_1Registry.html#a659669e164a318a65dcba8c07d639012">Easys::Registry::addComponent</a></div><div class="ttdeci">void addComponent(const Entity entity, const ComponentType &amp;component)</div><div class="ttdef"><b>Definition</b> registry.hpp:21</div></div>
 <div class="ttc" id="aentity_8hpp_html"><div class="ttname"><a href="../../db/de2/entity_8hpp.html">entity.hpp</a></div></div>
-<div class="ttc" id="anamespaceEasys_html"><div class="ttname"><a href="../../d6/dd9/namespaceEasys.html">Easys</a></div><div class="ttdef"><b>Definition</b> ecs.hpp:12</div></div>
+<div class="ttc" id="alog_8hpp_html"><div class="ttname"><a href="../../d4/d3d/log_8hpp.html">log.hpp</a></div></div>
+<div class="ttc" id="alog_8hpp_html_a59bf4cc6175f837b0061f33894079805"><div class="ttname"><a href="../../d4/d3d/log_8hpp.html#a59bf4cc6175f837b0061f33894079805">EASYS_LOG_ENTRY_EXIT</a></div><div class="ttdeci">#define EASYS_LOG_ENTRY_EXIT</div><div class="ttdef"><b>Definition</b> log.hpp:191</div></div>
+<div class="ttc" id="alog_8hpp_html_a6b73f10797e2d1b8b283efab3f37ab4e"><div class="ttname"><a href="../../d4/d3d/log_8hpp.html#a6b73f10797e2d1b8b283efab3f37ab4e">EASYS_LOG_ERROR</a></div><div class="ttdeci">#define EASYS_LOG_ERROR(msg)</div><div class="ttdef"><b>Definition</b> log.hpp:187</div></div>
+<div class="ttc" id="alog_8hpp_html_a84b9d5b7fc2347b5f6d01287fbfadaaa"><div class="ttname"><a href="../../d4/d3d/log_8hpp.html#a84b9d5b7fc2347b5f6d01287fbfadaaa">EASYS_E_STR</a></div><div class="ttdeci">#define EASYS_E_STR(e)</div><div class="ttdef"><b>Definition</b> log.hpp:193</div></div>
+<div class="ttc" id="alog_8hpp_html_ad616840527d81879ae555e993fd2f28e"><div class="ttname"><a href="../../d4/d3d/log_8hpp.html#ad616840527d81879ae555e993fd2f28e">EASYS_LOG_INFO</a></div><div class="ttdeci">#define EASYS_LOG_INFO(msg)</div><div class="ttdef"><b>Definition</b> log.hpp:188</div></div>
+<div class="ttc" id="alog_8hpp_html_ae95451be61417ee03644d490224fa489"><div class="ttname"><a href="../../d4/d3d/log_8hpp.html#ae95451be61417ee03644d490224fa489">EASYS_EC_STR</a></div><div class="ttdeci">#define EASYS_EC_STR(e)</div><div class="ttdef"><b>Definition</b> log.hpp:194</div></div>
+<div class="ttc" id="anamespaceEasys_html"><div class="ttname"><a href="../../d6/dd9/namespaceEasys.html">Easys</a></div><div class="ttdef"><b>Definition</b> ecs.hpp:13</div></div>
 <div class="ttc" id="anamespaceEasys_html_a0c4a055adcdccaa294cdfafe14ff3d5d"><div class="ttname"><a href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">Easys::MAX_ENTITIES</a></div><div class="ttdeci">const Entity MAX_ENTITIES</div><div class="ttdef"><b>Definition</b> entity.hpp:12</div></div>
 <div class="ttc" id="anamespaceEasys_html_a2cb67a74fe7dc55d599dac2eafad0305"><div class="ttname"><a href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Easys::Entity</a></div><div class="ttdeci">EASYS_ENTITY_TYPE Entity</div><div class="ttdef"><b>Definition</b> entity.hpp:11</div></div>
 <div class="ttc" id="aregistry_8hpp_html"><div class="ttname"><a href="../../d1/da2/registry_8hpp.html">registry.hpp</a></div></div>

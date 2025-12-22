@@ -95,6 +95,21 @@ Macros</h2></td></tr>
 <tr class="memitem:ad9f5adb5cbd00a5c991699a56ba20755" id="r_ad9f5adb5cbd00a5c991699a56ba20755"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfd/config_8hpp.html#ad9f5adb5cbd00a5c991699a56ba20755">EASYS_ENTITY_LIMIT</a>&#160;&#160;&#160;10000</td></tr>
 <tr class="memdesc:ad9f5adb5cbd00a5c991699a56ba20755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the maximum number of entities allowed in the ECS.  <br /></td></tr>
 <tr class="separator:ad9f5adb5cbd00a5c991699a56ba20755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5806ef764382e0b0566e7abc5c5d8d2" id="r_aa5806ef764382e0b0566e7abc5c5d8d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfd/config_8hpp.html#aa5806ef764382e0b0566e7abc5c5d8d2">EASYS_LOG_LEVEL</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:aa5806ef764382e0b0566e7abc5c5d8d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the global logging level.  <br /></td></tr>
+<tr class="separator:aa5806ef764382e0b0566e7abc5c5d8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46c650cb80d7c09d0ad03fc3c9bd4a78" id="r_a46c650cb80d7c09d0ad03fc3c9bd4a78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfd/config_8hpp.html#a46c650cb80d7c09d0ad03fc3c9bd4a78">EASYS_LOG_TO_FILE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a46c650cb80d7c09d0ad03fc3c9bd4a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables logging to a file.  <br /></td></tr>
+<tr class="separator:a46c650cb80d7c09d0ad03fc3c9bd4a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ead8eded630d6897adab83d9fbfecf" id="r_a32ead8eded630d6897adab83d9fbfecf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfd/config_8hpp.html#a32ead8eded630d6897adab83d9fbfecf">EASYS_LOG_FILE_PATH</a>&#160;&#160;&#160;&quot;easys_log.txt&quot;</td></tr>
+<tr class="memdesc:a32ead8eded630d6897adab83d9fbfecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the file path used for file-based logging.  <br /></td></tr>
+<tr class="separator:a32ead8eded630d6897adab83d9fbfecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9746b29758f7b996b78cf1ff9e152abe" id="r_a9746b29758f7b996b78cf1ff9e152abe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfd/config_8hpp.html#a9746b29758f7b996b78cf1ff9e152abe">EASYS_LOG_VERBOSITY</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a9746b29758f7b996b78cf1ff9e152abe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables additional verbose logging output.  <br /></td></tr>
+<tr class="separator:a9746b29758f7b996b78cf1ff9e152abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4098f101727af990ecb5c9eb74117221" id="r_a4098f101727af990ecb5c9eb74117221"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfd/config_8hpp.html#a4098f101727af990ecb5c9eb74117221">EASYS_LOG_ENABLED</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a4098f101727af990ecb5c9eb74117221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Master switch for all logging functionality.  <br /></td></tr>
+<tr class="separator:a4098f101727af990ecb5c9eb74117221"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ad9f5adb5cbd00a5c991699a56ba20755" name="ad9f5adb5cbd00a5c991699a56ba20755"></a>
@@ -128,6 +143,105 @@ Macros</h2></td></tr>
 
 <p>Defines the underlying data type for an Entity ID. </p>
 <p>This can be overridden by the user to use a different integer type, for example, <code>uint64_t</code> for a larger entity count. Defaults to <code>uint32_t</code>. </p>
+
+</div>
+</div>
+<a id="a4098f101727af990ecb5c9eb74117221" name="a4098f101727af990ecb5c9eb74117221"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4098f101727af990ecb5c9eb74117221">&#9670;&#160;</a></span>EASYS_LOG_ENABLED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EASYS_LOG_ENABLED&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Master switch for all logging functionality. </p>
+<p>When set to <code>0</code>, all logging code is compiled out, regardless of log level or verbosity settings.</p>
+<dl class="section note"><dt>Note</dt><dd>Defaults to <code>0</code> (disabled). </dd></dl>
+
+</div>
+</div>
+<a id="a32ead8eded630d6897adab83d9fbfecf" name="a32ead8eded630d6897adab83d9fbfecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ead8eded630d6897adab83d9fbfecf">&#9670;&#160;</a></span>EASYS_LOG_FILE_PATH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EASYS_LOG_FILE_PATH&#160;&#160;&#160;&quot;easys_log.txt&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the file path used for file-based logging. </p>
+<p>This macro specifies the output file when <a class="el" href="../../d8/dfd/config_8hpp.html#a46c650cb80d7c09d0ad03fc3c9bd4a78" title="Enables or disables logging to a file.">EASYS_LOG_TO_FILE</a> is enabled.</p>
+<dl class="section note"><dt>Note</dt><dd>Defaults to <code>"easys_log.txt"</code>. </dd></dl>
+
+</div>
+</div>
+<a id="aa5806ef764382e0b0566e7abc5c5d8d2" name="aa5806ef764382e0b0566e7abc5c5d8d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5806ef764382e0b0566e7abc5c5d8d2">&#9670;&#160;</a></span>EASYS_LOG_LEVEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EASYS_LOG_LEVEL&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the global logging level. </p>
+<p>Controls which log messages are emitted based on severity.</p>
+<p>Valid values:</p><ul>
+<li><code>0</code> = NONE</li>
+<li><code>1</code> = ERROR</li>
+<li><code>2</code> = INFO</li>
+<li><code>3</code> = DEBUG</li>
+<li><code>4</code> = TRACE</li>
+</ul>
+<p>Messages with a severity greater than this level are discarded.</p>
+<dl class="section note"><dt>Note</dt><dd>Defaults to <code>2</code> (INFO). </dd></dl>
+
+</div>
+</div>
+<a id="a46c650cb80d7c09d0ad03fc3c9bd4a78" name="a46c650cb80d7c09d0ad03fc3c9bd4a78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c650cb80d7c09d0ad03fc3c9bd4a78">&#9670;&#160;</a></span>EASYS_LOG_TO_FILE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EASYS_LOG_TO_FILE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables or disables logging to a file. </p>
+<p>When enabled, log output is written to the file specified by <a class="el" href="../../d8/dfd/config_8hpp.html#a32ead8eded630d6897adab83d9fbfecf" title="Defines the file path used for file-based logging.">EASYS_LOG_FILE_PATH</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>Defaults to <code>0</code> (disabled). </dd></dl>
+
+</div>
+</div>
+<a id="a9746b29758f7b996b78cf1ff9e152abe" name="a9746b29758f7b996b78cf1ff9e152abe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9746b29758f7b996b78cf1ff9e152abe">&#9670;&#160;</a></span>EASYS_LOG_VERBOSITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EASYS_LOG_VERBOSITY&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables additional verbose logging output. </p>
+<p>This macro can be used to enable extended or diagnostic log output beyond standard severity-based filtering.</p>
+<p>The exact meaning of verbosity is implementation-defined.</p>
+<dl class="section note"><dt>Note</dt><dd>Defaults to <code>0</code> (disabled). </dd></dl>
 
 </div>
 </div>

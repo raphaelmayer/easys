@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['what_0',['what',['../d6/dba/classEasys_1_1KeyNotFoundException.html#a89c001cffa57c34c81b93ccb68e0caa7',1,'Easys::KeyNotFoundException']]],
-  ['with_20compiler_20flags_1',['Customizing with Compiler Flags',['../index.html#autotoc_md4',1,'']]]
+  ['user_20responsibilities_0',['Philosophy and User Responsibilities',['../index.html#autotoc_md6',1,'']]],
+  ['utils_2ehpp_1',['utils.hpp',['../df/d93/utils_8hpp.html',1,'']]]
 ];
