@@ -96,10 +96,8 @@ struct source_location {
 	constexpr source_location(std::string_view file, std::uint32_t line, std::string_view funcSig,
 	                          std::string_view funcName) noexcept
 	{
-		// const auto& start = file.find_last_of("/") + 1;
-		// const auto& start = file.find_last_of("\\") + 1;
-		// const auto& start = std::min(file.find_last_of("/"), file.find_last_of("\\")) + 1;
-		const auto& start = file.find_last_of("/") + 1;  // TODO: seems to suffice on win and linux?
+		// not ideal, but works good enough for now
+		const auto& start = std::min(file.find_last_of("/"), file.find_last_of("\\")) + 1;
 		const auto& substr = file.substr(start, file.size() - start);
 
 		file_path_ = file;
