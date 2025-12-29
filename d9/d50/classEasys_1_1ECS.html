@@ -144,6 +144,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4183a3a16cfac503321f213cbf5d3aeb"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb">getComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e) const</td></tr>
 <tr class="memdesc:a4183a3a16cfac503321f213cbf5d3aeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a reference to a component of type T from an entity.  <br /></td></tr>
 <tr class="separator:a4183a3a16cfac503321f213cbf5d3aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac90cf5c1387f17cc36f363b120563e0d" id="r_ac90cf5c1387f17cc36f363b120563e0d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac90cf5c1387f17cc36f363b120563e0d"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ac90cf5c1387f17cc36f363b120563e0d">getComponentOr</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, T &amp;c)</td></tr>
+<tr class="memdesc:ac90cf5c1387f17cc36f363b120563e0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a reference to a component of type T from an entity. If the entity does not exist or does not have a component T, return c.  <br /></td></tr>
+<tr class="separator:ac90cf5c1387f17cc36f363b120563e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99e81ad968100d0b097dda04ea4d65f9" id="r_a99e81ad968100d0b097dda04ea4d65f9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a99e81ad968100d0b097dda04ea4d65f9"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a99e81ad968100d0b097dda04ea4d65f9">getComponentOr</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e, const T &amp;c) const</td></tr>
+<tr class="memdesc:a99e81ad968100d0b097dda04ea4d65f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a reference to a component of type T from an entity. If the entity does not exist or does not have a component T, return c.  <br /></td></tr>
+<tr class="separator:a99e81ad968100d0b097dda04ea4d65f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad127dc74d82c3a4d6a35ee4dc2741605" id="r_ad127dc74d82c3a4d6a35ee4dc2741605"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ad127dc74d82c3a4d6a35ee4dc2741605"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#ad127dc74d82c3a4d6a35ee4dc2741605">hasComponent</a> (const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> e) const</td></tr>
 <tr class="memdesc:ad127dc74d82c3a4d6a35ee4dc2741605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an entity has a component of type T.  <br /></td></tr>
@@ -619,6 +627,118 @@ template&lt;typename... AllComponentTypes&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a99e81ad968100d0b097dda04ea4d65f9" name="a99e81ad968100d0b097dda04ea4d65f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99e81ad968100d0b097dda04ea4d65f9">&#9670;&#160;</a></span>getComponentOr() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... AllComponentTypes&gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::getComponentOr </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves a reference to a component of type T from an entity. If the entity does not exist or does not have a component T, return c. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the component to retrieve. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The entity whose component is to be retrieved. </td></tr>
+    <tr><td class="paramname">c</td><td>The default component value to return, if the entity does not have the component T. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A mutable reference to the component. </dd></dl>
+
+</div>
+</div>
+<a id="ac90cf5c1387f17cc36f363b120563e0d" name="ac90cf5c1387f17cc36f363b120563e0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac90cf5c1387f17cc36f363b120563e0d">&#9670;&#160;</a></span>getComponentOr() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... AllComponentTypes&gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="../../d9/d50/classEasys_1_1ECS.html">Easys::ECS</a>&lt; AllComponentTypes &gt;::getComponentOr </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a>&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves a reference to a component of type T from an entity. If the entity does not exist or does not have a component T, return c. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the component to retrieve. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The entity whose component is to be retrieved. </td></tr>
+    <tr><td class="paramname">c</td><td>The default component value to return, if the entity does not have the component T. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A immutable reference to the component. </dd></dl>
 
 </div>
 </div>
