@@ -281,6 +281,46 @@ class ECS {
 	}
 
 	/**
+	 * @brief Retrieves a reference to a component of type T from an entity. 
+	 * If the entity does not exist or does not have a component T, return c.
+	 * @tparam T The type of the component to retrieve.
+	 * @param e The entity whose component is to be retrieved.
+	 * @param c The default component value to return, if the entity does not have the component T.
+	 * @return A immutable reference to the component.
+	 */
+	template <typename T>
+	inline T& getComponentOr(const Entity e, T& c)
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		if (hasComponent<T>(e))
+		{
+			return registry_.template getComponent<T>(e);
+		}
+		return c;
+	}
+
+	/**
+	 * @brief Retrieves a reference to a component of type T from an entity. 
+	 * If the entity does not exist or does not have a component T, return c.
+	 * @tparam T The type of the component to retrieve.
+	 * @param e The entity whose component is to be retrieved.
+	 * @param c The default component value to return, if the entity does not have the component T.
+	 * @return A mutable reference to the component.
+	 */
+	template <typename T>
+	inline const T& getComponentOr(const Entity e, const T& c) const
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		if (hasComponent<T>(e))
+		{
+			return registry_.template getComponent<T>(e);
+		}
+		return c;
+	}
+
+	/**
 	 * @brief Checks if an entity has a component of type T.
 	 * @tparam T The type of the component to check for.
 	 * @param e The entity to check.

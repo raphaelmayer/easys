@@ -60,6 +60,21 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE(retrievedComp.data == 20);
 	}
 
+	SECTION("Get Component Or")
+	{
+		Entity entity = ecs.addEntity();
+		Entity entity2 = ecs.addEntity();
+		ecs.addComponent<TestComponent>(entity, {20});
+		
+		REQUIRE(ecs.getComponentOr<TestComponent>(entity, {123}).data == 20);
+		REQUIRE(ecs.getComponentOr<AnotherComponent>(entity, {321}).value == 321);
+		REQUIRE(ecs.getComponentOr<TestComponent>(entity2, {123}).data == 123);
+		
+		// this currently works with an invalid entity and it probably should not.
+		Entity invalidEntity = 666;  // never registered!
+		REQUIRE(ecs.getComponentOr<TestComponent>(invalidEntity, {123}).data == 123);
+	}
+
 	SECTION("Modify Component (with lambda)")
 	{
 		Entity entity = ecs.addEntity();

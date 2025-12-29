@@ -56,13 +56,9 @@ extern "C" int main(int argc, char* argv[])
 
 	// Set the configuration to show all test results, including successful tests
 	session.configData().showSuccessfulTests = true;
-
 	// Set the reporter to 'console'
 	session.configData().reporterName = "compact";
 
-	// You can add additional configuration here if needed
-
-	// Run the Catch2 session
 	return session.run(argc, argv);
 }
 
@@ -259,16 +255,63 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
-		TestComponent tc;
+		TestComponent const* tc;
 		benchmarkSection(
 		    [&]
 		    {
 			    for (int i = 0; i < NUM_ENT; i++)
 			    {
-				    tc = ecs.getComponent<TestComponent>(i);
+				    tc = &ecs.getComponent<TestComponent>(i);
 			    }
 		    },
 		    formatEntCompInfo("getComponent", NUM_ENT, NUM_COM));
+	}
+
+	SECTION("Benchmarking Component Retrieval (OR)")
+	{
+		ECS ecs;
+		TestComponent c = TestComponent{};
+
+		for (int i = 0; i < NUM_ENT; i++)
+		{
+			Entity e = ecs.addEntity();
+			ecs.addComponent<TestComponent>(e, c);
+		}
+
+		TestComponent const* tc;
+		benchmarkSection(
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
+				    tc = &ecs.getComponentOr<TestComponent>(i, {20});
+			    }
+		    },
+		    formatEntCompInfo("getComponentOr", NUM_ENT, NUM_COM));
+	}
+
+	SECTION("Benchmarking Component Retrieval (OR2)")
+	{
+		ECS ecs;
+		TestComponent c = TestComponent{};
+
+		for (int i = 0; i < NUM_ENT; i++)
+		{
+			Entity e = ecs.addEntity();
+			ecs.addComponent<TestComponent>(e, c);
+		}
+
+		TestComponent const* tc;
+		TestComponent def{20};
+		benchmarkSection(
+		    [&]
+		    {
+			    for (int i = 0; i < NUM_ENT; i++)
+			    {
+				    tc = &ecs.getComponentOr<TestComponent>(i, def);
+			    }
+		    },
+		    formatEntCompInfo("getComponentOr", NUM_ENT, NUM_COM));
 	}
 
 	SECTION("Benchmarking Component Existence Check")
