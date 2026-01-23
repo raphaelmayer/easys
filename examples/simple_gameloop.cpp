@@ -17,7 +17,7 @@ using ECS = Easys::ECS<Position, Velocity>;
 struct System {
 	void update(ECS& ecs)
 	{
-		for (Easys::Entity e : ecs.getEntitiesByComponents<Position, Velocity>())
+		for (Easys::Entity e : ecs.getEntities<Position, Velocity>())
 		{
 			Position& pos = ecs.getComponent<Position>(e);
 			const Velocity& vel = ecs.getComponent<Velocity>(e);
@@ -49,6 +49,12 @@ int main()
 		// handle rendering (for example in another system)
 		Position p = ecs.getComponent<Position>(player);
 		std::cout << "x: " << p.x << ", y: " << p.y << std::endl;
+
+		// prevent the loop from running indefinitely
+		if (p.x > 50.f || p.y > 50.f)
+		{
+			isRunning = false;
+		}
 	}
 
 	return 0;

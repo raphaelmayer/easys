@@ -7,7 +7,9 @@
 #include <set>
 
 #include "entity.hpp"
+#include "log.hpp"
 #include "registry.hpp"
+#include "view.hpp"
 
 namespace Easys {
 
@@ -24,6 +26,8 @@ class ECS {
 	 */
 	ECS()
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 		{
 			availableEntityIds_.push(entity);
@@ -38,15 +42,20 @@ class ECS {
 	 */
 	ECS(const std::set<Entity>& oldEntities)
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		// I decided against an addEntity(Entity) method to discourage
-		//  tampering with entities too much. I think this really should be the ECS's
-		//  responsibility.
+		// tampering with entities too much. I think this really should be the ECS's
+		// responsibility.
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 		{
 			if (oldEntities.contains(entity))
+			{
 				entities_.insert(entity);
-			else
+			} else
+			{
 				availableEntityIds_.push(entity);
+			}
 		}
 	}
 
@@ -57,13 +66,18 @@ class ECS {
 	 */
 	inline Entity addEntity()
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		if (getEntityCount() < MAX_ENTITIES)
 		{
 			Entity e = availableEntityIds_.front();
 			availableEntityIds_.pop();
 			entities_.insert(e);
+
+			EASYS_LOG_INFO(EASYS_E_STR(e));
 			return e;
 		}
+		EASYS_LOG_ERROR("addEntity(): MAX_ENTITIES reached.");
 		// throwing an exception here seems kind of drastic, but on the other hand
 		// maybe not
 		throw std::runtime_error("MAX NUMBER OF ENTITIES REACHED!");
@@ -76,12 +90,16 @@ class ECS {
 	 */
 	inline void removeEntity(const Entity e)
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		// Remove all components associated with the entity
 		registry_.removeComponents(e);
 		// Remove entity from the set of active entities_
 		entities_.erase(e);
 		// Make the entity ID available again
 		availableEntityIds_.push(e);
+
+		EASYS_LOG_INFO(EASYS_E_STR(e));
 	}
 
 	/**
@@ -89,41 +107,68 @@ class ECS {
 	 * @param e The entity to check for.
 	 * @return True if the entity exists, false otherwise.
 	 */
-	inline bool hasEntity(const Entity e) const { return entities_.contains(e); }
+	inline bool hasEntity(const Entity e) const
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		return entities_.contains(e);
+	}
 
 	/**
 	 * @brief Returns a reference to the set of all entities.
 	 * @return A constant reference to the set of all entities currently in the ECS.
 	 */
-	inline const std::set<Entity>& getEntities() const { return entities_; }
+	//inline std::set<Entity> getEntities() const
+	//{
+	//	EASYS_LOG_ENTRY_EXIT;
 
-	/**
-	 * @brief Returns a vector of entities that have a component of a specific type.
-	 * @tparam T The component type to query for.
-	 * @return A constant reference to a vector of entities possessing the component.
-	 */
-	template <typename T>
-	inline const std::vector<Entity>& getEntitiesByComponent() const
+	//	return entities_;
+	//}
+
+	inline View getEntities() const
 	{
-		return registry_.template getEntitiesByComponent<T>();
+		EASYS_LOG_ENTRY_EXIT;
+
+		std::vector<Entity> vec;
+		vec.reserve(entities_.size());
+		vec.assign(entities_.begin(), entities_.end());
+
+		return View(std::move(vec));
 	}
 
 	/**
-	 * @brief Returns a vector of entities that have all of the specified component types.
+	 * @brief Returns a vector of entities that have all of the specified component types. Use smaller components first
+	 * for optimal performance.
 	 * @tparam Ts A variadic list of component types to query for.
 	 * @return A vector of entities that possess all specified components.
 	 */
+	//template <typename... Ts>
+	//inline std::vector<Entity> getEntities() const
+	//{
+	//	EASYS_LOG_ENTRY_EXIT;
+
+	//	// return View(registry_.template getEntities<Ts...>());
+	//	return registry_.template getEntities<Ts...>();
+	//}
+
 	template <typename... Ts>
-	inline std::vector<Entity> getEntitiesByComponents() const
+	inline View getEntities() const
 	{
-		return registry_.template getEntitiesByComponents<Ts...>();
+		EASYS_LOG_ENTRY_EXIT;
+
+		return View(std::move(registry_.template getEntities<Ts...>()));
 	}
 
 	/**
 	 * @brief Returns the total number of active entities in the ECS.
 	 * @return The number of entities.
 	 */
-	inline size_t getEntityCount() const { return entities_.size(); }
+	inline size_t getEntityCount() const
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		return entities_.size();
+	}
 
 	/**
 	 * @brief Adds a component of type T to an entity.
@@ -135,7 +180,57 @@ class ECS {
 	template <typename T>
 	inline void addComponent(const Entity e, T component)
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		//  TODO: maybe we should check, if the entity already has a component of type T, mainly so emitted event types
+		// are consistent.
 		registry_.addComponent(e, std::move(component));
+
+		EASYS_LOG_INFO(EASYS_EC_STR(e));
+	}
+
+	/**
+	 * @brief Modifies a component of type T for a given entity.
+	 * @details This function retrieves the component of type T associated with the specified entity
+	 * and invokes the provided callable function with a reference to that component. The callable can
+	 * be a lambda, function pointer, or any other callable type. The component can be modified directly
+	 * through the callable.
+	 * @tparam T The type of the component to modify.
+	 * @param e The entity whose component will be modified.
+	 * @param fn The callable that will be used to modify the component. It should accept a reference to
+	 *           the component of type T.
+	 */
+	template <typename T, typename Func>
+	inline void modifyComponent(const Entity e, Func&& fn)
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		// we need the component for event dispatch, so we handle it manually.
+		T& c = getComponent<T>(e);
+		fn(c);
+		// registry_.template modifyComponent<T>(e, fn);
+
+		EASYS_LOG_INFO(EASYS_EC_STR(e));
+	}
+
+	/**
+	 * @brief Modifies a component of type T for a given entity.
+	 * @details This function retrieves the component of type T associated with the specified entity
+	 * and replaces it with the new component provided as the argument c.
+	 * @tparam T The type of the component to modify.
+	 * @param e The entity whose component will be modified.
+	 * @param c The new component of type T that will replace the existing component.
+	 */
+	template <typename T>
+	inline void modifyComponent(const Entity e, T c)
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		// we need the component for event dispatch, so we handle it manually.
+		getComponent<T>(e) = c;
+		// registry_.template modifyComponent<T>(e, c);
+
+		EASYS_LOG_INFO(EASYS_EC_STR(e));
 	}
 
 	/**
@@ -146,7 +241,36 @@ class ECS {
 	template <typename T>
 	inline void removeComponent(const Entity e)
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		registry_.template removeComponent<T>(e);
+
+		EASYS_LOG_INFO(EASYS_EC_STR(e));
+	}
+
+	/**
+	 * @brief Removes all components of types Ts from an entity.
+	 * @tparam T The types of the components to remove.
+	 * @param e The entity from which to remove the components.
+	 */
+	template <typename... Ts>
+	inline void removeComponents(const Entity e)
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		(removeComponent<Ts>(e), ...);
+	}
+
+	/**
+	 * @brief Removes all components from an entity.
+	 * @param e The entity from which to remove all components.
+	 */
+	inline void removeComponents(const Entity e)
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		removeComponents<AllComponentTypes...>(e);
+		// (removeComponent<AllComponentTypes>(e), ...);
 	}
 
 	/**
@@ -158,6 +282,8 @@ class ECS {
 	template <typename T>
 	inline T& getComponent(const Entity e)
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		return registry_.template getComponent<T>(e);
 	}
 
@@ -170,7 +296,49 @@ class ECS {
 	template <typename T>
 	inline const T& getComponent(const Entity e) const
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		return registry_.template getComponent<T>(e);
+	}
+
+	/**
+	 * @brief Retrieves a reference to a component of type T from an entity.
+	 * If the entity does not exist or does not have a component T, return c.
+	 * @tparam T The type of the component to retrieve.
+	 * @param e The entity whose component is to be retrieved.
+	 * @param c The default component value to return, if the entity does not have the component T.
+	 * @return A immutable reference to the component.
+	 */
+	template <typename T>
+	inline T& getComponentOr(const Entity e, T& c)
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		if (hasComponent<T>(e))
+		{
+			return registry_.template getComponent<T>(e);
+		}
+		return c;
+	}
+
+	/**
+	 * @brief Retrieves a reference to a component of type T from an entity.
+	 * If the entity does not exist or does not have a component T, return c.
+	 * @tparam T The type of the component to retrieve.
+	 * @param e The entity whose component is to be retrieved.
+	 * @param c The default component value to return, if the entity does not have the component T.
+	 * @return A mutable reference to the component.
+	 */
+	template <typename T>
+	inline const T& getComponentOr(const Entity e, const T& c) const
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		if (hasComponent<T>(e))
+		{
+			return registry_.template getComponent<T>(e);
+		}
+		return c;
 	}
 
 	/**
@@ -182,6 +350,8 @@ class ECS {
 	template <typename T>
 	inline bool hasComponent(const Entity e) const
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		return registry_.template hasComponent<T>(e);
 	}
 
@@ -194,19 +364,31 @@ class ECS {
 	template <typename... Ts>
 	inline size_t getComponentCount() const
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		return registry_.template size<Ts...>();
 	}
 
-	inline size_t getComponentCount() const { return registry_.size(); }
+	inline size_t getComponentCount() const
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		return getComponentCount<AllComponentTypes...>();
+		// return registry_.size();
+	}
 
 	/**
-	 * @brief Clears all entities and components from the ECS.
-	 * @details Resets the ECS to its initial state, making all entity IDs available again.
+	 * @brief Removes component of specific type from all entities within the ECS.
+	 * @tparam T A component type to clear.
 	 */
-	inline void clear()
+	template <typename T>
+	inline void clearComponent()
 	{
-		registry_.clear();
-		clearEntities();
+		EASYS_LOG_ENTRY_EXIT;
+
+		registry_.template clear<T>();
+
+		EASYS_LOG_INFO(std::format("Clearing all components of type {}", typeid(T).name()));
 	}
 
 	/**
@@ -217,10 +399,31 @@ class ECS {
 	template <typename... Ts>
 	inline void clearComponents()
 	{
-		registry_.template clear<Ts...>();
+		EASYS_LOG_ENTRY_EXIT;
+
+		// registry_.template clear<Ts...>();
+		(clearComponent<Ts>(), ...);
 	}
 
-	inline void clearComponents() { registry_.clear(); }
+	inline void clearComponents()
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		(clearComponent<AllComponentTypes>(), ...);
+		// registry_.clear();
+	}
+
+	/**
+	 * @brief Clears all entities and components from the ECS.
+	 * @details Resets the ECS to its initial state, making all entity IDs available again.
+	 */
+	inline void clear()
+	{
+		EASYS_LOG_ENTRY_EXIT;
+
+		clearComponents();
+		clearEntities();
+	}
 
    private:
 	std::queue<Entity> availableEntityIds_;
@@ -229,12 +432,19 @@ class ECS {
 
 	void clearEntities()
 	{
+		EASYS_LOG_ENTRY_EXIT;
+
 		entities_.clear();
 
 		std::queue<Entity> empty;
 		std::swap(availableEntityIds_, empty);
 
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++) availableEntityIds_.push(entity);
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		{
+			availableEntityIds_.push(entity);
+		}
+
+		EASYS_LOG_INFO("Cleared all entities");
 	}
 };
 

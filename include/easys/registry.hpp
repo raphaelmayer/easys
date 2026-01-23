@@ -24,6 +24,19 @@ class Registry {
 		componentSet.set(entity, std::move(component));
 	}
 
+	template <typename T, typename Func>
+	inline void modifyComponent(const Entity e, Func&& fn)
+	{
+		T& c = getComponent<T>(e);
+		fn(c);
+	}
+
+	template <typename T>
+	inline void modifyComponent(const Entity e, T c)
+	{
+		getComponent<T>(e) = c;
+	}
+
 	template <typename ComponentType>
 	inline void removeComponent(const Entity entity)
 	{
@@ -31,23 +44,15 @@ class Registry {
 		componentSet.remove(entity);
 	}
 
-	inline void removeComponents(const Entity entity)
-	{
-		forEachComponentType<AllComponentTypes...>(
-		    [&]<typename Component>()
-		    {
-			    removeComponent<Component>(entity);
-		    });
-	}
-
 	template <typename... ComponentTypes>
 	inline void removeComponents(const Entity entity)
 	{
-		forEachComponentType<ComponentTypes...>(
-		    [&]<typename Component>()
-		    {
-			    removeComponent<Component>(entity);
-		    });
+		(removeComponent<ComponentTypes>(entity), ...);
+	}
+
+	inline void removeComponents(const Entity entity)
+	{
+		removeComponents<AllComponentTypes...>(entity);
 	}
 
 	template <typename ComponentType>
@@ -72,92 +77,69 @@ class Registry {
 		return getComponentSet<ComponentType>().contains(entity);
 	}
 
-	template <typename ComponentType>
-	inline const std::vector<Entity>& getEntitiesByComponent() const
-	{
-		return getComponentSet<ComponentType>().getKeys();
-	}
-
 	template <typename... ComponentTypes>
-	inline std::vector<Entity> getEntitiesByComponents() const
+	inline std::vector<Entity> getEntities() const
 	{
 		std::vector<Entity> entities;
 		bool isFirstComponentType = true;
 
-		// Helper lambda to intersect two sorted vectors
-		auto intersect = [](const std::vector<Entity>& v1, const std::vector<Entity>& v2)
-		{
-			std::vector<Entity> v_intersection;
-			std::set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), std::back_inserter(v_intersection));
-			return v_intersection;
-		};
-
 		// Iterate over each component type and intersect entities
 		forEachComponentType<ComponentTypes...>(
-		    [this, &entities, &isFirstComponentType, &intersect]<typename T>()
+		    [this, &entities, &isFirstComponentType]<typename T>()
 		    {
-			    // We sort here. This is not optimal. We probably want to lazily
-			    // sort based on a flag (refer to github issue #7):
-			    auto componentEntities = getEntitiesByComponent<T>();
-			    std::sort(componentEntities.begin(), componentEntities.end());
-			    // Temporary fix end
 			    if (isFirstComponentType)
 			    {
-				    entities = componentEntities;
+				    entities = getComponentSet<T>().getKeys();
 				    isFirstComponentType = false;
-			    } else
+			    }
+
+			    else
 			    {
-				    entities = intersect(entities, componentEntities);
+				    std::vector<Easys::Entity> newEntities;
+				    newEntities.reserve(entities.size());
+
+				    for (const auto& e : entities)
+				    {
+					    if (hasComponent<T>(e))
+					    {
+						    newEntities.push_back(e);
+					    }
+				    }
+
+				    entities = std::move(newEntities);
 			    }
 		    });
 
 		return entities;
 	}
 
-	inline size_t size() const
-	{
-		size_t totalSize = 0;
-
-		forEachComponentType<AllComponentTypes...>(
-		    [this, &totalSize]<typename T>()
-		    {
-			    totalSize += getComponentSet<T>().size();
-		    });
-
-		return totalSize;
-	}
+	//template <typename... ComponentTypes>
+	//const auto& smallestPool() const {
+	//	forEachComponentType<ComponentTypes...>([]<typename T>() {
+	//		    const size_t size = size<T>();
+	//		});
+	//}
 
 	template <typename... ComponentTypes>
 	inline size_t size() const
 	{
-		size_t totalSize = 0;
-
-		forEachComponentType<ComponentTypes...>(
-		    [this, &totalSize]<typename T>()
-		    {
-			    totalSize += getComponentSet<T>().size();
-		    });
-
-		return totalSize;
+		return (... + getComponentSet<ComponentTypes>().size());
 	}
 
-	inline void clear()
+	inline size_t size() const
 	{
-		forEachComponentType<AllComponentTypes...>(
-		    [this]<typename T>()
-		    {
-			    getComponentSet<T>().clear();
-		    });
+		return size<AllComponentTypes...>();
 	}
 
 	template <typename... ComponentTypes>
 	inline void clear()
 	{
-		forEachComponentType<ComponentTypes...>(
-		    [this]<typename T>()
-		    {
-			    getComponentSet<T>().clear();
-		    });
+		(getComponentSet<ComponentTypes>().clear(), ...);
+	}
+
+	inline void clear()
+	{
+		clear<AllComponentTypes...>();
 	}
 
    private:

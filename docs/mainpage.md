@@ -15,7 +15,8 @@ The ```Easys::ECS``` class is the single public interface for EasyS. It provides
 - Compile-time component registration  
 - Entity creation and management  
 - Component addition, removal, and querying  
-
+- Logging
+- 
 All public operations are available as member functions. See the API Reference for a complete list and descriptions.
 
 ## Quick Start Guide
@@ -65,8 +66,29 @@ int main()
 
 EasyS provides a couple of overrideable macros to tailor the ECS to your use case:
 
-- \ref EASYS_ENTITY_TYPE - define the integer type used for entity IDs (default: `uint32_t`)
-- \ref EASYS_ENTITY_LIMIT - set the maximum number of active entities (default: `10000`) 
+- \ref EASYS_ENTITY_TYPE  
+  Define the integer type used for entity IDs (default: `uint32_t`)
+
+- \ref EASYS_ENTITY_LIMIT  
+  Set the maximum number of active entities (default: `10000`)
+
+- \ref EASYS_LOG_ENABLED  
+  Master switch for all logging functionality (default: disabled)
+
+- \ref EASYS_LOG_LEVEL  
+  Set the global logging severity threshold  
+  (`0` = NONE, `1` = ERROR, `2` = INFO, `3` = DEBUG, `4` = TRACE; default: `2`)
+
+- \ref EASYS_LOG_TO_FILE  
+  Enable or disable logging to a file (default: disabled)
+
+- \ref EASYS_LOG_FILE_PATH  
+  Specify the output file path used when file logging is enabled  
+  (default: `"easys_log.txt"`)
+
+- \ref EASYS_LOG_VERBOSITY  
+  Enable additional verbose or diagnostic logging  
+  (default: disabled)
 
 Define these macros **before** including EasyS, either in source or via compiler flags.
 

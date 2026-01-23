@@ -6,12 +6,21 @@
 
 EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.
 
-**The library now uses a static design approach**, requiring all component types to be registered at compile time through template parameters. This shift from runtime to compile-time registration improves performance, enables stronger type safety, and eliminates runtime type checks, while still maintaining a clean and lightweight API.
+**The library uses a static design approach**, requiring all component types to be registered at compile time through template parameters.
 
 **TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.
 
 
 ## Quick Start Guide
+
+The `Easys::ECS` class is the single public interface for EasyS. It provides all functionality for:
+
+    Compile-time component registration
+    Entity creation and management
+    Component addition, removal, and querying
+	Logging
+
+All public operations are available as member functions. See the [API Reference](https://raphaelmayer.github.io/easys/) for a complete list and descriptions.
 
 This section will walk you through the basics of creating entities, adding components to them, and querying these components.
 
@@ -90,9 +99,11 @@ You can also include individual headers, if you do not need all components:
 #include <easys/config.hpp>
 #include <easys/entity.hpp>
 #include <easys/ecs.hpp>
+#include <easys/utils.hpp>
+#include <easys/view.hpp>
 // Add other headers as needed
 ```
-Keep in mind, that `config.hpp` has to be included before any other EasyS headers.
+*Keep in mind, that `config.hpp` has to be included before any other EasyS headers.*
 
 ### Using CMake
 
@@ -123,6 +134,58 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(EASYS)
 target_link_libraries(your_target_name PRIVATE easys)
 ```
+
+## Configuration Options
+
+EasyS provides a couple of overrideable macros to tailor the ECS to your use case [documentation](https://raphaelmayer.github.io/easys/d8/dfd/config_8hpp.html):
+
+- \ref EASYS_ENTITY_TYPE  
+  Define the integer type used for entity IDs (default: `uint32_t`)
+
+- \ref EASYS_ENTITY_LIMIT  
+  Set the maximum number of active entities (default: `10000`)
+
+- \ref EASYS_LOG_ENABLED  
+  Master switch for all logging functionality (default: disabled)
+
+- \ref EASYS_LOG_LEVEL  
+  Set the global logging severity threshold  
+  (`0` = NONE, `1` = ERROR, `2` = INFO, `3` = DEBUG, `4` = TRACE; default: `2`)
+
+- \ref EASYS_LOG_TO_FILE  
+  Enable or disable logging to a file (default: disabled)
+
+- \ref EASYS_LOG_FILE_PATH  
+  Specify the output file path used when file logging is enabled  
+  (default: `"easys_log.txt"`)
+
+- \ref EASYS_LOG_VERBOSITY  
+  Enable additional verbose or diagnostic logging  
+  (default: disabled)
+
+Define these macros **before** including EasyS, either in source or via compiler flags.
+
+### Customizing in Source Code
+
+```
+#define EASYS_ENTITY_TYPE uint64_t // Change to 64-bit unsigned integer
+#define EASYS_ENTITY_LIMIT 50000   // Increase entity limit
+#include <easys/easys.hpp>         // Path to the configuration file
+```
+
+### Customizing with Compiler Flags
+
+**GCC/Clang** on Linux/macOS:
+```
+g++ -DEASYS_ENTITY_TYPE=uint64_t -DEASYS_ENTITY_LIMIT=50000 -o my_app my_app.cpp
+```
+
+**MSVC** on Windows:
+```
+cl /D EASYS_ENTITY_TYPE=uint64_t /D EASYS_ENTITY_LIMIT=50000 my_app.cpp
+```
+
+Depending on your compiler and development environment the exact command might be slightly different.
 
 #### Philosophy and User Responsibilities
 

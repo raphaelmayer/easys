@@ -7,32 +7,37 @@ using namespace Easys;
 
 #define ECS_TEST_COMPTYPES TestComponent, AnotherComponent
 
+namespace ECS_TEST {
+struct TestComponent {
+	int data;
+};
+
+struct AnotherComponent {
+	float value;
+};
+
 TEST_CASE("ECS Tests", "[ECS]")
 {
-	struct TestComponent {
-		int data;
-	};
-
-	struct AnotherComponent {
-		float value;
-	};
-
 	ECS<ECS_TEST_COMPTYPES> ecs;
 
 	// TODO: test constructors
 
 	SECTION("Add Entity")
 	{
+		REQUIRE(ecs.getEntities().size() == 0);
 		Entity entity = ecs.addEntity();
 		REQUIRE(entity != -1);
-		REQUIRE(ecs.getEntities().find(entity) != ecs.getEntities().end());
+		REQUIRE(ecs.getEntities().size() == 1);
+		REQUIRE(ecs.getEntities().contains(entity));
 	}
 
 	SECTION("Remove Entity")
 	{
+		REQUIRE(ecs.getEntities().size() == 0);
 		Entity entity = ecs.addEntity();
+		REQUIRE(ecs.getEntities().size() == 1);
 		ecs.removeEntity(entity);
-		REQUIRE(ecs.getEntities().find(entity) == ecs.getEntities().end());
+		REQUIRE(ecs.getEntities().size() == 0);
 	}
 
 	SECTION("Has Component")
@@ -51,8 +56,51 @@ TEST_CASE("ECS Tests", "[ECS]")
 		TestComponent comp = {20};
 		ecs.addComponent<TestComponent>(entity, comp);
 
-		TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
+		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
 		REQUIRE(retrievedComp.data == 20);
+	}
+
+	SECTION("Get Component Or")
+	{
+		Entity entity = ecs.addEntity();
+		Entity entity2 = ecs.addEntity();
+		ecs.addComponent<TestComponent>(entity, {20});
+		
+		REQUIRE(ecs.getComponentOr<TestComponent>(entity, {123}).data == 20);
+		REQUIRE(ecs.getComponentOr<AnotherComponent>(entity, {321}).value == 321);
+		REQUIRE(ecs.getComponentOr<TestComponent>(entity2, {123}).data == 123);
+		
+		// this currently works with an invalid entity and it probably should not.
+		Entity invalidEntity = 666;  // never registered!
+		REQUIRE(ecs.getComponentOr<TestComponent>(invalidEntity, {123}).data == 123);
+	}
+
+	SECTION("Modify Component (with lambda)")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp = {20};
+		ecs.addComponent<TestComponent>(entity, comp);
+
+		ecs.modifyComponent<TestComponent>(entity,
+		                                   [](TestComponent& c)
+		                                   {
+			                                   c.data = 1;
+		                                   });
+
+		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
+		REQUIRE(retrievedComp.data == 1);
+	}
+
+	SECTION("Modify Component (directly)")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp = {20};
+		ecs.addComponent<TestComponent>(entity, comp);
+
+		ecs.modifyComponent<TestComponent>(entity, {2});
+
+		const TestComponent& retrievedComp = ecs.getComponent<TestComponent>(entity);
+		REQUIRE(retrievedComp.data == 2);
 	}
 
 	SECTION("Remove Component")
@@ -63,6 +111,43 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ecs.removeComponent<TestComponent>(entity);
 
 		REQUIRE_FALSE(ecs.hasComponent<TestComponent>(entity));
+	}
+
+	SECTION("Remove Components: remove some components")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp1 = {30};
+		AnotherComponent comp2 = {5.0f};
+		ecs.addComponent<TestComponent>(entity, comp1);
+		ecs.addComponent<AnotherComponent>(entity, comp2);
+		ecs.removeComponents<TestComponent>(entity);
+
+		REQUIRE_FALSE(ecs.hasComponent<TestComponent>(entity));
+		REQUIRE(ecs.hasComponent<AnotherComponent>(entity));
+	}
+
+	SECTION("Remove Components: remove all components")
+	{
+		Entity entity = ecs.addEntity();
+		TestComponent comp1 = {30};
+		AnotherComponent comp2 = {5.0f};
+		ecs.addComponent<TestComponent>(entity, comp1);
+		ecs.addComponent<AnotherComponent>(entity, comp2);
+
+		ecs.removeComponents<TestComponent, AnotherComponent>(entity);
+
+		REQUIRE_FALSE(ecs.hasComponent<TestComponent>(entity));
+		REQUIRE_FALSE(ecs.hasComponent<AnotherComponent>(entity));
+
+		// ---
+
+		ecs.addComponent<TestComponent>(entity, comp1);
+		ecs.addComponent<AnotherComponent>(entity, comp2);
+
+		ecs.removeComponents(entity);
+
+		REQUIRE_FALSE(ecs.hasComponent<TestComponent>(entity));
+		REQUIRE_FALSE(ecs.hasComponent<AnotherComponent>(entity));
 	}
 
 	SECTION("Component Interaction")
@@ -100,7 +185,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 		ecs.addComponent<TestComponent>(entity2, comp2);
 		ecs.addComponent<AnotherComponent>(entity2, comp3);  // should not be included in results
 
-		auto testComponents = ecs.getEntitiesByComponent<TestComponent>();
+		auto testComponents = ecs.getEntities<TestComponent>();
 		REQUIRE(testComponents.size() == 2);
 	}
 
@@ -118,11 +203,11 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 		struct ForeignComponent {};  // A (for the ECS) foreign component should not cause throw.
 
-		REQUIRE(ecs.getEntitiesByComponents<TestComponent, AnotherComponent>().size() == 1);
-		REQUIRE(ecs.getEntitiesByComponents<TestComponent>().size() == 2);
-		REQUIRE(ecs.getEntitiesByComponents<AnotherComponent>().size() == 2);
+		REQUIRE(ecs.getEntities<TestComponent, AnotherComponent>().size() == 1);
+		REQUIRE(ecs.getEntities<TestComponent>().size() == 2);
+		REQUIRE(ecs.getEntities<AnotherComponent>().size() == 2);
 		// no need, since we do compile time. but stays here to test handling and error messages etc.
-		// REQUIRE(ecs.getEntitiesByComponents<AnotherComponent, ForeignComponent>().size() == 0);
+		// REQUIRE(ecs.getEntities<AnotherComponent, ForeignComponent>().size() == 0);
 	}
 
 	SECTION("getEntityCount returns correct number of entities", "[ECS]")
@@ -189,3 +274,4 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
 	}
 }
+}  // namespace ECS_TEST

@@ -38,16 +38,16 @@ class SparseSet {
 	{
 		if (key >= maxSize())
 		{
+			// TODO: assert and logging should suffice
 			throw std::length_error("Key exceeds the maximum size limit.");
 		}
 
 		if (key >= sparse.size())
 		{
-			sparse.resize(key * 2 + 1, std::numeric_limits<Key>::max());
+			size_t newSize = (key < maxSize() / 2 - 1) ? key * 2 + 1 : maxSize();
+			sparse.resize(newSize, std::numeric_limits<Key>::max());
 		}
 	}
-
-	// Associate a value with a key
 
 	// Associate a value with a key
 	inline void set(const Key key, const Value& value)
@@ -128,7 +128,7 @@ class SparseSet {
 
 	// Iterate over all values
 	template <typename Func>
-	inline void forEach(Func f)
+	inline void forEach(Func&& f)
 	{
 		for (size_t i = 0; i < values.size(); ++i)
 		{
@@ -140,6 +140,8 @@ class SparseSet {
 	{
 		return key < sparse.size() && sparse[key] != std::numeric_limits<Key>::max();
 	}
+
+	constexpr size_t capacity() const { return sparse.size(); }
 
 	constexpr size_t size() const { return dense.size(); }
 

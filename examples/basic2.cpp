@@ -35,7 +35,7 @@ int main()
 	std::cout << "First Entity Velocity: " << firstVel.dx << ", " << firstVel.dy << std::endl;
 
 	// Querying all entities
-	for (auto entity : ecs.getEntities())
+	for (Entity entity : ecs.getEntities())
 	{
 		if (ecs.hasComponent<Position>(entity))
 		{
@@ -45,14 +45,14 @@ int main()
 	}
 
 	// Querying entities that have a single component
-	for (auto entity : ecs.getEntitiesByComponent<Position>())
+	for (Entity entity : ecs.getEntities<Position>())
 	{
 		Position& pos = ecs.getComponent<Position>(entity);
 		std::cout << "Entity " << entity << " Position: " << pos.x << ", " << pos.y << std::endl;
 	}
 
 	// Querying entities that have multiple components
-	for (auto entity : ecs.getEntitiesByComponents<Position, Velocity>())
+	for (Entity entity : ecs.getEntities<Position, Velocity>())
 	{
 		Position& pos = ecs.getComponent<Position>(entity);
 		Velocity& vel = ecs.getComponent<Velocity>(entity);
