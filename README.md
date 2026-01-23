@@ -21,6 +21,7 @@ The `Easys::ECS` class is the single public interface for EasyS. It provides all
 	Logging
 
 All public operations are available as member functions. See the [API Reference](https://raphaelmayer.github.io/easys/) for a complete list and descriptions.
+
 This section will walk you through the basics of creating entities, adding components to them, and querying these components.
 
 ```
