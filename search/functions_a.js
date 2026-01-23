@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['remove_0',['remove',['../d6/d28/classEasys_1_1SparseSet.html#a1f2b61e17ed9af4ab5eab0173deea495',1,'Easys::SparseSet']]],
-  ['removecomponent_1',['removecomponent',['../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c',1,'Easys::ECS::removeComponent()'],['../da/d59/classEasys_1_1Registry.html#acbf59661c15a560cc8e6df7d62ced229',1,'Easys::Registry::removeComponent()']]],
-  ['removecomponents_2',['removecomponents',['../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69',1,'Easys::ECS::removeComponents(const Entity e)'],['../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5',1,'Easys::ECS::removeComponents(const Entity e)'],['../da/d59/classEasys_1_1Registry.html#a5e5896f0d42fcf6027f6fbbf69e8f518',1,'Easys::Registry::removeComponents(const Entity entity)'],['../da/d59/classEasys_1_1Registry.html#aca3fed7ddcf04fda7016c46a5e17fc82',1,'Easys::Registry::removeComponents(const Entity entity)']]],
-  ['removeentity_3',['removeEntity',['../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db',1,'Easys::ECS']]]
+  ['maxsize_0',['maxSize',['../d6/d28/classEasys_1_1SparseSet.html#a0c9bf04f7823748fa23d434f70c94cfe',1,'Easys::SparseSet']]],
+  ['modifycomponent_1',['modifycomponent',['../d9/d50/classEasys_1_1ECS.html#a3224a1c1e9e9f55b8907a60ae016a4e2',1,'Easys::ECS::modifyComponent(const Entity e, Func &amp;&amp;fn)'],['../d9/d50/classEasys_1_1ECS.html#af4b34b766fcd0e3f3d0fb3c71902f0f2',1,'Easys::ECS::modifyComponent(const Entity e, T c)'],['../da/d59/classEasys_1_1Registry.html#a4e0c8114019d3c1f95fd706be5921110',1,'Easys::Registry::modifyComponent(const Entity e, Func &amp;&amp;fn)'],['../da/d59/classEasys_1_1Registry.html#a66da9e3c932c5323b40554436ae259f2',1,'Easys::Registry::modifyComponent(const Entity e, T c)']]]
 ];

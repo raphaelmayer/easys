@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['set_0',['set',['../d6/d28/classEasys_1_1SparseSet.html#a7928fb61152bdb5649a4d4a70fcf8b52',1,'Easys::SparseSet::set(const Key key, const Value &amp;value)'],['../d6/d28/classEasys_1_1SparseSet.html#a26f937b5855720f8067a0ab50647f453',1,'Easys::SparseSet::set(const Key key, Value &amp;&amp;value)']]],
-  ['size_1',['size',['../da/d59/classEasys_1_1Registry.html#af78f3b2f768c096804fc2e5d452fb5e4',1,'Easys::Registry::size() const'],['../da/d59/classEasys_1_1Registry.html#a072045548af2cc80954ad782b839248e',1,'Easys::Registry::size() const'],['../d6/d28/classEasys_1_1SparseSet.html#a71a9f83210b4750a0a9537959976349c',1,'Easys::SparseSet::size()']]],
-  ['source_20code_2',['Customizing in Source Code',['../index.html#autotoc_md4',1,'']]],
-  ['source_5flocation_3',['source_location',['../d9/df7/structEasys_1_1log_1_1source__location.html',1,'Easys::log::source_location'],['../d9/df7/structEasys_1_1log_1_1source__location.html#ae9fd3533f1c1c369c697368f7840e05f',1,'Easys::log::source_location::source_location(std::string_view file, std::uint32_t line, std::string_view funcSig, std::string_view funcName) noexcept'],['../d9/df7/structEasys_1_1log_1_1source__location.html#a6b3c64be98a08c71909ca2ab629509cc',1,'Easys::log::source_location::source_location(std::string_view funcName, std::source_location l=std::source_location::current()) noexcept']]],
-  ['sparse_5fset_2ehpp_4',['sparse_set.hpp',['../d4/d0b/sparse__set_8hpp.html',1,'']]],
-  ['sparseset_5',['SparseSet',['../d6/d28/classEasys_1_1SparseSet.html',1,'Easys']]],
-  ['start_20guide_6',['Quick Start Guide',['../index.html#autotoc_md1',1,'']]]
+  ['registry_0',['Registry',['../da/d59/classEasys_1_1Registry.html',1,'Easys']]],
+  ['registry_2ehpp_1',['registry.hpp',['../d1/da2/registry_8hpp.html',1,'']]],
+  ['registry_3c_20allcomponenttypes_2e_2e_2e_20_3e_2',['Registry&lt; AllComponentTypes... &gt;',['../da/d59/classEasys_1_1Registry.html',1,'Easys']]],
+  ['remove_3',['remove',['../d6/d28/classEasys_1_1SparseSet.html#a1f2b61e17ed9af4ab5eab0173deea495',1,'Easys::SparseSet']]],
+  ['removecomponent_4',['removecomponent',['../d9/d50/classEasys_1_1ECS.html#ac6eb3273c9606c524f8602c6f5514b6c',1,'Easys::ECS::removeComponent()'],['../da/d59/classEasys_1_1Registry.html#acbf59661c15a560cc8e6df7d62ced229',1,'Easys::Registry::removeComponent()']]],
+  ['removecomponents_5',['removecomponents',['../d9/d50/classEasys_1_1ECS.html#ae04e1e8f41e0a9177fab7c4d3e8bca69',1,'Easys::ECS::removeComponents(const Entity e)'],['../d9/d50/classEasys_1_1ECS.html#ab6a62b22a3f4f199e495faec533630c5',1,'Easys::ECS::removeComponents(const Entity e)'],['../da/d59/classEasys_1_1Registry.html#a5e5896f0d42fcf6027f6fbbf69e8f518',1,'Easys::Registry::removeComponents(const Entity entity)'],['../da/d59/classEasys_1_1Registry.html#aca3fed7ddcf04fda7016c46a5e17fc82',1,'Easys::Registry::removeComponents(const Entity entity)']]],
+  ['removeentity_6',['removeEntity',['../d9/d50/classEasys_1_1ECS.html#a4c01f019cb8d433aea51e976b8a967db',1,'Easys::ECS']]],
+  ['responsibilities_7',['Philosophy and User Responsibilities',['../index.html#autotoc_md6',1,'']]]
 ];

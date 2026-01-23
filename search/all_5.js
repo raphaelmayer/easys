@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['get_0',['get',['../d6/d28/classEasys_1_1SparseSet.html#ad57687cd8c211613f387a4cfdc6c6d27',1,'Easys::SparseSet::get(const Key key)'],['../d6/d28/classEasys_1_1SparseSet.html#ade61ca9ebe71cf2fc1ddba0da3debd82',1,'Easys::SparseSet::get(const Key key) const']]],
-  ['get_5ftimestamp_1',['get_timestamp',['../de/d5d/namespaceEasys_1_1log.html#ab77e0e7a817a98e4698dbc96a0491671',1,'Easys::log']]],
-  ['getcomponent_2',['getcomponent',['../d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69',1,'Easys::ECS::getComponent(const Entity e)'],['../d9/d50/classEasys_1_1ECS.html#a4183a3a16cfac503321f213cbf5d3aeb',1,'Easys::ECS::getComponent(const Entity e) const'],['../da/d59/classEasys_1_1Registry.html#a026c660d9578f42425490d81ef2f86c6',1,'Easys::Registry::getComponent(const Entity entity)'],['../da/d59/classEasys_1_1Registry.html#a349a196221244f30d50b96f0cb577baa',1,'Easys::Registry::getComponent(const Entity entity) const']]],
-  ['getcomponentcount_3',['getcomponentcount',['../d9/d50/classEasys_1_1ECS.html#a48b428729273828fafaeb58cb561c503',1,'Easys::ECS::getComponentCount() const'],['../d9/d50/classEasys_1_1ECS.html#a70a0cc05c48b53f12cf3610e4dfcaefd',1,'Easys::ECS::getComponentCount() const']]],
-  ['getcomponentor_4',['getcomponentor',['../d9/d50/classEasys_1_1ECS.html#a99e81ad968100d0b097dda04ea4d65f9',1,'Easys::ECS::getComponentOr(const Entity e, const T &amp;c) const'],['../d9/d50/classEasys_1_1ECS.html#ac90cf5c1387f17cc36f363b120563e0d',1,'Easys::ECS::getComponentOr(const Entity e, T &amp;c)']]],
-  ['getentities_5',['getentities',['../d9/d50/classEasys_1_1ECS.html#a23555042e9c5b1b55c46cd37fdbdf5cf',1,'Easys::ECS::getEntities() const'],['../d9/d50/classEasys_1_1ECS.html#ab56fe2df8453b1112c70054a00d9202e',1,'Easys::ECS::getEntities() const'],['../da/d59/classEasys_1_1Registry.html#ad3ec07cdfee956da030db864262517c2',1,'Easys::Registry::getEntities()']]],
-  ['getentitycount_6',['getEntityCount',['../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602',1,'Easys::ECS']]],
-  ['getkeys_7',['getKeys',['../d6/d28/classEasys_1_1SparseSet.html#a71483add4573374566fb84d9889d4be1',1,'Easys::SparseSet']]],
-  ['getvalues_8',['getvalues',['../d6/d28/classEasys_1_1SparseSet.html#a45b43fe28c4ed1b87ea0f6f20444fb3e',1,'Easys::SparseSet::getValues()'],['../d6/d28/classEasys_1_1SparseSet.html#ad4b6c120bf4b46347b3d5310f99119a1',1,'Easys::SparseSet::getValues() const']]],
-  ['guide_9',['Quick Start Guide',['../index.html#autotoc_md1',1,'']]]
+  ['file_5fname_0',['file_name',['../d9/df7/structEasys_1_1log_1_1source__location.html#a31b649893d475c3b51aaeb7ef05eda3f',1,'Easys::log::source_location']]],
+  ['file_5fname_5f_1',['file_name_',['../d9/df7/structEasys_1_1log_1_1source__location.html#a4e8fc0822077ccc696cc548fdc6f95c9',1,'Easys::log::source_location']]],
+  ['file_5fpath_5f_2',['file_path_',['../d9/df7/structEasys_1_1log_1_1source__location.html#acc5b27673188cf42281d562879d4b961',1,'Easys::log::source_location']]],
+  ['filewriter_3',['FileWriter',['../df/d11/classEasys_1_1log_1_1FileWriter.html',1,'Easys::log']]],
+  ['find_4',['find',['../d9/d75/classEasys_1_1View.html#a69d3c9abfaaf885391caade6bb3ff8b3',1,'Easys::View']]],
+  ['flags_5',['Customizing with Compiler Flags',['../index.html#autotoc_md5',1,'']]],
+  ['foreach_6',['forEach',['../d6/d28/classEasys_1_1SparseSet.html#a14aeb554e77d557258d87bd9d15d5512',1,'Easys::SparseSet']]],
+  ['function_5fname_7',['function_name',['../d9/df7/structEasys_1_1log_1_1source__location.html#aa6d144c62849844ecfe74967b827e197',1,'Easys::log::source_location']]],
+  ['function_5fname_5f_8',['function_name_',['../d9/df7/structEasys_1_1log_1_1source__location.html#a959ef8b0ef0e2df8887b34b1a6d80053',1,'Easys::log::source_location']]],
+  ['function_5fsignature_5f_9',['function_signature_',['../d9/df7/structEasys_1_1log_1_1source__location.html#aae5598a8553c74a84dd7f29af0d02bf3',1,'Easys::log::source_location']]]
 ];

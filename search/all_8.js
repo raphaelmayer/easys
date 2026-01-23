@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['keynotfoundexception_0',['keynotfoundexception',['../d6/dba/classEasys_1_1KeyNotFoundException.html',1,'Easys::KeyNotFoundException'],['../d6/dba/classEasys_1_1KeyNotFoundException.html#a5810225c482c2cd4618942b74b55458b',1,'Easys::KeyNotFoundException::KeyNotFoundException()']]]
+  ['in_20source_20code_0',['Customizing in Source Code',['../index.html#autotoc_md4',1,'']]],
+  ['is_5fenabled_1',['is_enabled',['../d6/d4e/structEasys_1_1log_1_1is__enabled.html',1,'Easys::log']]]
 ];

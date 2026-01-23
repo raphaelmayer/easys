@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['operator_5b_5d_0',['operator[]',['../d6/d28/classEasys_1_1SparseSet.html#a053f2b661aec670f9f0c1e2e9a6ada8d',1,'Easys::SparseSet::operator[](const Key key) const'],['../d6/d28/classEasys_1_1SparseSet.html#a522f7881d9176b2a679854fbcdda381c',1,'Easys::SparseSet::operator[](const Key key)']]]
+  ['level_5fto_5fstring_0',['level_to_string',['../de/d5d/namespaceEasys_1_1log.html#a41bebe29efe83b2f1f62dfcb4e196cd0',1,'Easys::log']]],
+  ['line_1',['line',['../d9/df7/structEasys_1_1log_1_1source__location.html#aeb39ec9a542dd8ec971ab39f75d48849',1,'Easys::log::source_location']]],
+  ['log_5fimpl_2',['log_impl',['../de/d5d/namespaceEasys_1_1log.html#ae9a9a839aba3dbe76c3c3e2de7d2261f',1,'Easys::log']]]
 ];

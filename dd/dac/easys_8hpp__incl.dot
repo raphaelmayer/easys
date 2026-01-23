@@ -72,4 +72,9 @@ digraph "include/easys/easys.hpp"
   Node26 -> Node31 [id="edge36_Node000026_Node000031",color="steelblue1",style="solid",tooltip=" "];
   Node31 [id="Node000031",label="string",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node26 -> Node25 [id="edge37_Node000026_Node000025",color="steelblue1",style="solid",tooltip=" "];
+  Node5 -> Node32 [id="edge38_Node000005_Node000032",color="steelblue1",style="solid",tooltip=" "];
+  Node32 [id="Node000032",label="view.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/d11/view_8hpp.html",tooltip=" "];
+  Node32 -> Node27 [id="edge39_Node000032_Node000027",color="steelblue1",style="solid",tooltip=" "];
+  Node32 -> Node25 [id="edge40_Node000032_Node000025",color="steelblue1",style="solid",tooltip=" "];
+  Node32 -> Node3 [id="edge41_Node000032_Node000003",color="steelblue1",style="solid",tooltip=" "];
 }

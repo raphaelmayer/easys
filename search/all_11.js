@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['value_0',['value',['../d6/d4e/structEasys_1_1log_1_1is__enabled.html#a6f5b9ccce3c85b4ddbf85cc29d20db34',1,'Easys::log::is_enabled']]]
+  ['user_20responsibilities_0',['Philosophy and User Responsibilities',['../index.html#autotoc_md6',1,'']]],
+  ['utils_2ehpp_1',['utils.hpp',['../df/d93/utils_8hpp.html',1,'']]]
 ];
