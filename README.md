@@ -5,6 +5,7 @@
 [![Documentation](https://img.shields.io/badge/docs-doxygen-blue?style=flat&logo=github)](https://raphaelmayer.github.io/easys/)
 
 EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.
+
 **The library uses a static design approach**, requiring all component types to be registered at compile time through template parameters.
 
 **TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.
@@ -12,14 +13,14 @@ EasyS is a minimalist, header-only C++ library designed to streamline the develo
 
 ## Quick Start Guide
 
-The Easys::ECS class is the single public interface for EasyS. It provides all functionality for:
+The `Easys::ECS` class is the single public interface for EasyS. It provides all functionality for:
 
     Compile-time component registration
     Entity creation and management
     Component addition, removal, and querying
 	Logging
 
-All public operations are available as member functions. See the API Reference for a complete list and descriptions.
+All public operations are available as member functions. See the [API Reference](https://raphaelmayer.github.io/easys/) for a complete list and descriptions.
 This section will walk you through the basics of creating entities, adding components to them, and querying these components.
 
 ```
