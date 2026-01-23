@@ -9,6 +9,7 @@
 #include "entity.hpp"
 #include "log.hpp"
 #include "registry.hpp"
+#include "view.hpp"
 
 namespace Easys {
 
@@ -117,11 +118,22 @@ class ECS {
 	 * @brief Returns a reference to the set of all entities.
 	 * @return A constant reference to the set of all entities currently in the ECS.
 	 */
-	inline std::set<Entity> getEntities() const
+	//inline std::set<Entity> getEntities() const
+	//{
+	//	EASYS_LOG_ENTRY_EXIT;
+
+	//	return entities_;
+	//}
+
+	inline View getEntities() const
 	{
 		EASYS_LOG_ENTRY_EXIT;
 
-		return entities_;
+		std::vector<Entity> vec;
+		vec.reserve(entities_.size());
+		vec.assign(entities_.begin(), entities_.end());
+
+		return View(std::move(vec));
 	}
 
 	/**
@@ -130,12 +142,21 @@ class ECS {
 	 * @tparam Ts A variadic list of component types to query for.
 	 * @return A vector of entities that possess all specified components.
 	 */
+	//template <typename... Ts>
+	//inline std::vector<Entity> getEntities() const
+	//{
+	//	EASYS_LOG_ENTRY_EXIT;
+
+	//	// return View(registry_.template getEntities<Ts...>());
+	//	return registry_.template getEntities<Ts...>();
+	//}
+
 	template <typename... Ts>
-	inline std::vector<Entity> getEntities() const
+	inline View getEntities() const
 	{
 		EASYS_LOG_ENTRY_EXIT;
 
-		return registry_.template getEntities<Ts...>();
+		return View(std::move(registry_.template getEntities<Ts...>()));
 	}
 
 	/**
@@ -281,7 +302,7 @@ class ECS {
 	}
 
 	/**
-	 * @brief Retrieves a reference to a component of type T from an entity. 
+	 * @brief Retrieves a reference to a component of type T from an entity.
 	 * If the entity does not exist or does not have a component T, return c.
 	 * @tparam T The type of the component to retrieve.
 	 * @param e The entity whose component is to be retrieved.
@@ -301,7 +322,7 @@ class ECS {
 	}
 
 	/**
-	 * @brief Retrieves a reference to a component of type T from an entity. 
+	 * @brief Retrieves a reference to a component of type T from an entity.
 	 * If the entity does not exist or does not have a component T, return c.
 	 * @tparam T The type of the component to retrieve.
 	 * @param e The entity whose component is to be retrieved.

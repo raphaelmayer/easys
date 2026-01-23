@@ -24,6 +24,34 @@
 #endif
 
 /**
+ * @def EASYS_LOG_ENABLED
+ * @brief Master switch for all logging functionality.
+ * @details
+ * When set to `0`, all logging code is compiled out, regardless of
+ * log level or verbosity settings.
+ *
+ * @note Defaults to `0` (disabled).
+ */
+#ifndef EASYS_LOG_ENABLED
+#define EASYS_LOG_ENABLED 0
+#endif
+
+/**
+ * @def EASYS_LOG_VERBOSITY
+ * @brief Enables additional verbose logging output.
+ * @details
+ * This macro can be used to enable extended or diagnostic log output
+ * beyond standard severity-based filtering.
+ *
+ * The exact meaning of verbosity is implementation-defined.
+ *
+ * @note Defaults to `0` (disabled).
+ */
+#ifndef EASYS_LOG_VERBOSITY
+#define EASYS_LOG_VERBOSITY 0
+#endif
+
+/**
  * @def EASYS_LOG_LEVEL
  * @brief Sets the global logging level.
  * @details
@@ -67,32 +95,4 @@
  */
 #ifndef EASYS_LOG_FILE_PATH
 #define EASYS_LOG_FILE_PATH "easys_log.txt"
-#endif
-
-/**
- * @def EASYS_LOG_VERBOSITY
- * @brief Enables additional verbose logging output.
- * @details
- * This macro can be used to enable extended or diagnostic log output
- * beyond standard severity-based filtering.
- *
- * The exact meaning of verbosity is implementation-defined.
- *
- * @note Defaults to `0` (disabled).
- */
-#ifndef EASYS_LOG_VERBOSITY
-#define EASYS_LOG_VERBOSITY 0
-#endif
-
-/**
- * @def EASYS_LOG_ENABLED
- * @brief Master switch for all logging functionality.
- * @details
- * When set to `0`, all logging code is compiled out, regardless of
- * log level or verbosity settings.
- *
- * @note Defaults to `0` (disabled).
- */
-#ifndef EASYS_LOG_ENABLED
-#define EASYS_LOG_ENABLED 0
 #endif
