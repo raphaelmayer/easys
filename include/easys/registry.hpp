@@ -113,6 +113,13 @@ class Registry {
 		return entities;
 	}
 
+	//template <typename... ComponentTypes>
+	//const auto& smallestPool() const {
+	//	forEachComponentType<ComponentTypes...>([]<typename T>() {
+	//		    const size_t size = size<T>();
+	//		});
+	//}
+
 	template <typename... ComponentTypes>
 	inline size_t size() const
 	{

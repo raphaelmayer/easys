@@ -28,7 +28,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 		Entity entity = ecs.addEntity();
 		REQUIRE(entity != -1);
 		REQUIRE(ecs.getEntities().size() == 1);
-		REQUIRE(ecs.getEntities().find(entity) != ecs.getEntities().end());
+		REQUIRE(ecs.getEntities().contains(entity));
 	}
 
 	SECTION("Remove Entity")

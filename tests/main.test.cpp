@@ -4,3 +4,4 @@
 #include "ecs.test.cpp"
 #include "registry.test.cpp"
 #include "sparse_set.test.cpp"
+#include "view.test.cpp"
