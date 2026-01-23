@@ -76,12 +76,11 @@ $(function() {
 <div class="toc"><h3>Table of Contents</h3>
 <ul><ul><li class="level2"><a href="#autotoc_md0">Easys::ECS</a></li>
 <li class="level2"><a href="#autotoc_md1">Quick Start Guide</a></li>
-<li class="level2"><a href="#autotoc_md2">Configuration Options</a></li>
-<li class="level2"><a href="#autotoc_md3">Configuration Options</a><ul><li class="level3"><a href="#autotoc_md4">Customizing in Source Code</a></li>
-<li class="level3"><a href="#autotoc_md5">Customizing with Compiler Flags</a></li>
+<li class="level2"><a href="#autotoc_md2">Configuration Options</a><ul><li class="level3"><a href="#autotoc_md3">Customizing in Source Code</a></li>
+<li class="level3"><a href="#autotoc_md4">Customizing with Compiler Flags</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md6">Philosophy and User Responsibilities</a></li>
+<li class="level2"><a href="#autotoc_md5">Philosophy and User Responsibilities</a></li>
 </ul>
 </ul>
 </div>
@@ -98,8 +97,9 @@ Easys::ECS</h2>
 </li>
 <li>Component addition, removal, and querying <br  />
 </li>
+<li>Logging</li>
+<li>All public operations are available as member functions. See the API Reference for a complete list and descriptions.</li>
 </ul>
-<p>All public operations are available as member functions. See the API Reference for a complete list and descriptions.</p>
 <h2><a class="anchor" id="autotoc_md1"></a>
 Quick Start Guide</h2>
 <p>This basic example demonstrates how to create entities, add components, and retrieve them: </p><div class="fragment"><div class="line">#include &lt;easys/easys.hpp&gt;</div>
@@ -140,8 +140,6 @@ Quick Start Guide</h2>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>For more usage examples, take a look at the <a href="https://github.com/raphaelmayer/easys/blob/master/examples">examples</a>.</dd></dl>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Configuration Options</h2>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Configuration Options</h2>
 <p>EasyS provides a couple of overrideable macros to tailor the ECS to your use case:</p>
 <ul>
 <li><a class="el" href="d8/dfd/config_8hpp.html#a916c6483fbc40898514fb1c9371ed291">EASYS_ENTITY_TYPE</a> <br  />
@@ -163,17 +161,17 @@ Configuration Options</h2>
  (default: disabled)</li>
 </ul>
 <p>Define these macros <b>before</b> including EasyS, either in source or via compiler flags.</p>
-<h3><a class="anchor" id="autotoc_md4"></a>
+<h3><a class="anchor" id="autotoc_md3"></a>
 Customizing in Source Code</h3>
 <div class="fragment"><div class="line">#define EASYS_ENTITY_TYPE uint64_t // Change to 64-bit unsigned integer</div>
 <div class="line">#define EASYS_ENTITY_LIMIT 50000   // Increase entity limit</div>
 <div class="line">#include &lt;easys/easys.hpp&gt;         // Path to the configuration file</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md5"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
 Customizing with Compiler Flags</h3>
 <p><b>GCC/Clang</b> on Linux/macOS: </p><div class="fragment"><div class="line">g++ -DEASYS_ENTITY_TYPE=uint64_t -DEASYS_ENTITY_LIMIT=50000 -o my_app my_app.cpp</div>
 </div><!-- fragment --><p><b>MSVC</b> on Windows: </p><div class="fragment"><div class="line">cl /D EASYS_ENTITY_TYPE=uint64_t /D EASYS_ENTITY_LIMIT=50000 my_app.cpp</div>
 </div><!-- fragment --><p>Depending on your compiler and development environment the exact command might be slightly different.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Philosophy and User Responsibilities</h2>
 <dl class="section note"><dt>Note</dt><dd>Users are expected to:<ul>
 <li><b>Register all Components at Compile-Time:</b> All component types must be specified as template parameters when instantiating the ECS. Accessing a foreign component will result in a compiler error.</li>
