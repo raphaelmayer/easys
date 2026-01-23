@@ -56,10 +56,12 @@ class View {
 	auto end() const noexcept { return entities.end(); }
 
 	/**
-	 * @brief Access the internal vector of entities.
+	 * @brief Access the internal vector of entities. The view must outlive the returned vector, if passed by ref!.
 	 * @return const reference to the underlying vector
 	 */
-	const auto& data() const noexcept { return entities; }
+	const auto& data() const& noexcept { return entities; }
+	// Store the view, before accessing its internals!
+	const auto& data() && = delete;  // prevents dangling references
 
 	/**
 	 * @brief Number of entities in the view.
