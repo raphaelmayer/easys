@@ -15,7 +15,8 @@ The ```Easys::ECS``` class is the single public interface for EasyS. It provides
 - Compile-time component registration  
 - Entity creation and management  
 - Component addition, removal, and querying  
-
+- Logging
+- 
 All public operations are available as member functions. See the API Reference for a complete list and descriptions.
 
 ## Quick Start Guide
@@ -60,8 +61,6 @@ int main()
 ```
 
 \note For more usage examples, take a look at the [examples](https://github.com/raphaelmayer/easys/blob/master/examples).
-
-## Configuration Options
 
 ## Configuration Options
 
