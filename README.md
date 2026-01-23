@@ -5,8 +5,7 @@
 [![Documentation](https://img.shields.io/badge/docs-doxygen-blue?style=flat&logo=github)](https://raphaelmayer.github.io/easys/)
 
 EasyS is a minimalist, header-only C++ library designed to streamline the development of applications using the Entity Component System (ECS) architecture. With a focus on simplicity, flexibility, and ease of use, it offers developers an unopinionated foundation to build efficient, high-performance systems without the overhead of external dependencies.
-
-**The library now uses a static design approach**, requiring all component types to be registered at compile time through template parameters. This shift from runtime to compile-time registration improves performance, enables stronger type safety, and eliminates runtime type checks, while still maintaining a clean and lightweight API.
+**The library uses a static design approach**, requiring all component types to be registered at compile time through template parameters.
 
 **TLDR:** EasyS provides the essential tools to create, manage, and iterate on entities and components with minimal fuss.
 
@@ -90,9 +89,11 @@ You can also include individual headers, if you do not need all components:
 #include <easys/config.hpp>
 #include <easys/entity.hpp>
 #include <easys/ecs.hpp>
+#include <easys/utils.hpp>
+#include <easys/view.hpp>
 // Add other headers as needed
 ```
-Keep in mind, that `config.hpp` has to be included before any other EasyS headers.
+*Keep in mind, that `config.hpp` has to be included before any other EasyS headers.*
 
 ### Using CMake
 
