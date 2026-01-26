@@ -16,7 +16,8 @@ concept UnsignedIntegral = std::is_integral_v<T> && std::is_unsigned_v<T>;
 template <UnsignedIntegral Key, typename Value>
 class SparseSet {
    private:
-	static constexpr Key nullKey = std::numeric_limits<Key>::max();
+   // TODO: ideally we use 0 as nullkey
+	static constexpr Key nullKey = std::numeric_limits<Key>::max(); 
 	static constexpr Key maxKey = std::numeric_limits<Key>::max() - 1;
 
 	std::vector<Key> sparse;    // Large, indexed by keys
