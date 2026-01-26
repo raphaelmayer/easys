@@ -17,6 +17,7 @@ template <UnsignedIntegral Key, typename Value>
 class SparseSet {
    private:
 	static constexpr Key nullKey = std::numeric_limits<Key>::max();
+	static constexpr Key maxKey = std::numeric_limits<Key>::max() - 1;
 
 	std::vector<Key> sparse;    // Large, indexed by keys
 	std::vector<Key> dense;     // Compact, stores keys
@@ -28,10 +29,15 @@ class SparseSet {
 	// Ensure the sparse array can accommodate the given key
 	void accommodate(const Key key)
 	{
+		if (key > maxKey)
+		{
+			assert("Key exceeds the maximum size limit.");
+		}
+
 		if (key >= sparse.size())
 		{
-			size_t new_size = std::max(static_cast<size_t>(key + 1), sparse.size() * 2);
-			sparse.resize(new_size, nullKey);
+			size_t newSize = (key < maxKey / 2 - 1) ? key * 2 + 1 : maxKey;			
+			sparse.resize(newSize, nullKey);
 		}
 	}
 
@@ -84,26 +90,27 @@ class SparseSet {
 		return values[sparse[key]];
 	}
 
-	void remove(const Key key)
+	inline void remove(const Key key)
 	{
-		if (!contains(key)) return;
+		if (!contains(key))
+			return;
 
-		const Key index_of_removed = sparse[key];
-		const Key index_of_last = static_cast<Key>(dense.size() - 1);
-		const Key key_of_last = dense.back();
+		// Move the last value to the removed spot to keep dense packed	
+		Key indexOfRemoved = sparse[key];
+		values[indexOfRemoved] = std::move(values.back());
+		dense[indexOfRemoved] = dense.back();
 
-		if (index_of_removed != index_of_last)
-		{
-			values[index_of_removed] = std::move(values.back());
-			dense[index_of_removed] = key_of_last;
-			sparse[key_of_last] = index_of_removed;
-		}
+		// Update the sparse array for the moved key
+		sparse[dense.back()] = indexOfRemoved;
 
+		// Shrink the dense array and values
+		dense.pop_back();		
 		values.pop_back();
-		dense.pop_back();
-
+		
+		// Mark the key as not set
 		sparse[key] = nullKey;
 	}
+	
 
 	auto begin() noexcept { return values.begin(); }
 	auto end() noexcept { return values.end(); }
