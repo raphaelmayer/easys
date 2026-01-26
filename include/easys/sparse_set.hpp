@@ -50,7 +50,8 @@ class SparseSet {
 		{
 			values[sparse[key]] = Value(std::forward<Args>(args)...);
 			return values[sparse[key]];
-		} else
+		} 
+		else
 		{
 			sparse[key] = static_cast<Key>(dense.size());
 			dense.push_back(key);
@@ -72,6 +73,11 @@ class SparseSet {
 		if (!contains(key)) return nullptr;
 		return &values[sparse[key]];
 	}
+	Value& at(const Key key)
+	{
+		if (!contains(key)) throw std::out_of_range("Key not found in SparseSet.");
+		return values[sparse[key]];
+	}
 
 	inline const Value& operator[](const Key key) const
 	{
@@ -81,12 +87,6 @@ class SparseSet {
 	inline Value& operator[](const Key key)
 	{
 		assert(contains(key) && "SparseSet::operator[] Key not present");
-		return values[sparse[key]];
-	}
-
-	Value& at(const Key key)
-	{
-		if (!contains(key)) throw std::out_of_range("Key not found in SparseSet");
 		return values[sparse[key]];
 	}
 
@@ -111,21 +111,10 @@ class SparseSet {
 		sparse[key] = nullKey;
 	}
 	
-
 	auto begin() noexcept { return values.begin(); }
 	auto end() noexcept { return values.end(); }
 	const auto begin() const noexcept { return values.begin(); }
 	const auto end() const noexcept { return values.end(); }
-
-	// Iterate over all values Func(Entity, Component)
-	template <typename Func>
-	inline void forEach(Func&& f)
-	{
-		for (size_t i = 0; i < values.size(); ++i)
-		{
-			f(dense[i], values[i]);
-		}
-	}
 
 	bool empty() const noexcept { return dense.empty(); }
 	size_t size() const noexcept { return dense.size(); }
