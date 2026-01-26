@@ -62,10 +62,11 @@ int main()
 	}
 
 	// Attempting to access a component not present on an entity
-	try
+	if (ecs.hasComponent<Velocity>(secondEntity))
 	{
 		Velocity& secondVel = ecs.getComponent<Velocity>(secondEntity);  // This will throw an exception
-	} catch (const std::range_error)
+	} 
+	else
 	{
 		std::cout << "Second Entity does not have a Velocity component." << std::endl;
 	}
