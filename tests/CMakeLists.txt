@@ -32,6 +32,10 @@ add_test(NAME test COMMAND tests)
 # add_test(NAME test COMMAND tests)
 
 # benchmarks
-add_executable(benchmarks "ecs.benchmark.cpp")
-target_link_libraries(benchmarks PRIVATE ${PROJECT_NAME} Catch2::Catch2)
-add_test(NAME benchmark COMMAND benchmarks)
+add_executable(ecs_benchmark "ecs.benchmark.cpp")
+target_link_libraries(ecs_benchmark PRIVATE ${PROJECT_NAME} Catch2::Catch2)
+add_test(NAME ecs_benchmark COMMAND ecs_benchmark)
+
+add_executable(sparse_set_benchmark "sparse_set.benchmark.cpp")
+target_link_libraries(sparse_set_benchmark PRIVATE ${PROJECT_NAME} Catch2::Catch2)
+add_test(NAME sparse_set_benchmark COMMAND sparse_set_benchmark)
