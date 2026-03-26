@@ -273,5 +273,18 @@ TEST_CASE("ECS Tests", "[ECS]")
 		REQUIRE(ecs.addEntity() == 0);  // Check if all entity IDs are available again
 		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
 	}
+
+	SECTION("ECS works with non default constructible components")
+	{
+		struct Comp {
+			Comp() = delete;
+		};
+
+		// Comp comp; <= throws error: Call to deleted constructor
+
+		ECS<Comp> ecs; // <= but ecs can handle non-default constructible component types
+
+		REQUIRE(true);
+	}
 }
 }  // namespace ECS_TEST
