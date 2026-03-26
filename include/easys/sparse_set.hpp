@@ -3,165 +3,148 @@
 #include <algorithm>
 #include <cassert>
 #include <concepts>
-#include <iostream>
+#include <iterator>
 #include <limits>
-#include <string>
+#include <utility>
 #include <vector>
 
 namespace Easys {
 
-class KeyNotFoundException : public std::exception {
-   public:
-	KeyNotFoundException(const std::string& key) : msg_("KeyNotFoundException: " + key + " not found") {}
-
-	const char* what() const noexcept override { return msg_.c_str(); }
-
-   private:
-	std::string msg_;
-};
-
-// Since SparseSet uses std::vector internally and the key is used to index we want to make sure to only use natural
-// numbers. We could also use a map for the sparse container...
 template <typename T>
 concept UnsignedIntegral = std::is_integral_v<T> && std::is_unsigned_v<T>;
 
 template <UnsignedIntegral Key, typename Value>
 class SparseSet {
    private:
+   // TODO: ideally we use 0 as nullkey
+	static constexpr Key nullKey = std::numeric_limits<Key>::max(); 
+	static constexpr Key maxKey = std::numeric_limits<Key>::max() - 1;
+
 	std::vector<Key> sparse;    // Large, indexed by keys
 	std::vector<Key> dense;     // Compact, stores keys
 	std::vector<Value> values;  // Parallel to dense, stores values
 
    public:
+	SparseSet() = default;
+
 	// Ensure the sparse array can accommodate the given key
-	inline void accommodate(const Key key)
+	void accommodate(const Key key)
 	{
-		if (key >= maxSize())
+		if (key > maxKey)
 		{
-			// TODO: assert and logging should suffice
-			throw std::length_error("Key exceeds the maximum size limit.");
+			assert("Key exceeds the maximum size limit.");
 		}
 
 		if (key >= sparse.size())
 		{
-			size_t newSize = (key < maxSize() / 2 - 1) ? key * 2 + 1 : maxSize();
-			sparse.resize(newSize, std::numeric_limits<Key>::max());
+			size_t newSize = (key < maxKey / 2 - 1) ? key * 2 + 1 : maxKey;			
+			sparse.resize(newSize, nullKey);
 		}
 	}
 
-	// Associate a value with a key
-	inline void set(const Key key, const Value& value)
+	template <typename... Args>
+	Value& emplace(const Key key, Args&&... args)
 	{
 		accommodate(key);
 
-		if (sparse[key] == std::numeric_limits<Key>::max())
-		{  // max Key to indicate not set
-			sparse[key] = static_cast<Key>(values.size());
-			dense.push_back(key);
-			values.push_back(value);
-		} else
+		if (sparse[key] != nullKey)
 		{
-			values[sparse[key]] = value;  // Key already has a value, update it
+			values[sparse[key]] = Value(std::forward<Args>(args)...);
+			return values[sparse[key]];
+		} 
+		else
+		{
+			sparse[key] = static_cast<Key>(dense.size());
+			dense.push_back(key);
+			values.emplace_back(std::forward<Args>(args)...);
+			return values.back();
 		}
 	}
 
-	// move semantics overload
-	inline void set(const Key key, Value&& value)
-	{
-		accommodate(key);
+	inline void set(const Key key, const Value& value) { emplace(key, value); }
+	inline void set(const Key key, Value&& value) { emplace(key, std::move(value)); }
 
-		if (sparse[key] == std::numeric_limits<Key>::max())
-		{
-			sparse[key] = static_cast<Key>(values.size());
-			dense.push_back(key);
-			values.push_back(std::move(value));
-		} else
-		{
-			values[sparse[key]] = std::move(value);
-		}
+	Value* try_get(const Key key) noexcept
+	{
+		if (!contains(key)) return nullptr;
+		return &values[sparse[key]];
 	}
-
-	// Retrieve a value by key
-	inline const Value& get(const Key key) const
+	const Value* try_get(const Key key) const noexcept
 	{
-		if (!contains(key))
-		{
-			throw KeyNotFoundException(std::to_string(key));
-		}
+		if (!contains(key)) return nullptr;
+		return &values[sparse[key]];
+	}
+	Value& at(const Key key)
+	{
+		if (!contains(key)) throw std::out_of_range("Key not found in SparseSet.");
 		return values[sparse[key]];
 	}
 
-	// Retrieve a value by key
-	inline Value& get(const Key key)
+	inline const Value& operator[](const Key key) const
 	{
-		if (!contains(key))
-		{
-			throw KeyNotFoundException(std::to_string(key));
-		}
+		assert(contains(key) && "SparseSet::operator[] Key not present");
+		return values[sparse[key]];
+	}
+	inline Value& operator[](const Key key)
+	{
+		assert(contains(key) && "SparseSet::operator[] Key not present");
 		return values[sparse[key]];
 	}
 
-	inline const Value& operator[](const Key key) const { return values[sparse[key]]; }
-	inline Value& operator[](const Key key) { return values[sparse[key]]; }
-
-	// Remove a value associated with a key
 	inline void remove(const Key key)
 	{
-		if (contains(key))
-		{
-			// Move the last value to the removed spot to keep dense packed
-			Key indexOfRemoved = sparse[key];
-			values[indexOfRemoved] = values.back();
-			dense[indexOfRemoved] = dense.back();
+		if (!contains(key))
+			return;
 
-			// Update the sparse array for the moved key
-			sparse[dense.back()] = indexOfRemoved;
+		// Move the last value to the removed spot to keep dense packed	
+		Key indexOfRemoved = sparse[key];
+		values[indexOfRemoved] = std::move(values.back());
+		dense[indexOfRemoved] = dense.back();
 
-			// Shrink the dense array and values
-			dense.pop_back();
-			values.pop_back();
+		// Update the sparse array for the moved key
+		sparse[dense.back()] = indexOfRemoved;
 
-			// Mark the key as not set
-			sparse[key] = std::numeric_limits<Key>::max();
-		}
+		// Shrink the dense array and values
+		dense.pop_back();		
+		values.pop_back();
+		
+		// Mark the key as not set
+		sparse[key] = nullKey;
 	}
+	
+	auto begin() noexcept { return values.begin(); }
+	auto end() noexcept { return values.end(); }
+	const auto begin() const noexcept { return values.begin(); }
+	const auto end() const noexcept { return values.end(); }
 
-	// Iterate over all values
-	template <typename Func>
-	inline void forEach(Func&& f)
-	{
-		for (size_t i = 0; i < values.size(); ++i)
-		{
-			f(dense[i], values[i]);
-		}
-	}
-
-	constexpr bool contains(const Key key) const
-	{
-		return key < sparse.size() && sparse[key] != std::numeric_limits<Key>::max();
-	}
-
-	constexpr size_t capacity() const { return sparse.size(); }
-
-	constexpr size_t size() const { return dense.size(); }
+	bool empty() const noexcept { return dense.empty(); }
+	size_t size() const noexcept { return dense.size(); }
+	bool contains(const Key key) const noexcept { return key < sparse.size() && sparse[key] != nullKey; }
+	// Returns the capacity of the dense array (actual components)
+	size_t capacity() const noexcept { return dense.capacity(); }
+	// Returns the theoretical max size based on the sparse array size
+	size_t extent() const noexcept { return sparse.size(); }
 
 	inline const std::vector<Key>& getKeys() const { return dense; }
-
-	inline std::vector<Value>& getValues() { return values; }
-
 	inline const std::vector<Value>& getValues() const { return values; }
-
-	constexpr size_t maxSize() const noexcept
-	{
-		constexpr size_t maxKeyVal = static_cast<size_t>(std::numeric_limits<Key>::max());
-		return std::min({maxKeyVal, dense.max_size(), values.max_size()});
-	}
+	inline std::vector<Value>& getValues() { return values; }
 
 	inline void clear()
 	{
-		sparse.clear();
+		std::fill(sparse.begin(), sparse.end(), nullKey);
 		dense.clear();
 		values.clear();
+	}
+
+	void reserve(size_t capacity)
+	{
+		dense.reserve(capacity);
+		values.reserve(capacity);
+		// Sparse size is unpredictable, but we can guess based on expected max entity ID
+		if (sparse.size() < capacity)
+		{
+			sparse.resize(capacity, nullKey);
+		}
 	}
 };
 
