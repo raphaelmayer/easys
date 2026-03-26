@@ -99,27 +99,25 @@ void checkComponentTraits(bool verbose = false)
 		    if (verbose)
 		    {
 			    printf("  is_trivial: %s\n", std::is_trivial_v<T> ? "yes" : "no");
-			    printf("  is_trivially_copyable: %s\n", std::is_trivially_copyable_v<T> ? "yes" : "no");
+				printf("  is_trivially_copyable: %s\n", std::is_trivially_copyable_v<T> ? "yes" : "no");
 			    printf("  is_trivially_destructible: %s\n", std::is_trivially_destructible_v<T> ? "yes" : "no");
-
-			    // Construction/destruction
+				printf("  is_standard_layout: %s (memcpy safe)\n", std::is_standard_layout_v<T> ? "yes" : "no");
 			    printf("  is_default_constructible: %s\n", std::is_default_constructible_v<T> ? "yes" : "no");
-			    printf("  is_nothrow_default_constructible: %s\n",
+			    printf("  is_copy_assignable: %s\n", std::is_copy_assignable_v<T> ? "yes" : "no");
+			    printf("  is_move_assignable: %s\n", std::is_move_assignable_v<T> ? "yes" : "no");
+				
+				// nothrow
+				printf("  is_nothrow_default_constructible: %s\n",
 			           std::is_nothrow_default_constructible_v<T> ? "yes" : "no");
 			    printf("  is_nothrow_copy_constructible: %s\n", std::is_nothrow_copy_constructible_v<T> ? "yes" : "no");
 			    printf("  is_nothrow_move_constructible: %s\n", std::is_nothrow_move_constructible_v<T> ? "yes" : "no");
 			    printf("  is_nothrow_destructible: %s\n", std::is_nothrow_destructible_v<T> ? "yes" : "no");
-
-			    // Assignment
-			    printf("  is_copy_assignable: %s\n", std::is_copy_assignable_v<T> ? "yes" : "no");
-			    printf("  is_move_assignable: %s\n", std::is_move_assignable_v<T> ? "yes" : "no");
 			    printf("  is_nothrow_copy_assignable: %s\n", std::is_nothrow_copy_assignable_v<T> ? "yes" : "no");
 			    printf("  is_nothrow_move_assignable: %s\n", std::is_nothrow_move_assignable_v<T> ? "yes" : "no");
-
+				
 			    // Other important traits
 			    printf("  is_empty: %s (can use empty base optimization)\n", std::is_empty_v<T> ? "yes" : "no");
-			    printf("  is_standard_layout: %s (memcpy safe)\n", std::is_standard_layout_v<T> ? "yes" : "no");
-			    printf("  is_pod (deprecated): %s\n", std::is_pod_v<T> ? "yes" : "no");
+			    // printf("  is_pod (deprecated): %s\n", std::is_pod_v<T> ? "yes" : "no");
 			    printf("  has_unique_object_representations: %s (hashing)\n",
 			           std::has_unique_object_representations_v<T> ? "yes" : "no");
 
