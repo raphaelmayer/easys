@@ -107,9 +107,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4fd896b3b3c4ac4f8f87d107e40f01fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68c6e2ad29f11271eca88bfad7bbd41f" id="r_a68c6e2ad29f11271eca88bfad7bbd41f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d75/classEasys_1_1View.html#a68c6e2ad29f11271eca88bfad7bbd41f">end</a> () const noexcept</td></tr>
 <tr class="separator:a68c6e2ad29f11271eca88bfad7bbd41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5669f4a733133b5144d1157f1e388b6" id="r_ae5669f4a733133b5144d1157f1e388b6"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d75/classEasys_1_1View.html#ae5669f4a733133b5144d1157f1e388b6">data</a> () const noexcept</td></tr>
-<tr class="memdesc:ae5669f4a733133b5144d1157f1e388b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the internal vector of entities.  <br /></td></tr>
-<tr class="separator:ae5669f4a733133b5144d1157f1e388b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdccc50607eacbf67580084341e4c2d5" id="r_afdccc50607eacbf67580084341e4c2d5"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d75/classEasys_1_1View.html#afdccc50607eacbf67580084341e4c2d5">data</a> () const &amp;noexcept</td></tr>
+<tr class="memdesc:afdccc50607eacbf67580084341e4c2d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the internal vector of entities. The view must outlive the returned vector, if passed by ref!.  <br /></td></tr>
+<tr class="separator:afdccc50607eacbf67580084341e4c2d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a753ad0a4821f0db7da41904a17589caa" id="r_a753ad0a4821f0db7da41904a17589caa"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d75/classEasys_1_1View.html#a753ad0a4821f0db7da41904a17589caa">data</a> () &amp;&amp;=delete</td></tr>
+<tr class="separator:a753ad0a4821f0db7da41904a17589caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a059bdf2a0298b29ed047bd9fce9a14e5" id="r_a059bdf2a0298b29ed047bd9fce9a14e5"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d75/classEasys_1_1View.html#a059bdf2a0298b29ed047bd9fce9a14e5">size</a> () const noexcept</td></tr>
 <tr class="memdesc:a059bdf2a0298b29ed047bd9fce9a14e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entities in the view.  <br /></td></tr>
 <tr class="separator:a059bdf2a0298b29ed047bd9fce9a14e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,7 +133,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><span class="keywordflow">if</span>(view.<a class="code hl_function" href="../../d9/d75/classEasys_1_1View.html#aa040a9261f84116475809b83e38667fa">contains</a>(playerEntity)) { ... }</div>
 <div class="line"><span class="keywordflow">for</span>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Entity</a> &amp;e : view) { ... }</div>
 <div class="ttc" id="aclassEasys_1_1View_html"><div class="ttname"><a href="../../d9/d75/classEasys_1_1View.html">Easys::View</a></div><div class="ttdoc">A lightweight, read-only snapshot of a set of entities.</div><div class="ttdef"><b>Definition</b> view.hpp:30</div></div>
-<div class="ttc" id="aclassEasys_1_1View_html_aa040a9261f84116475809b83e38667fa"><div class="ttname"><a href="../../d9/d75/classEasys_1_1View.html#aa040a9261f84116475809b83e38667fa">Easys::View::contains</a></div><div class="ttdeci">bool contains(Entity e) const noexcept</div><div class="ttdoc">Checks if the view contains the given entity.</div><div class="ttdef"><b>Definition</b> view.hpp:88</div></div>
+<div class="ttc" id="aclassEasys_1_1View_html_aa040a9261f84116475809b83e38667fa"><div class="ttname"><a href="../../d9/d75/classEasys_1_1View.html#aa040a9261f84116475809b83e38667fa">Easys::View::contains</a></div><div class="ttdeci">bool contains(Entity e) const noexcept</div><div class="ttdoc">Checks if the view contains the given entity.</div><div class="ttdef"><b>Definition</b> view.hpp:90</div></div>
 <div class="ttc" id="anamespaceEasys_html_a2cb67a74fe7dc55d599dac2eafad0305"><div class="ttname"><a href="../../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305">Easys::Entity</a></div><div class="ttdeci">EASYS_ENTITY_TYPE Entity</div><div class="ttdef"><b>Definition</b> entity.hpp:11</div></div>
 </div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1cda846993761d3d78605362fb2cc327" name="a1cda846993761d3d78605362fb2cc327"></a>
@@ -307,8 +309,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae5669f4a733133b5144d1157f1e388b6" name="ae5669f4a733133b5144d1157f1e388b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5669f4a733133b5144d1157f1e388b6">&#9670;&#160;</a></span>data()</h2>
+<a id="a753ad0a4821f0db7da41904a17589caa" name="a753ad0a4821f0db7da41904a17589caa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a753ad0a4821f0db7da41904a17589caa">&#9670;&#160;</a></span>data() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +322,32 @@ Public Member Functions</h2></td></tr>
           <td class="memname">const auto &amp; Easys::View::data </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td> &amp;&amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdccc50607eacbf67580084341e4c2d5" name="afdccc50607eacbf67580084341e4c2d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdccc50607eacbf67580084341e4c2d5">&#9670;&#160;</a></span>data() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const auto &amp; Easys::View::data </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
         </tr>
       </table>
   </td>
@@ -330,7 +357,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Access the internal vector of entities. </p>
+<p>Access the internal vector of entities. The view must outlive the returned vector, if passed by ref!. </p>
 <dl class="section return"><dt>Returns</dt><dd>const reference to the underlying vector </dd></dl>
 
 </div>

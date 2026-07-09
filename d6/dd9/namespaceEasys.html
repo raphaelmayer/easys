@@ -91,8 +91,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html">ECS</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages entities and components in an Entity-Component-System architecture.  <a href="../../d9/d50/classEasys_1_1ECS.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dba/classEasys_1_1KeyNotFoundException.html">KeyNotFoundException</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d59/classEasys_1_1Registry.html">Registry</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d28/classEasys_1_1SparseSet.html">SparseSet</a></td></tr>
@@ -115,7 +113,7 @@ Typedefs</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a47a2ecef9f74b1ba1e127a4cc393cde7" id="r_a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
 <tr class="memitem:a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d6/dd9/namespaceEasys.html#a47a2ecef9f74b1ba1e127a4cc393cde7">checkComponentTraits</a> (bool verbose=false)</td></tr>
-<tr class="memdesc:a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates component types for <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> (Entity Component System) compatibility and performance.  <br /></td></tr>
+<tr class="memdesc:a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> component types for performance, safety, and memory efficiency.  <br /></td></tr>
 <tr class="separator:a47a2ecef9f74b1ba1e127a4cc393cde7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -157,23 +155,34 @@ template&lt;typename... Ts&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Validates component types for <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> (Entity Component System) compatibility and performance. </p>
-<p>Analyzes compile-time traits of all components Ts. When verbose, shows detailed type traits; otherwise shows only size, alignment, and optimization status.</p>
-<p>Critical checks:</p><ul>
-<li>Trivially copyable (memcpy moves between archetypes)</li>
-<li>Trivially destructible (batch destruction)</li>
-<li>Standard layout (predictable memory layout)</li>
-<li>Reasonable size/alignment (cache efficiency)</li>
+<p>Evaluates <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> component types for performance, safety, and memory efficiency. </p>
+<p>Performs a compile-time analysis of each component in Ts and assigns a practical <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> suitability grade (A–D), along with key metrics such as size, alignment, cache friendliness, and relocation characteristics.</p>
+<p>Non-verbose mode provides a concise summary:</p><ul>
+<li>Overall grade (A = ideal, D = problematic)</li>
+<li>Memory footprint and chunk density</li>
+<li>Key flags (e.g. memcpy-safe, relocatable, cache-friendly, pointer usage)</li>
+<li>Warnings for common <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> pitfalls</li>
+</ul>
+<p>Verbose mode includes a detailed breakdown of relevant type traits and derived properties for deeper inspection.</p>
+<p>Core evaluation criteria:</p><ul>
+<li>Trivially copyable &amp; destructible (safe for bulk memory operations)</li>
+<li>Relocatability (safe movement during storage reorganization)</li>
+<li>Cache friendliness (fits within typical cache line size)</li>
+<li>Absence of raw pointers (may indicate lifetime/serialization risks)</li>
+</ul>
+<p>Notes:</p><ul>
+<li>The analysis is heuristic-based and reflects practical <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a> constraints, not strict correctness requirements.</li>
+<li>Components with pointers or non-trivial lifetimes are not inherently invalid, but require careful design consideration.</li>
 </ul>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Ts</td><td>Component types to validate </td></tr>
+    <tr><td class="paramname">Ts</td><td>Component types to evaluate </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">verbose</td><td>Enable detailed diagnostic output </td></tr>
+    <tr><td class="paramname">verbose</td><td>If true, prints detailed trait-level diagnostics </td></tr>
   </table>
   </dd>
 </dl>

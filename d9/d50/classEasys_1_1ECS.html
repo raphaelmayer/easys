@@ -104,11 +104,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8010729e9e92bc6de3dacee5f50ec8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an entity exists within the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>.  <br /></td></tr>
 <tr class="separator:a8010729e9e92bc6de3dacee5f50ec8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a972d00bc9ef630c1b0343917af8b157f" id="r_a972d00bc9ef630c1b0343917af8b157f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d75/classEasys_1_1View.html">View</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a972d00bc9ef630c1b0343917af8b157f">getEntities</a> () const</td></tr>
-<tr class="memdesc:a972d00bc9ef630c1b0343917af8b157f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the set of all entities.  <br /></td></tr>
+<tr class="memdesc:a972d00bc9ef630c1b0343917af8b157f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a view of all entities currently registered in the ecs.  <br /></td></tr>
 <tr class="separator:a972d00bc9ef630c1b0343917af8b157f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a166b7abccb93adf5b3e607da60966496" id="r_a166b7abccb93adf5b3e607da60966496"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
 <tr class="memitem:a166b7abccb93adf5b3e607da60966496"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d9/d75/classEasys_1_1View.html">View</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a166b7abccb93adf5b3e607da60966496">getEntities</a> () const</td></tr>
-<tr class="memdesc:a166b7abccb93adf5b3e607da60966496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of entities that have all of the specified component types. Use smaller components first for optimal performance.  <br /></td></tr>
+<tr class="memdesc:a166b7abccb93adf5b3e607da60966496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a view of entities that have all of the specified component types. Use smaller components first for optimal performance.  <br /></td></tr>
 <tr class="separator:a166b7abccb93adf5b3e607da60966496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a438a8c8a19215825a3a7597c1ce6a602" id="r_a438a8c8a19215825a3a7597c1ce6a602"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d50/classEasys_1_1ECS.html#a438a8c8a19215825a3a7597c1ce6a602">getEntityCount</a> () const</td></tr>
 <tr class="memdesc:a438a8c8a19215825a3a7597c1ce6a602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of active entities in the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>.  <br /></td></tr>
@@ -767,8 +767,8 @@ template&lt;typename... AllComponentTypes&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the set of all entities. </p>
-<dl class="section return"><dt>Returns</dt><dd>A constant reference to the set of all entities currently in the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>. </dd></dl>
+<p>Returns a view of all entities currently registered in the ecs. </p>
+<dl class="section return"><dt>Returns</dt><dd>A view of all entities currently in the <a class="el" href="../../d9/d50/classEasys_1_1ECS.html" title="Manages entities and components in an Entity-Component-System architecture.">ECS</a>. </dd></dl>
 
 </div>
 </div>
@@ -799,14 +799,14 @@ template&lt;typename... Ts&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a vector of entities that have all of the specified component types. Use smaller components first for optimal performance. </p>
+<p>Returns a view of entities that have all of the specified component types. Use smaller components first for optimal performance. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Ts</td><td>A variadic list of component types to query for. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A vector of entities that possess all specified components. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A view of entities that possess all specified components. </dd></dl>
 
 </div>
 </div>

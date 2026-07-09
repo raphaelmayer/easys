@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['registry_0',['Registry',['../da/d59/classEasys_1_1Registry.html',1,'Easys']]],
-  ['registry_3c_20allcomponenttypes_2e_2e_2e_20_3e_1',['Registry&lt; AllComponentTypes... &gt;',['../da/d59/classEasys_1_1Registry.html',1,'Easys']]]
+  ['source_5flocation_0',['source_location',['../d9/df7/structEasys_1_1log_1_1source__location.html',1,'Easys::log']]],
+  ['sparseset_1',['SparseSet',['../d6/d28/classEasys_1_1SparseSet.html',1,'Easys']]]
 ];

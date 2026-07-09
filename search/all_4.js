@@ -29,9 +29,11 @@ var searchData=
   ['easys_5ftrace_26',['EASYS_TRACE',['../de/d5d/namespaceEasys_1_1log.html#a8eb079afe6053c5a0241d68668da1675a17595083c3468762c71e77335b2615a6',1,'Easys::log']]],
   ['ecs_27',['ecs',['../d9/d50/classEasys_1_1ECS.html',1,'Easys::ECS&lt; AllComponentTypes &gt;'],['../d9/d50/classEasys_1_1ECS.html#ab5cf98a18326ac9ca466e15024d1bd2f',1,'Easys::ECS::ECS()'],['../d9/d50/classEasys_1_1ECS.html#a73c4ad5a0fc5d3569310ec905643fe40',1,'Easys::ECS::ECS(const std::set&lt; Entity &gt; &amp;oldEntities)']]],
   ['ecs_2ehpp_28',['ecs.hpp',['../de/d8c/ecs_8hpp.html',1,'']]],
-  ['empty_29',['empty',['../d9/d75/classEasys_1_1View.html#a68711bf891b01f4b9639f73aa6331269',1,'Easys::View']]],
-  ['end_30',['end',['../d9/d75/classEasys_1_1View.html#add837f0e5e941459a7041fd9ebd60455',1,'Easys::View::end() noexcept'],['../d9/d75/classEasys_1_1View.html#a68c6e2ad29f11271eca88bfad7bbd41f',1,'Easys::View::end() const noexcept']]],
-  ['entity_31',['Entity',['../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305',1,'Easys']]],
-  ['entity_2ehpp_32',['entity.hpp',['../db/de2/entity_8hpp.html',1,'']]],
-  ['entryexitlogger_33',['entryexitlogger',['../df/d23/classEasys_1_1log_1_1EntryExitLogger.html',1,'Easys::log::EntryExitLogger'],['../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#af43da61b0a478cb03df31c06c825ea0b',1,'Easys::log::EntryExitLogger::EntryExitLogger()']]]
+  ['emplace_29',['emplace',['../d6/d28/classEasys_1_1SparseSet.html#a5ecd46155bca089112e7d8ef24e817aa',1,'Easys::SparseSet']]],
+  ['empty_30',['empty',['../d9/d75/classEasys_1_1View.html#a68711bf891b01f4b9639f73aa6331269',1,'Easys::View::empty()'],['../d6/d28/classEasys_1_1SparseSet.html#a045e126908ae837948dbbe02e1b5cb58',1,'Easys::SparseSet::empty()']]],
+  ['end_31',['end',['../d9/d75/classEasys_1_1View.html#a68c6e2ad29f11271eca88bfad7bbd41f',1,'Easys::View::end() const noexcept'],['../d9/d75/classEasys_1_1View.html#add837f0e5e941459a7041fd9ebd60455',1,'Easys::View::end() noexcept'],['../d6/d28/classEasys_1_1SparseSet.html#afc7aeaf1255dffb0456c0c6ccc72c932',1,'Easys::SparseSet::end() const noexcept'],['../d6/d28/classEasys_1_1SparseSet.html#a2bfd34dac44bea574d0a8d77983a2d58',1,'Easys::SparseSet::end() noexcept']]],
+  ['entity_32',['Entity',['../d6/dd9/namespaceEasys.html#a2cb67a74fe7dc55d599dac2eafad0305',1,'Easys']]],
+  ['entity_2ehpp_33',['entity.hpp',['../db/de2/entity_8hpp.html',1,'']]],
+  ['entryexitlogger_34',['entryexitlogger',['../df/d23/classEasys_1_1log_1_1EntryExitLogger.html#af43da61b0a478cb03df31c06c825ea0b',1,'Easys::log::EntryExitLogger::EntryExitLogger()'],['../df/d23/classEasys_1_1log_1_1EntryExitLogger.html',1,'Easys::log::EntryExitLogger']]],
+  ['extent_35',['extent',['../d6/d28/classEasys_1_1SparseSet.html#ac6c26728f932412c20cabb403813e845',1,'Easys::SparseSet']]]
 ];

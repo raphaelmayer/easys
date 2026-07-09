@@ -175,7 +175,7 @@ Customizing with Compiler Flags</h3>
 Philosophy and User Responsibilities</h2>
 <dl class="section note"><dt>Note</dt><dd>Users are expected to:<ul>
 <li><b>Register all Components at Compile-Time:</b> All component types must be specified as template parameters when instantiating the ECS. Accessing a foreign component will result in a compiler error.</li>
-<li><b>Check Component Presence Before Access:</b> Always verify that an entity has a given component before accessing it. Calling <code><a class="el" href="d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69" title="Retrieves a reference to a component of type T from an entity.">Easys::ECS::getComponent</a>&lt;T&gt;(entity)</code> on an entity that lacks <code>T</code> will throw a <code><a class="el" href="d6/dba/classEasys_1_1KeyNotFoundException.html">Easys::KeyNotFoundException</a></code>. </li>
+<li><b>Check Component Presence Before Access:</b> Always verify that an entity has a given component before accessing it. Calling <code><a class="el" href="d9/d50/classEasys_1_1ECS.html#a6c58ba65fd96a9977c4a7284c1fdaf69" title="Retrieves a reference to a component of type T from an entity.">Easys::ECS::getComponent</a>&lt;T&gt;(entity)</code> on an entity that lacks <code>T</code> will throw a <code>Easys::KeyNotFoundException</code>. </li>
 </ul>
 </dd></dl>
 </div></div><!-- PageDoc -->
