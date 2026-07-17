@@ -28,7 +28,7 @@ class ECS {
 	{
 		EASYS_LOG_ENTRY_EXIT;
 
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		for (Entity entity = 1; entity < MAX_ENTITIES; entity++)
 		{
 			availableEntityIds_.push(entity);
 		}
@@ -47,12 +47,13 @@ class ECS {
 		// I decided against an addEntity(Entity) method to discourage
 		// tampering with entities too much. I think this really should be the ECS's
 		// responsibility.
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		for (Entity entity = 1; entity < MAX_ENTITIES; entity++)
 		{
 			if (oldEntities.contains(entity))
 			{
 				entities_.insert(entity);
-			} else
+			} 
+			else
 			{
 				availableEntityIds_.push(entity);
 			}
