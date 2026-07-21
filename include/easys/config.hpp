@@ -5,7 +5,7 @@
 /**
  * @def EASYS_ENTITY_TYPE
  * @brief Defines the underlying data type for an Entity ID.
- * @details This can be overridden by the user to use a different integer type,
+ * @details This can be overridden by the user to use a different unsigned integer type,
  * for example, `uint64_t` for a larger entity count. Defaults to `uint32_t`.
  */
 #ifndef EASYS_ENTITY_TYPE

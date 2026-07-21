@@ -28,7 +28,11 @@ class ECS {
 	{
 		EASYS_LOG_ENTRY_EXIT;
 
-		for (Entity entity = 1; entity < MAX_ENTITIES; entity++)
+		EASYS_LOG_INFO("Max entities: " + EASYS_E_STR(MAX_ENTITIES));
+		EASYS_LOG_INFO("Null entity: " + EASYS_E_STR(NULL_ENTITY));
+		static_assert(MAX_ENTITIES < NULL_ENTITY, "MAX_ENTITIES must be less than NULL_ENTITY to avoid ID collision");
+
+		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 		{
 			availableEntityIds_.push(entity);
 		}
@@ -52,8 +56,7 @@ class ECS {
 			if (oldEntities.contains(entity))
 			{
 				entities_.insert(entity);
-			} 
-			else
+			} else
 			{
 				availableEntityIds_.push(entity);
 			}

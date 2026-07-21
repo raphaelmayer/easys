@@ -20,7 +20,10 @@ TEST_CASE("ECS Tests", "[ECS]")
 {
 	ECS<ECS_TEST_COMPTYPES> ecs;
 
-	// TODO: test constructors
+	SECTION("ECS ctor")
+	{
+		REQUIRE(MAX_ENTITIES < NULL_ENTITY);
+	}
 
 	SECTION("Add Entity")
 	{
@@ -65,11 +68,11 @@ TEST_CASE("ECS Tests", "[ECS]")
 		Entity entity = ecs.addEntity();
 		Entity entity2 = ecs.addEntity();
 		ecs.addComponent<TestComponent>(entity, {20});
-		
+
 		REQUIRE(ecs.getComponentOr<TestComponent>(entity, {123}).data == 20);
 		REQUIRE(ecs.getComponentOr<AnotherComponent>(entity, {321}).value == 321);
 		REQUIRE(ecs.getComponentOr<TestComponent>(entity2, {123}).data == 123);
-		
+
 		// this currently works with an invalid entity and it probably should not.
 		Entity invalidEntity = 666;  // never registered!
 		REQUIRE(ecs.getComponentOr<TestComponent>(invalidEntity, {123}).data == 123);
@@ -282,7 +285,7 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 		// Comp comp; <= throws error: Call to deleted constructor
 
-		ECS<Comp> ecs; // <= but ecs can handle non-default constructible component types
+		ECS<Comp> ecs;  // <= but ecs can handle non-default constructible component types
 
 		REQUIRE(true);
 	}
