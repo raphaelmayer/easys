@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['value_0',['value',['../d6/d4e/structEasys_1_1log_1_1is__enabled.html#a6f5b9ccce3c85b4ddbf85cc29d20db34',1,'Easys::log::is_enabled']]]
+  ['null_5fentity_0',['NULL_ENTITY',['../d6/dd9/namespaceEasys.html#aca820d8e0ca7688755001e5a4ab4a0dd',1,'Easys']]]
 ];

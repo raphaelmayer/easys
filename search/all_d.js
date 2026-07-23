@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quick_20start_20guide_0',['Quick Start Guide',['../index.html#autotoc_md1',1,'']]]
+  ['philosophy_20and_20user_20responsibilities_0',['Philosophy and User Responsibilities',['../index.html#autotoc_md5',1,'']]]
 ];
