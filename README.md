@@ -15,16 +15,16 @@ EasyS is a minimalist, header-only C++ library designed to streamline the develo
 
 The `Easys::ECS` class is the single public interface for EasyS. It provides all functionality for:
 
-    Compile-time component registration
-    Entity creation and management
-    Component addition, removal, and querying
-	Logging
+- Compile-time component registration
+- Entity creation and management
+- Component addition, removal, and querying
+- Logging
 
 All public operations are available as member functions. See the [API Reference](https://raphaelmayer.github.io/easys/) for a complete list and descriptions.
 
 This section will walk you through the basics of creating entities, adding components to them, and querying these components.
 
-```
+```cpp
 #include <easys/easys.hpp>
 #include <iostream>
 
@@ -167,7 +167,7 @@ Define these macros **before** including EasyS, either in source or via compiler
 
 ### Customizing in Source Code
 
-```
+```cpp
 #define EASYS_ENTITY_TYPE uint64_t // Change to 64-bit unsigned integer
 #define EASYS_ENTITY_LIMIT 50000   // Increase entity limit
 #include <easys/easys.hpp>         // Path to the configuration file

@@ -28,6 +28,10 @@ class ECS {
 	{
 		EASYS_LOG_ENTRY_EXIT;
 
+		EASYS_LOG_INFO("Max entities: " + EASYS_E_STR(MAX_ENTITIES));
+		EASYS_LOG_INFO("Null entity: " + EASYS_E_STR(NULL_ENTITY));
+		static_assert(MAX_ENTITIES < NULL_ENTITY, "MAX_ENTITIES must be less than NULL_ENTITY to avoid ID collision");
+
 		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
 		{
 			availableEntityIds_.push(entity);
@@ -47,7 +51,7 @@ class ECS {
 		// I decided against an addEntity(Entity) method to discourage
 		// tampering with entities too much. I think this really should be the ECS's
 		// responsibility.
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		for (Entity entity = 1; entity < MAX_ENTITIES; entity++)
 		{
 			if (oldEntities.contains(entity))
 			{
@@ -115,16 +119,9 @@ class ECS {
 	}
 
 	/**
-	 * @brief Returns a reference to the set of all entities.
-	 * @return A constant reference to the set of all entities currently in the ECS.
+	 * @brief Returns a view of all entities currently registered in the ecs.
+	 * @return A view of all entities currently in the ECS.
 	 */
-	//inline std::set<Entity> getEntities() const
-	//{
-	//	EASYS_LOG_ENTRY_EXIT;
-
-	//	return entities_;
-	//}
-
 	inline View getEntities() const
 	{
 		EASYS_LOG_ENTRY_EXIT;
@@ -137,20 +134,11 @@ class ECS {
 	}
 
 	/**
-	 * @brief Returns a vector of entities that have all of the specified component types. Use smaller components first
+	 * @brief Returns a view of entities that have all of the specified component types. Use smaller components first
 	 * for optimal performance.
 	 * @tparam Ts A variadic list of component types to query for.
-	 * @return A vector of entities that possess all specified components.
+	 * @return A view of entities that possess all specified components.
 	 */
-	//template <typename... Ts>
-	//inline std::vector<Entity> getEntities() const
-	//{
-	//	EASYS_LOG_ENTRY_EXIT;
-
-	//	// return View(registry_.template getEntities<Ts...>());
-	//	return registry_.template getEntities<Ts...>();
-	//}
-
 	template <typename... Ts>
 	inline View getEntities() const
 	{
