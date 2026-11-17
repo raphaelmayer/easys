@@ -5,6 +5,6 @@ var searchData=
   ['source_20code_2',['Customizing in Source Code',['../index.html#autotoc_md3',1,'']]],
   ['source_5flocation_3',['source_location',['../d9/df7/structEasys_1_1log_1_1source__location.html',1,'Easys::log::source_location'],['../d9/df7/structEasys_1_1log_1_1source__location.html#ae9fd3533f1c1c369c697368f7840e05f',1,'Easys::log::source_location::source_location(std::string_view file, std::uint32_t line, std::string_view funcSig, std::string_view funcName) noexcept'],['../d9/df7/structEasys_1_1log_1_1source__location.html#a6b3c64be98a08c71909ca2ab629509cc',1,'Easys::log::source_location::source_location(std::string_view funcName, std::source_location l=std::source_location::current()) noexcept']]],
   ['sparse_5fset_2ehpp_4',['sparse_set.hpp',['../d4/d0b/sparse__set_8hpp.html',1,'']]],
-  ['sparseset_5',['sparseset',['../d6/d28/classEasys_1_1SparseSet.html',1,'Easys::SparseSet&lt; Key, Value &gt;'],['../d6/d28/classEasys_1_1SparseSet.html#a96c00f1c9c28d562a08b25eb3447e906',1,'Easys::SparseSet::SparseSet()']]],
+  ['sparseset_5',['SparseSet',['../d6/d28/classEasys_1_1SparseSet.html',1,'Easys::SparseSet&lt; Key, Value &gt;'],['../d6/d28/classEasys_1_1SparseSet.html#a96c00f1c9c28d562a08b25eb3447e906',1,'Easys::SparseSet::SparseSet()']]],
   ['start_20guide_6',['Quick Start Guide',['../index.html#autotoc_md1',1,'']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['user_20responsibilities_0',['Philosophy and User Responsibilities',['../index.html#autotoc_md5',1,'']]],
-  ['utils_2ehpp_1',['utils.hpp',['../df/d93/utils_8hpp.html',1,'']]]
+  ['unsignedintegral_0',['UnsignedIntegral',['../d6/d8c/conceptEasys_1_1UnsignedIntegral.html',1,'Easys']]],
+  ['user_20responsibilities_1',['Philosophy and User Responsibilities',['../index.html#autotoc_md5',1,'']]],
+  ['utils_2ehpp_2',['utils.hpp',['../df/d93/utils_8hpp.html',1,'']]]
 ];
