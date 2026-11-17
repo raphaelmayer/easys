@@ -1,11 +1,21 @@
 #define CATCH_CONFIG_RUNNER
 
-#define EASYS_ENTITY_LIMIT 1000000
+/*
+To use catch2's BENCHMARK:
+1. replace #define CATCH_CONFIG_RUNNER with #define CATCH_CONFIG_MAIN
+2. Enable benchmarking: #define CATCH_CONFIG_ENABLE_BENCHMARKING
+3. Put BENCHMARK(sectionName.c_str()){ return func(); }; into benchmarkSection()
+*/
+// #define CATCH_CONFIG_MAIN
+// #define CATCH_CONFIG_ENABLE_BENCHMARKING
+
+#define EASYS_ENTITY_LIMIT 1000
 
 #include <catch2/catch.hpp>
 #include <chrono>
 #include <easys/ecs.hpp>
 #include <easys/entity.hpp>
+#include "common.hpp"
 
 #define NUM_ENT Easys::MAX_ENTITIES  // number of entities
 #define NUM_COM 1                    // number of components per entity
@@ -68,22 +78,6 @@ std::string formatEntCompInfo(const std::string functionName, const int numEntit
 	oss << functionName << "(): e: " << numEntities << ", c: " << numComponents * numEntities
 	    << ", c/e: " << numComponents;
 	return oss.str();
-}
-
-// This function is a helper to run benchmarks. It  that takes a lambda function as an argument.
-// This lambda function will contain the code to benchmark.
-template <typename Func>
-void benchmarkSection(Func func, const std::string& sectionName)
-{
-	auto start = std::chrono::high_resolution_clock::now();
-
-	func();  // Execute the lambda function
-
-	auto end = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double, std::milli> elapsed = end - start;
-
-	// CAPTURE(sectionName, elapsed.count());
-	SUCCEED("Benchmark completed for " + sectionName + ": " + std::to_string(elapsed.count()) + " ms");
 }
 
 TEST_CASE("ECS Benchmark", "[ECS]")

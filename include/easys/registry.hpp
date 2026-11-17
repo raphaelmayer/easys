@@ -59,16 +59,14 @@ class Registry {
 	inline ComponentType& getComponent(const Entity entity)
 	{
 		auto& componentSet = getComponentSet<ComponentType>();
-		// could be optimized with direct access. get() calls contains() internally
-		return componentSet.get(entity);
+		return componentSet[entity];
 	}
 
 	template <typename ComponentType>
 	inline const ComponentType& getComponent(const Entity entity) const
 	{
 		const auto& componentSet = getComponentSet<ComponentType>();
-		// could be optimized with direct access. get() calls contains() internally
-		return componentSet.get(entity);
+		return componentSet[entity];
 	}
 
 	template <typename ComponentType>

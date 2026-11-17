@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdio>
 #include <string>
@@ -69,78 +69,138 @@ const char* type_name()
 
 namespace Easys {
 /**
- * @brief Validates component types for ECS (Entity Component System) compatibility and performance.
+ * @brief Evaluates ECS component types for performance, safety, and memory efficiency.
  *
- * Analyzes compile-time traits of all components Ts.
- * When verbose, shows detailed type traits; otherwise shows only
- * size, alignment, and optimization status.
+ * Performs a compile-time analysis of each component in Ts and assigns a
+ * practical ECS suitability grade (A–D), along with key metrics such as size,
+ * alignment, cache friendliness, and relocation characteristics.
  *
- * Critical checks:
- * - Trivially copyable (memcpy moves between archetypes)
- * - Trivially destructible (batch destruction)
- * - Standard layout (predictable memory layout)
- * - Reasonable size/alignment (cache efficiency)
+ * Non-verbose mode provides a concise summary:
+ * - Overall grade (A = ideal, D = problematic)
+ * - Memory footprint and chunk density
+ * - Key flags (e.g. memcpy-safe, relocatable, cache-friendly, pointer usage)
+ * - Warnings for common ECS pitfalls
  *
- * @tparam Ts Component types to validate
- * @param verbose Enable detailed diagnostic output
+ * Verbose mode includes a detailed breakdown of relevant type traits and
+ * derived properties for deeper inspection.
+ *
+ * Core evaluation criteria:
+ * - Trivially copyable & destructible (safe for bulk memory operations)
+ * - Relocatability (safe movement during storage reorganization)
+ * - Cache friendliness (fits within typical cache line size)
+ * - Absence of raw pointers (may indicate lifetime/serialization risks)
+ *
+ * Notes:
+ * - The analysis is heuristic-based and reflects practical ECS constraints,
+ *   not strict correctness requirements.
+ * - Components with pointers or non-trivial lifetimes are not inherently
+ *   invalid, but require careful design consideration.
+ *
+ * @tparam Ts Component types to evaluate
+ * @param verbose If true, prints detailed trait-level diagnostics
  */
 template <typename... Ts>
 void checkComponentTraits(bool verbose = false)
 {
+	constexpr size_t CACHE_LINE = 64;
+	constexpr size_t CHUNK_SIZE = 16 * 1024;  // 16KB archetype chunk
+
 	(
 	    [&]()
 	    {
 		    using T = Ts;
-		    printf("\n=== Checking component: %s ===\n", type_name<T>());
 
-		    // Memory layout and copying
-		    printf("  Size: %zu bytes, Alignment: %zu\n", sizeof(T), alignof(T));
+		    printf("\n=== Component: %s ===\n", type_name<T>());
 
-		    if (verbose)
+		    // ---- Core traits ----
+		    constexpr size_t size = sizeof(T);
+		    constexpr size_t align = alignof(T);
+
+		    constexpr bool trivially_copyable = std::is_trivially_copyable_v<T>;
+		    constexpr bool trivially_destructible = std::is_trivially_destructible_v<T>;
+		    constexpr bool nothrow_move = std::is_nothrow_move_constructible_v<T>;
+		    constexpr bool standard_layout = std::is_standard_layout_v<T>;
+
+		    // Relocatability (key ECS concept)
+		    constexpr bool relocatable = trivially_copyable || (nothrow_move && std::is_nothrow_destructible_v<T>);
+
+		    // memcpy-safe (strict definition)
+		    constexpr bool memcpy_safe = trivially_copyable && trivially_destructible;
+
+		    // Heuristics
+		    constexpr bool cache_friendly = size <= CACHE_LINE;
+		    constexpr size_t per_chunk = size > 0 ? (CHUNK_SIZE / size) : 0;
+
+		    // Very basic pointer detection (extend if needed)
+		    constexpr bool has_pointer = std::is_pointer_v<T>;
+
+		    // ---- Grade calculation ----
+		    char grade = 'D';
+
+		    if (memcpy_safe && cache_friendly && !has_pointer)
+			    grade = 'A';
+		    else if (relocatable && !has_pointer)
+			    grade = 'B';
+		    else if (relocatable)
+			    grade = 'C';
+		    else
+			    grade = 'D';
+
+		    // ---- Compact output ----
+		    printf("  Grade: %c\n", grade);
+		    printf("  Size: %zu bytes (align %zu)\n", size, align);
+		    printf("  Chunk density: %zu per 16KB\n", per_chunk);
+
+		    printf("  Flags: [%s%s%s%s]\n",
+		           memcpy_safe ? "memcpy " : "",
+		           relocatable ? "reloc " : "",
+		           cache_friendly ? "cache " : "",
+		           has_pointer ? "ptr " : "");
+
+		    // Warnings (only important ones)
+		    if (grade >= 'C')
 		    {
-			    printf("  is_trivial: %s\n", std::is_trivial_v<T> ? "yes" : "no");
-			    printf("  is_trivially_copyable: %s\n", std::is_trivially_copyable_v<T> ? "yes" : "no");
-			    printf("  is_trivially_destructible: %s\n", std::is_trivially_destructible_v<T> ? "yes" : "no");
-
-			    // Construction/destruction
-			    printf("  is_default_constructible: %s\n", std::is_default_constructible_v<T> ? "yes" : "no");
-			    printf("  is_nothrow_default_constructible: %s\n",
-			           std::is_nothrow_default_constructible_v<T> ? "yes" : "no");
-			    printf("  is_nothrow_copy_constructible: %s\n", std::is_nothrow_copy_constructible_v<T> ? "yes" : "no");
-			    printf("  is_nothrow_move_constructible: %s\n", std::is_nothrow_move_constructible_v<T> ? "yes" : "no");
-			    printf("  is_nothrow_destructible: %s\n", std::is_nothrow_destructible_v<T> ? "yes" : "no");
-
-			    // Assignment
-			    printf("  is_copy_assignable: %s\n", std::is_copy_assignable_v<T> ? "yes" : "no");
-			    printf("  is_move_assignable: %s\n", std::is_move_assignable_v<T> ? "yes" : "no");
-			    printf("  is_nothrow_copy_assignable: %s\n", std::is_nothrow_copy_assignable_v<T> ? "yes" : "no");
-			    printf("  is_nothrow_move_assignable: %s\n", std::is_nothrow_move_assignable_v<T> ? "yes" : "no");
-
-			    // Other important traits
-			    printf("  is_empty: %s (can use empty base optimization)\n", std::is_empty_v<T> ? "yes" : "no");
-			    printf("  is_standard_layout: %s (memcpy safe)\n", std::is_standard_layout_v<T> ? "yes" : "no");
-			    printf("  is_pod (deprecated): %s\n", std::is_pod_v<T> ? "yes" : "no");
-			    printf("  has_unique_object_representations: %s (hashing)\n",
-			           std::has_unique_object_representations_v<T> ? "yes" : "no");
-
-			    // For tagged components
-			    printf("  is_final: %s\n", std::is_final_v<T> ? "yes" : "no");
-
-			    // Check if type is suitable for memcpy
-			    constexpr bool can_memcpy = std::is_trivially_copyable_v<T> && std::is_trivially_destructible_v<T>;
-			    printf("  Can use memcpy for bulk operations: %s\n", can_memcpy ? "yes" : "no");
+			    printf("  ⚠ Potential performance issues\n");
 		    }
 
-		    // Summary for quick reading
-		    constexpr bool optimal_for_ecs = std::is_trivially_copyable_v<T> && std::is_trivially_destructible_v<T>
-		                                     && std::is_nothrow_move_constructible_v<T>
-		                                     && std::is_nothrow_move_assignable_v<T>
-		                                     && std::is_default_constructible_v<T>;
-		    printf("  Optimal for ECS: %s\n", optimal_for_ecs ? "YES" : "NO");
-
-		    if (!optimal_for_ecs)
+		    if (has_pointer)
 		    {
-			    printf("  WARNING: This component may have performance overhead!\n");
+			    printf("  ⚠ Contains raw pointers (breaks relocation/serialization)\n");
+		    }
+
+		    if (!cache_friendly)
+		    {
+			    printf("  ⚠ Larger than cache line (%zu bytes)\n", CACHE_LINE);
+		    }
+
+		    // ---- Verbose output ----
+		    if (verbose)
+		    {
+			    printf("\n  --- Detailed Traits ---\n");
+
+			    printf("  trivially_copyable: %s\n", trivially_copyable ? "yes" : "no");
+			    printf("  trivially_destructible: %s\n", trivially_destructible ? "yes" : "no");
+			    printf("  standard_layout: %s\n", standard_layout ? "yes" : "no");
+
+			    printf("  nothrow_move_constructible: %s\n", nothrow_move ? "yes" : "no");
+			    printf("  nothrow_destructible: %s\n", std::is_nothrow_destructible_v<T> ? "yes" : "no");
+
+			    printf("  default_constructible: %s\n", std::is_default_constructible_v<T> ? "yes" : "no");
+
+			    printf("  copy_constructible: %s\n", std::is_copy_constructible_v<T> ? "yes" : "no");
+
+			    printf("  move_assignable: %s\n", std::is_move_assignable_v<T> ? "yes" : "no");
+
+			    printf("  has_unique_object_representations: %s\n",
+			           std::has_unique_object_representations_v<T> ? "yes" : "no");
+
+			    printf("\n  --- Derived Properties ---\n");
+
+			    printf("  memcpy_safe: %s\n", memcpy_safe ? "yes" : "no");
+			    printf("  relocatable: %s\n", relocatable ? "yes" : "no");
+			    printf("  cache_friendly: %s\n", cache_friendly ? "yes" : "no");
+
+			    printf("\n");
 		    }
 	    }(),
 	    ...);

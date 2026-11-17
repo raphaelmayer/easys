@@ -10,5 +10,6 @@ namespace Easys {
 
 using Entity = EASYS_ENTITY_TYPE;
 const Entity MAX_ENTITIES = EASYS_ENTITY_LIMIT;
+const Entity NULL_ENTITY = -1;
 
 }  // namespace Easys
