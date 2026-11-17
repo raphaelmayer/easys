@@ -56,12 +56,12 @@ class View {
 	auto end() const noexcept { return entities.end(); }
 
 	/**
-	 * @brief Access the internal vector of entities. The view must outlive the returned vector, if passed by ref!.
+	 * @brief Access the internal vector of entities.
 	 * @return const reference to the underlying vector
 	 */
 	const auto& data() const& noexcept { return entities; }
-	// Store the view, before accessing its internals!
-	const auto& data() && = delete;  // prevents dangling references
+	auto data() const&& noexcept { return entities; }  // prevents dangling references
+	// const auto& data() && = delete;
 
 	/**
 	 * @brief Number of entities in the view.
@@ -74,6 +74,13 @@ class View {
 	 * @return true if the view contains no entities, false otherwise
 	 */
 	bool empty() const noexcept { return entities.empty(); }
+
+	/**
+	 * @brief Access an entity by index.
+	 * @param i Index of the entity in the view
+	 * @return A copy of the entity at position @p i.
+	 */
+	Entity operator[](size_t i) const noexcept { return entities[i]; }
 
 	/**
 	 * @brief Finds an entity in the view.
