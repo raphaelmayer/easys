@@ -9,7 +9,7 @@ To use catch2's BENCHMARK:
 // #define CATCH_CONFIG_MAIN
 // #define CATCH_CONFIG_ENABLE_BENCHMARKING
 
-#define EASYS_ENTITY_LIMIT 1000
+#define EASYS_ENTITY_LIMIT 10000
 
 #include <catch2/catch.hpp>
 #include <chrono>
@@ -113,12 +113,13 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			Entity e = ecs.addEntity();
 		}
 
+		const auto& entities = ecs.getEntities();
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    ecs.removeEntity(i);
+				    ecs.removeEntity(e);
 			    }
 		    },
 		    formatEntCompInfo("removeEntity", NUM_ENT, NUM_COM));
@@ -134,12 +135,13 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			Entity e = ecs.addEntity();
 		}
 
+		const auto& entities = ecs.getEntities();
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    ecs.addComponent<TestComponent>(i, c);
+				    ecs.addComponent<TestComponent>(e, c);
 			    }
 		    },
 		    formatEntCompInfo("addComponent", NUM_ENT, NUM_COM));
@@ -156,13 +158,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			Entity e = ecs.addEntity();
 		}
 
+		const auto& entities = ecs.getEntities();
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    ecs.addComponent<TestComponent>(i, c);
-				    ecs.addComponent<AnotherComponent>(i, a);
+				    ecs.addComponent<TestComponent>(e, c);
+				    ecs.addComponent<AnotherComponent>(e, a);
 			    }
 		    },
 		    formatEntCompInfo("addComponent", NUM_ENT, NUM_COM * 2));
@@ -171,20 +174,20 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 	SECTION("Benchmarking Component Modification")
 	{
 		ECS ecs;
-		TestComponent c = TestComponent{};
 
 		for (int i = 0; i < NUM_ENT; i++)
 		{
 			Entity e = ecs.addEntity();
-			ecs.addComponent<TestComponent>(e, c);
+			ecs.addComponent<TestComponent>(e, TestComponent{i});
 		}
 
+		const auto& entities = ecs.getEntities();
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    ecs.modifyComponent<TestComponent>(i, {i});
+				    ecs.modifyComponent<TestComponent>(e, {1});
 			    }
 		    },
 		    formatEntCompInfo("modifyComponent", NUM_ENT, NUM_COM));
@@ -193,23 +196,23 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 	SECTION("Benchmarking Component Modification (lambda)")
 	{
 		ECS ecs;
-		TestComponent c = TestComponent{};
 
 		for (int i = 0; i < NUM_ENT; i++)
 		{
 			Entity e = ecs.addEntity();
-			ecs.addComponent<TestComponent>(e, c);
+			ecs.addComponent<TestComponent>(e, TestComponent{i});
 		}
 
+		const auto& entities = ecs.getEntities();
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    ecs.modifyComponent<TestComponent>(i,
-				                                       [&i](TestComponent& c)
+				    ecs.modifyComponent<TestComponent>(e,
+				                                       [&e](TestComponent& c)
 				                                       {
-					                                       c.value = i;
+					                                       c.value = 1;
 				                                       });
 			    }
 		    },
@@ -227,12 +230,13 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
+		const auto& entities = ecs.getEntities();
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    ecs.removeComponent<TestComponent>(i);
+				    ecs.removeComponent<TestComponent>(e);
 			    }
 		    },
 		    formatEntCompInfo("removeComponent", NUM_ENT, NUM_COM));
@@ -249,13 +253,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
+		const auto& entities = ecs.getEntities();
 		TestComponent const* tc;
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    tc = &ecs.getComponent<TestComponent>(i);
+				    tc = &ecs.getComponent<TestComponent>(e);
 			    }
 		    },
 		    formatEntCompInfo("getComponent", NUM_ENT, NUM_COM));
@@ -272,13 +277,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
+		const auto& entities = ecs.getEntities();
 		TestComponent const* tc;
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    tc = &ecs.getComponentOr<TestComponent>(i, {20});
+				    tc = &ecs.getComponentOr<TestComponent>(e, {20});
 			    }
 		    },
 		    formatEntCompInfo("getComponentOr", NUM_ENT, NUM_COM));
@@ -295,14 +301,15 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
+		const auto& entities = ecs.getEntities();
 		TestComponent const* tc;
 		TestComponent def{20};
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    tc = &ecs.getComponentOr<TestComponent>(i, def);
+				    tc = &ecs.getComponentOr<TestComponent>(e, def);
 			    }
 		    },
 		    formatEntCompInfo("getComponentOr", NUM_ENT, NUM_COM));
@@ -319,13 +326,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 			ecs.addComponent<TestComponent>(e, c);
 		}
 
+		const auto& entities = ecs.getEntities();
 		volatile int sink = 0;
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    sink += ecs.hasComponent<TestComponent>(i);
+				    sink += ecs.hasComponent<TestComponent>(e);
 			    }
 		    },
 		    formatEntCompInfo("hascomponent", NUM_ENT, NUM_COM));
@@ -342,13 +350,14 @@ TEST_CASE("ECS Benchmark", "[ECS]")
 		}
 		ecs.addComponent<TestComponent>(0, c);
 
+		const auto& entities = ecs.getEntities();
 		volatile int sink = 0;
 		benchmarkSection(
 		    [&]
 		    {
-			    for (int i = 0; i < NUM_ENT; i++)
+			    for (const auto& e : entities)
 			    {
-				    sink += ecs.hasComponent<TestComponent>(i);
+				    sink += ecs.hasComponent<TestComponent>(e);
 			    }
 		    },
 		    formatEntCompInfo("hasComponent", NUM_ENT, 0));
