@@ -30,9 +30,8 @@ class ECS {
 
 		EASYS_LOG_INFO("Max entities: " + EASYS_E_STR(MAX_ENTITIES));
 		EASYS_LOG_INFO("Null entity: " + EASYS_E_STR(NULL_ENTITY));
-		static_assert(MAX_ENTITIES < NULL_ENTITY, "MAX_ENTITIES must be less than NULL_ENTITY to avoid ID collision");
-
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		
+		for (Entity entity = 1; entity <= MAX_ENTITIES; entity++)
 		{
 			availableEntityIds_.push(entity);
 		}
@@ -51,7 +50,7 @@ class ECS {
 		// I decided against an addEntity(Entity) method to discourage
 		// tampering with entities too much. I think this really should be the ECS's
 		// responsibility.
-		for (Entity entity = 1; entity < MAX_ENTITIES; entity++)
+		for (Entity entity = 1; entity <= MAX_ENTITIES; entity++)
 		{
 			if (oldEntities.contains(entity))
 			{

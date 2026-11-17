@@ -22,14 +22,15 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 	SECTION("ECS ctor")
 	{
-		REQUIRE(MAX_ENTITIES < NULL_ENTITY);
+		REQUIRE(NULL_ENTITY == 0);
+		REQUIRE(MAX_ENTITIES == EASYS_ENTITY_LIMIT);
 	}
 
 	SECTION("Add Entity")
 	{
 		REQUIRE(ecs.getEntities().size() == 0);
 		Entity entity = ecs.addEntity();
-		REQUIRE(entity != -1);
+		REQUIRE(entity != NULL_ENTITY);
 		REQUIRE(ecs.getEntities().size() == 1);
 		REQUIRE(ecs.getEntities().contains(entity));
 	}
