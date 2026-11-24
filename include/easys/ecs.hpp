@@ -426,7 +426,7 @@ class ECS {
 		std::queue<Entity> empty;
 		std::swap(availableEntityIds_, empty);
 
-		for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
+		for (Entity entity = 1; entity <= MAX_ENTITIES; entity++)
 		{
 			availableEntityIds_.push(entity);
 		}

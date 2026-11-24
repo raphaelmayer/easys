@@ -274,8 +274,17 @@ TEST_CASE("ECS Tests", "[ECS]")
 
 		ecs.clear();
 		REQUIRE(ecs.getEntityCount() == 0);
-		REQUIRE(ecs.addEntity() == 0);  // Check if all entity IDs are available again
 		REQUIRE(ecs.getComponentCount<TestComponent, AnotherComponent>() == 0);
+
+		// the IDs start over like in a new ECS: never NULL_ENTITY, and every one is available again
+		const auto first = ecs.addEntity();
+		REQUIRE(first != NULL_ENTITY);
+		REQUIRE(first == 1);
+		Entity last = first;
+		for (Entity i = 1; i < MAX_ENTITIES; i++)
+			last = ecs.addEntity();
+		REQUIRE(last == MAX_ENTITIES);
+		REQUIRE(ecs.getEntityCount() == MAX_ENTITIES);
 	}
 
 	SECTION("ECS works with non default constructible components")
