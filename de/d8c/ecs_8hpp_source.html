@@ -436,7 +436,7 @@ $(function(){initNavTree('de/d8c/ecs_8hpp_source.html','../../',''); });
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>        std::queue&lt;Entity&gt; empty;</div>
 <div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>        std::swap(availableEntityIds_, empty);</div>
 <div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span> </div>
-<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a1513296fc9472ef81a02bbabcf0fb192">Entity</a> entity = 0; entity &lt; <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>; entity++)</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d6/dd9/namespaceEasys.html#a1513296fc9472ef81a02bbabcf0fb192">Entity</a> entity = 1; entity &lt;= <a class="code hl_variable" href="../../d6/dd9/namespaceEasys.html#a0c4a055adcdccaa294cdfafe14ff3d5d">MAX_ENTITIES</a>; entity++)</div>
 <div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>        {</div>
 <div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>            availableEntityIds_.push(entity);</div>
 <div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>        }</div>
